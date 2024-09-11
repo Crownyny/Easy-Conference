@@ -177,7 +177,7 @@ public abstract class VtnListar extends javax.swing.JInternalFrame {
         JScrollPane tableScrollPane = new JScrollPane(table);
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 1; // Fila 1
-        gbc.gridwidth = 2; // Ocupa 2 columnas
+        gbc.gridwidth = 2; // Ocupa 2 columnas solo
         gbc.weightx = 1.0; // Distribución de espacio horizontal
         gbc.weighty = 1.0; // Distribución de espacio vertical
         gbc.fill = GridBagConstraints.BOTH; // La tabla ocupa todo el espacio
