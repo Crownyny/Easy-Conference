@@ -179,7 +179,7 @@ public abstract class VtnListar extends javax.swing.JInternalFrame {
         gbc.gridy = 1; // Fila 1
         gbc.gridwidth = 2; // Ocupa 2 columnas solo
         gbc.weightx = 1.0; // Distribución de espacio horizontal
-        gbc.weighty = 1.0; // Distribución de espacio vertical
+        gbc.weighty = 1.0; // Distribución de espacio vertical dos
         gbc.fill = GridBagConstraints.BOTH; // La tabla ocupa todo el espacio
         panelCenter.add(tableScrollPane, gbc);
         panelCenter.setBackground(new Color(0xD7EAF9));
