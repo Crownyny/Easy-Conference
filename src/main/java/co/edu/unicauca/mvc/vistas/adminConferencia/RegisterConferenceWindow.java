@@ -12,7 +12,10 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
+import java.util.HashMap;
+import javax.swing.JButton;
 
 /**
  *
@@ -21,13 +24,18 @@ import co.edu.unicauca.mvc.utilities.Utilities;
 public class RegisterConferenceWindow extends RegisterWindow {
     
     private final StorageService<Conference> objStorageService;
-
+    private final ArrayList<String> topics; 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
     public RegisterConferenceWindow (StorageService<Conference> objStorageService) {
-        super(new JLabel("Registrar Conferencia"), new String[]{"Nombre:","Fecha inicio:","Fecha fin:","Costo:","Ubicacion","Temas"});
+        HashMap<String, FieldConfig> inputFields = new HashMap<>();
+        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Fecha de inicio:", new FieldConfig(new JTextField(20)));
+        inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
+        super(new JLabel("Registrar Articulo"), inputFields);
+        authors = new ArrayList<>();
         this.objStorageService = objStorageService;
     }
 

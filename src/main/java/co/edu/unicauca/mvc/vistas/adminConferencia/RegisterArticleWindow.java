@@ -10,7 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
+import java.util.HashMap;
+import javax.swing.JButton;
 
 /**
  *
@@ -19,13 +22,19 @@ import co.edu.unicauca.mvc.utilities.Utilities;
 public class RegisterArticleWindow extends RegisterWindow {
     
     private final StorageService<Article> objStorageService;
+    private final ArrayList<Author> authors; 
 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
     public RegisterArticleWindow (StorageService<Article> objStorageService) {
-        super(new JLabel("Registrar Articulo"), new String[]{"Nombre:","Autores:","Cantidad de autores:","Revista:"});
+        HashMap<String, FieldConfig> inputFields = new HashMap<>();
+        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
+        inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
+        super(new JLabel("Registrar Articulo"), inputFields);
+        authors = new ArrayList<>();
         this.objStorageService = objStorageService;
     }
 
@@ -56,26 +65,22 @@ public class RegisterArticleWindow extends RegisterWindow {
     
     @Override
     protected void registerAction() {
-        boolean flag;
         ArrayList<String> values = new ArrayList<>();
-        for(JTextField input : inputs) {
-            values.add(input.getText());
-            System.out.println(input.getText());
-        }
+        fieldConfigs.values().stream()
+            .map(FieldConfig::getFieldType)
+            .filter(JTextField.class::isInstance)
+            .map(JTextField.class::cast)
+            .map(JTextField::getText)
+            .forEach(values::add);
+        
+ 
+        Article article = new Article(values.get(0),authors, values.get(1));
 
-        try {
-            Article article = new Article(values.get(0),new ArrayList<Author>(), Float.parseFloat(values.get(2)), values.get(3));
+        if (objStorageService.store(article))
+            Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
+        else
+            Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
 
-            flag = objStorageService.store(article);
-
-            if (flag)
-                Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
-            else
-                Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
-
-        } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El costo debe ser numerico", "Formato de costo invalido");
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

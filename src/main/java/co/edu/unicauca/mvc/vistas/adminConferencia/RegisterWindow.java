@@ -4,6 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.utilities.FieldConfig;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,12 +19,14 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -32,17 +35,15 @@ import javax.swing.JTextField;
 public abstract class RegisterWindow extends javax.swing.JFrame {
 
     protected JLabel titleLabel;
-    protected String[] labelsText; 
-    protected ArrayList<JTextField> inputs;
+    protected HashMap<String, FieldConfig> fieldConfigs;
     /*
      * Creates new form VtnRegistrar
      * @param titleLabel
      * @param labelsText
      */
-    public RegisterWindow(JLabel titleLabel, String[] labelsText) {
+    public RegisterWindow(JLabel titleLabel, HashMap<String, FieldConfig> fieldConfigs) {
         this.titleLabel = titleLabel;
-        this.labelsText = labelsText;
-        this.inputs = new ArrayList<>();
+        this.fieldConfigs = fieldConfigs;
         showGui();
     }
 
@@ -103,25 +104,28 @@ private void showGui() {
     gbc.fill = GridBagConstraints.HORIZONTAL;
     gbc.anchor = GridBagConstraints.CENTER;
 
-    for (int i = 0; i < labelsText.length; i++) {
-        JLabel label = new JLabel(labelsText[i], JLabel.CENTER);
-        JTextField textField = new JTextField(20);
-        inputs.add(textField);
+    List<String> labelsText = new ArrayList<>(fieldConfigs.keySet());
+    for (int i = 0; i < labelsText.size(); i++) {
+        String labelText = labelsText.get(i);
+        FieldConfig config = fieldConfigs.get(labelText);    
+        JLabel jlabel = new JLabel(labelText, JLabel.CENTER);
+        
+        JComponent field = config.getFieldType(); 
 
-        label.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
-        label.setForeground(new Color(0X121C29));
-        textField.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
+        jlabel.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
+        jlabel.setForeground(new Color(0X121C29));
+        field.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
 
         Dimension textFieldSize = new Dimension(panelWidth / 2, textFontSize * 2);
-        textField.setPreferredSize(textFieldSize);
+        field.setPreferredSize(textFieldSize);
 
         gbc.gridx = 0;
         gbc.gridy = i;
         gbc.weightx = 0.5;
-        panelCenter.add(label, gbc);
+        panelCenter.add(jlabel, gbc);
 
         gbc.gridx = 1;
-        panelCenter.add(textField, gbc);
+        panelCenter.add(field, gbc);
     }
 
     int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
@@ -134,7 +138,7 @@ private void showGui() {
         JButton registerButton = addButton(" Register", buttonFontSize);
         registerButton.setIcon(new ImageIcon(iconScaled));
         gbc.gridx = 0; 
-        gbc.gridy = labelsText.length; 
+        gbc.gridy = labelsText.size(); 
         gbc.gridwidth = 2; // Span both columns
         gbc.weightx = 1; // Distribute horizontal space
         gbc.anchor = GridBagConstraints.CENTER; // Center button horizontally
