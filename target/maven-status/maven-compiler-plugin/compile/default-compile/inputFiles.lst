@@ -1,33 +1,26 @@
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\InterfaceRepositorioConferencia.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\utilidades\Utilidades.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnListar.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnListarConferencias.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnListarArticulos.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\infraestructura\Subject.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\controladores\ServicioAlmacenamientoOrganizadores.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioOrganizadorMemoriaArrayList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioConferenciaMemoriaArrayList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\controladores\ServicioAlmacenamientoArticulos.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\utilidades\CargarImagenes.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnPrincipalAdmin.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\modelos\Articulo.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioConferenciaMemoriaLinkedList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioOrganizadorMemoriaLinkedList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnRegistrarOrganizador.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnVerEstadisticas.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioArticuloMemoriaArrayList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\modelos\Organizador.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\test\Test.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\modelos\Conferencia.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\InterfaceRepositorioArticulo.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\autorPublicacion\VtnPrincipalAutor.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnRegistrarConferencia.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnListarOrganizadores.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\InterfaceRepositorioOrganizador.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnRegistrar.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\accesoADatos\RepositorioArticuloMemoriaLinkedList.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\infraestructura\Observer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnVerArticulosEnviadosConferencias.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\controladores\ServicioAlmacenamientoConferencias.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\LIS_P3_II_2024_MenesesJ\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\VtnRegistrarArticulo.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterArticleWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\test\Test.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewSubmittedArticlesConferencesWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\StorageService.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Conference.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListConferencesWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Article.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListOrganizersWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Author.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\autorPublicacion\VtnPrincipalAutor.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java

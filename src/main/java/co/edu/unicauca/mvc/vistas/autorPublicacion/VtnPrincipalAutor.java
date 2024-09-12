@@ -1,12 +1,10 @@
 package co.edu.unicauca.mvc.vistas.autorPublicacion;
 
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoArticulos;
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoConferencias;
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoOrganizadores;
-import co.edu.unicauca.mvc.infraestructura.Observer;
-import co.edu.unicauca.mvc.modelos.Articulo;
-import co.edu.unicauca.mvc.modelos.Conferencia;
-import co.edu.unicauca.mvc.modelos.Organizador;
+
+import co.edu.unicauca.mvc.infrastructure.Observer;
+import co.edu.unicauca.mvc.models.Article;
+import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.models.Organizer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -125,56 +123,10 @@ public class VtnPrincipalAutor extends javax.swing.JFrame implements Observer{
         }
     }
 
-    private void notifyConference(ServicioAlmacenamientoConferencias objServicio) {
-        Conferencia objNueva = objServicio.listarConferencias()
-                                          .get(objServicio.listarConferencias().size() - 1);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-        String notificacion = """
-                              Nueva conferencia disponible para envio de paper
-                              \tNombre: """ + objNueva.getNombre() + " " +
-                "Costo: " + objNueva.getCostoInscripcion() + " " +
-                "Fecha inicio: " + formatter.format(objNueva.getFechaInicio()) + " " +
-                "Fecha fin: " + formatter.format(objNueva.getFechaFin());
-
-        addNotification(notificacion);
-    }
-
-    private void notifyOrganizador(ServicioAlmacenamientoOrganizadores objServicio) {
-        Organizador objNueva = objServicio.listarOrganizadores()
-                                          .get(objServicio.listarOrganizadores().size() - 1);
-
-        String notificacion = """
-                              Hay un nuevo organizador en al conferencia que mandaste articulo
-                              \tNombres: """ + objNueva.getNombres() + " " +
-                "Apellidos: " + objNueva.getAppellidos() + " " +
-                "Universidad: " + objNueva.getUniversidad();
-
-        addNotification(notificacion);
-    }
-
-    private void notifyArticle(ServicioAlmacenamientoArticulos objServicio) {
-        Articulo objNueva = objServicio.listarArticulos()
-                                       .get(objServicio.listarArticulos().size() - 1);
-
-        String notificacion = """
-                              Hay un nuevo articulo publicado en la conferencia que mandaste articulo
-                              \tNombre: """ + objNueva.getNombre() + " " +
-                "Revista: " + objNueva.getRevista() + " " +
-                "Cantidad de autores: " + objNueva.getCantidadAutores() + " " +
-                "Autores: " + objNueva.getAutores();
-
-        addNotification(notificacion);
-    }
 
     @Override
     public void update(Object o) {
-        switch (o) {
-            case ServicioAlmacenamientoConferencias objServicio -> notifyConference(objServicio);
-            case ServicioAlmacenamientoOrganizadores objServicio -> notifyOrganizador(objServicio);
-            case ServicioAlmacenamientoArticulos objServicio -> notifyArticle(objServicio);
-            default -> throw new IllegalArgumentException("Tipo de objeto no soportado: " + o.getClass().getName());
-        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

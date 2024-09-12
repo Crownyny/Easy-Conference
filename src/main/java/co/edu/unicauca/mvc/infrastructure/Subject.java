@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.infraestructura;
+package co.edu.unicauca.mvc.infrastructure;
 
 import java.util.ArrayList;
 
@@ -6,14 +6,15 @@ public abstract class Subject {
 
     ArrayList<Observer> observers;
 
-    public void Subject() {
-
-    }
+    public void Subject() {}
 
     /**
-     * Agrega un observador
+     * Adds an observer to the list of observers.
+     * 
+     * If the list of observers is null, it initializes it.
+     * The observer is then added to the list.
      *
-     * @param obs
+     * @param obs The observer to be added
      */
     public void addObserver(Observer obs) {
         if (observers == null) {
@@ -23,12 +24,16 @@ public abstract class Subject {
     }
 
     /**
-     * Notifica a todos los observadores que hubo un cambio en el modelo
+     * Notifies all registered observers that the model has changed.
+     * 
+     * This method iterates over all the observers in the list and calls their
+     * update method, passing the current instance (the subject) as the argument.
      */
-    public void notifyAllObserves() {
+    public void notifyAllObservers() {
         for (Observer each : observers) {
             each.update(this);
         }
     }
+
 
 }

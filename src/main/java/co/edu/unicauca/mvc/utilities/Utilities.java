@@ -1,57 +1,56 @@
-package co.edu.unicauca.mvc.utilidades;
-
+package co.edu.unicauca.mvc.utilities;
 
 import javax.swing.JOptionPane;
-import utilidades.CargarImagenes;
 
 /**
  *
  * @author libardo
  */
-public class Utilidades {
+public class Utilities {
 
     /**
-     * Genera un emergente de aventencia
+     * Generates a warning popup
      *
-     * @param mns mensaje dentro de la ventana
-     * @param titulo título de la ventana
+     * @param msg message inside the window
+     * @param title title of the window
      */
-    public static void mensajeAdvertencia(String mns, String titulo) {
-        CargarImagenes objCargarImagenes= new CargarImagenes();
-        JOptionPane.showMessageDialog(null, mns, titulo, JOptionPane.DEFAULT_OPTION, objCargarImagenes.CargarImagen("/recursos/logo.png"));
+    public static void warningMessage(String msg, String title) {
+        LoadImages loadImages = new LoadImages();
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.DEFAULT_OPTION, loadImages.loadImage("/resources/logo.png"));
     }
 
     /**
-     * Genera un emergente de error
+     * Generates an error popup
      *
-     * @param mns mensaje dentro de la ventana
-     * @param titulo título de la ventana
+     * @param msg message inside the window
+     * @param title title of the window
      */
-    public static void mensajeError(String mns, String titulo) {
-        CargarImagenes objCargarImagenes= new CargarImagenes();
-        JOptionPane.showMessageDialog(null, mns, titulo, JOptionPane.DEFAULT_OPTION, objCargarImagenes.CargarImagen("/recursos/warning.png"));
+    public static void errorMessage(String msg, String title) {
+        LoadImages loadImages = new LoadImages();
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.DEFAULT_OPTION, loadImages.loadImage("/resources/warning.png"));
     }
 
     /**
-     * Genera un emergente de exito
+     * Generates a success popup
      *
-     * @param mns mensaje dentro de la ventana
-     * @param titulo título de la ventana
+     * @param msg message inside the window
+     * @param title title of the window
      */
-    public static void mensajeExito(String mns, String titulo) {
-        CargarImagenes objCargarImagenes= new CargarImagenes();
-        JOptionPane.showMessageDialog(null, mns, titulo, JOptionPane.DEFAULT_OPTION, objCargarImagenes.CargarImagen("/recursos/exitoso.png"));
+    public static void successMessage(String msg, String title) {
+        LoadImages loadImages = new LoadImages();
+        JOptionPane.showMessageDialog(null, msg, title, JOptionPane.DEFAULT_OPTION, loadImages.loadImage("/resources/success.png"));
     }
 
     /**
-     * Genera un emergente de confirmación con los botones Si ó No
+     * Generates a confirmation popup with Yes or No buttons
      *
-     * @param mns mensaje dentro de la ventana
-     * @param titulo título de la ventana
-     * @return Si ó No
+     * @param msg message inside the window
+     * @param title title of the window
+     * @return Yes or No
      */
-    public static int mensajeConfirmacion(String mns, String titulo) {        
-        return JOptionPane.showConfirmDialog(null, mns, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    public static int confirmationMessage(String msg, String title) {
+        return JOptionPane.showConfirmDialog(null, msg, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
 }
+

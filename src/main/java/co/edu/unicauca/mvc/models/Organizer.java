@@ -1,43 +1,37 @@
-package co.edu.unicauca.mvc.modelos;
+package co.edu.unicauca.mvc.models;
 
-/**
- *
- * @author Default
- */
-public class Organizador {
-    private String nombres;
-    private String appellidos;
-    private String universidad;
+public class Organizer {
+    private String firstName;
+    private String lastName;
+    private String university;
 
-    public Organizador(String nombres, String appellidos, String universidad) {
-        this.nombres = nombres;
-        this.appellidos = appellidos;
-        this.universidad = universidad;
+    public Organizer(String firstName, String lastName, String university) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.university = university;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getAppellidos() {
-        return appellidos;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setAppellidos(String appellidos) {
-        this.appellidos = appellidos;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUniversidad() {
-        return universidad;
+    public String getUniversity() {
+        return university;
     }
 
-    public void setUniversidad(String universidad) {
-        this.universidad = universidad;
+    public void setUniversity(String university) {
+        this.university = university;
     }
-    
-    
 }

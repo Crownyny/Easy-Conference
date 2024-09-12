@@ -1,54 +1,51 @@
-package co.edu.unicauca.mvc.modelos;
+package co.edu.unicauca.mvc.models;
 
+import java.util.List;
 
-/**
- *
- * @author Default
- */
-public class Articulo {
-    private String nombre;
-    private String revista;
-    private float cantidadAutores;
-    private String autores;  
+public class Article {
+    private String title;
+    private String journal;
+    private float authorCount;
+    private List<Author> authors;  
 
-    public Articulo(String nombre, String autores, float cantidadAutores, String revista) {
-        this.nombre = nombre;
-        this.revista = revista;
-        this.cantidadAutores = cantidadAutores;
-        this.autores = autores;
+    public Article(String title, List<Author> authors, float authorCount, String journal) {
+        this.title = title;
+        this.journal = journal;
+        this.authorCount = authorCount;
+        this.authors = authors;
     }  
 
-    public String getNombre() {
-        return nombre;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getRevista() {
-        return revista;
+    public String getJournal() {
+        return journal;
     }
 
-    public void setRevista(String revista) {
-        this.revista = revista;
+    public void setJournal(String journal) {
+        this.journal = journal;
     }
 
-    public float getCantidadAutores() {
-        return cantidadAutores;
+    public float getAuthorCount() {
+        return authorCount;
     }
 
-    public void setCantidadAutores(float cantidadAutores) {
-        this.cantidadAutores = cantidadAutores;
+    public void setAuthorCount(float authorCount) {
+        this.authorCount = authorCount;
     }
 
-    public String getAutores() {
-        return autores;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAutores(String autores) {
-        this.autores = autores;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
-    
+
 }

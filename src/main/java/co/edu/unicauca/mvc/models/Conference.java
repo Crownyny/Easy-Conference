@@ -1,52 +1,70 @@
-package co.edu.unicauca.mvc.modelos;
+package co.edu.unicauca.mvc.models;
 
 import java.util.Date;
+import java.util.List;
 
-public class Conferencia {
-    private String nombre;
-    private Date fechaInicio;
-    private Date fechaFin;   
-    private float costoInscripcion;
+public class Conference {
+    private String name;
+    private Date startDate;
+    private Date endDate;
+    private float registrationCost;
+    private String location;
+    private List<String> topics;
 
-    public Conferencia(String nombre, Date fechaInicio, Date fechaFin, float costoInscripcion) {
-        this.nombre = nombre;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;        
-        this.costoInscripcion = costoInscripcion;
+    public Conference(String name, Date startDate, Date endDate, float registrationCost, String location, List<String> topics) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.registrationCost = registrationCost;
+        this.location = location;
+        this.topics = topics;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getFechaInicio() {
-        return fechaInicio;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-
-    public float getCostoInscripcion() {
-        return costoInscripcion;
+    public float getRegistrationCost() {
+        return registrationCost;
     }
 
-    public void setCostoInscripcion(float costoInscripcion) {
-        this.costoInscripcion = costoInscripcion;
+    public void setRegistrationCost(float registrationCost) {
+        this.registrationCost = registrationCost;
     }
-    
-    
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<String> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
+    }
 }

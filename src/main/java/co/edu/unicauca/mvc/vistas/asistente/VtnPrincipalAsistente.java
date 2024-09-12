@@ -1,12 +1,8 @@
 package co.edu.unicauca.mvc.vistas.asistente;
 
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoArticulos;
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoConferencias;
-import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoOrganizadores;
-import co.edu.unicauca.mvc.infraestructura.Observer;
-import co.edu.unicauca.mvc.modelos.Articulo;
-import co.edu.unicauca.mvc.modelos.Conferencia;
-import co.edu.unicauca.mvc.modelos.Organizador;
+
+import co.edu.unicauca.mvc.infrastructure.Observer;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,7 +10,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
-import java.text.SimpleDateFormat;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -125,56 +121,11 @@ public class VtnPrincipalAsistente extends javax.swing.JFrame implements Observe
         }
     }
 
-    private void notifyConference(ServicioAlmacenamientoConferencias objServicio) {
-        Conferencia objNueva = objServicio.listarConferencias()
-                                          .get(objServicio.listarConferencias().size() - 1);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-        String notificacion = """
-                              Nueva conferencia disponible para asistir
-                              \tNombre: """ + objNueva.getNombre() + " " +
-                "Costo: " + objNueva.getCostoInscripcion() + " " +
-                "Fecha inicio: " + formatter.format(objNueva.getFechaInicio()) + " " +
-                "Fecha fin: " + formatter.format(objNueva.getFechaFin());
-
-        addNotification(notificacion);
-    }
-
-    private void notifyOrganizador(ServicioAlmacenamientoOrganizadores objServicio) {
-        Organizador objNueva = objServicio.listarOrganizadores()
-                                          .get(objServicio.listarOrganizadores().size() - 1);
-
-        String notificacion = """
-                              Nuevo organizador registrado en una conferencia que asistes
-                              \tNombres: """ + objNueva.getNombres() + " " +
-                "Apellidos: " + objNueva.getAppellidos() + " " +
-                "Universidad: " + objNueva.getUniversidad();
-
-        addNotification(notificacion);
-    }
-
-    private void notifyArticle(ServicioAlmacenamientoArticulos objServicio) {
-        Articulo objNueva = objServicio.listarArticulos()
-                                       .get(objServicio.listarArticulos().size() - 1);
-
-        String notificacion = """
-                              Nuevo artículo publicado en al c0onferencia que piensas asistir
-                              \tNombre: """ + objNueva.getNombre() + " " +
-                "Revista: " + objNueva.getRevista() + " " +
-                "Cantidad de autores: " + objNueva.getCantidadAutores() + " " +
-                "Autores: " + objNueva.getAutores();
-
-        addNotification(notificacion);
-    }
+    
 
     @Override
     public void update(Object o) {
-        switch (o) {
-            case ServicioAlmacenamientoConferencias objServicio -> notifyConference(objServicio);
-            case ServicioAlmacenamientoOrganizadores objServicio -> notifyOrganizador(objServicio);
-            case ServicioAlmacenamientoArticulos objServicio -> notifyArticle(objServicio);
-            default -> throw new IllegalArgumentException("Tipo de objeto no soportado: " + o.getClass().getName());
-        }
+
     }
 
 }

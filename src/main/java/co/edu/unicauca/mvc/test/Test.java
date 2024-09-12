@@ -1,13 +1,18 @@
 package co.edu.unicauca.mvc.test;
 
 
-import co.edu.unicauca.mvc.accesoADatos.RepositorioArticuloMemoriaArrayList;
-import co.edu.unicauca.mvc.accesoADatos.RepositorioConferenciaMemoriaArrayList;
-import co.edu.unicauca.mvc.accesoADatos.RepositorioOrganizadorMemoriaArrayList;
-import co.edu.unicauca.mvc.controladores.*;
-import co.edu.unicauca.mvc.vistas.adminConferencia.VtnPrincipalAdmin;
+import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.Article;
+import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.vistas.adminConferencia.MainAdminWindow;
 import co.edu.unicauca.mvc.vistas.asistente.VtnPrincipalAsistente;
 import co.edu.unicauca.mvc.vistas.autorPublicacion.VtnPrincipalAutor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.UIManager;
 
 
@@ -16,41 +21,44 @@ public class Test {
 
     
     public static void main(String[] args) {
-        
         seleccionarLookAndField();
-                
-        RepositorioConferenciaMemoriaArrayList objRepositorio
-                = new RepositorioConferenciaMemoriaArrayList();
-        ServicioAlmacenamientoConferencias objServicio
-                = new   ServicioAlmacenamientoConferencias(objRepositorio);  
         
-        RepositorioOrganizadorMemoriaArrayList objRepositorio2
-                = new RepositorioOrganizadorMemoriaArrayList();
-        ServicioAlmacenamientoOrganizadores objServicio2
-                = new ServicioAlmacenamientoOrganizadores(objRepositorio2);   
-        
-        RepositorioArticuloMemoriaArrayList objRepositorio3
-                = new RepositorioArticuloMemoriaArrayList();
-        ServicioAlmacenamientoArticulos objServicio3
-                = new ServicioAlmacenamientoArticulos(objRepositorio3);   
-         
-        VtnPrincipalAsistente objVtnAsistente=new VtnPrincipalAsistente();
-        VtnPrincipalAutor objVtnAutor= new VtnPrincipalAutor();
-        
-        objServicio.addObserver(objVtnAsistente);
-        objServicio.addObserver(objVtnAutor);
-        objServicio2.addObserver(objVtnAsistente);
-        objServicio2.addObserver(objVtnAutor);
-        objServicio3.addObserver(objVtnAsistente);
-        objServicio3.addObserver(objVtnAutor);
-        
-        VtnPrincipalAdmin objVtnPrincipal= new VtnPrincipalAdmin();  
-        objVtnPrincipal.asociarServicio(ServicioAlmacenamientoConferencias.class, objServicio);
-        objVtnPrincipal.asociarServicio(ServicioAlmacenamientoOrganizadores.class, objServicio2);
-        objVtnPrincipal.asociarServicio(ServicioAlmacenamientoArticulos.class, objServicio3); 
-        objVtnPrincipal.setVisible(true);
-        objVtnAsistente.setVisible(true);
-        objVtnAutor.setVisible(true);
+        HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
+
+        MemoryArrayListRepository<Conference> conferenceRepository = new MemoryArrayListRepository<>();
+        StorageService<Conference> conferenceService = new StorageService<>(conferenceRepository);
+        serviceMap.put(Conference.class, conferenceService);
+
+        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
+        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
+        serviceMap.put(Organizer.class, organizerService);
+
+        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
+        StorageService<Article> articleService = new StorageService<>(articleRepository);
+        serviceMap.put(Article.class, articleService);
+
+        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
+        StorageService<Author> authorService = new StorageService<>(authorRepository);
+        serviceMap.put(Author.class, authorService);
+
+        // Add observers to all services
+        VtnPrincipalAsistente assistantWindow = new VtnPrincipalAsistente();
+        VtnPrincipalAutor authorWindow = new VtnPrincipalAutor();
+        for (StorageService<?> service : serviceMap.values()) {
+            service.addObserver(assistantWindow);
+            service.addObserver(authorWindow);
+        }
+
+        // Associate all services with the admin window
+        MainAdminWindow adminWindow = new MainAdminWindow();
+        for (Class<?> entityType : serviceMap.keySet()) {
+            adminWindow.associateService(entityType, serviceMap.get(entityType));
+        }
+
+        // Show windows
+        adminWindow.setVisible(true);
+        assistantWindow.setVisible(true);
+        authorWindow.setVisible(true);
     }
     
     private static void seleccionarLookAndField()

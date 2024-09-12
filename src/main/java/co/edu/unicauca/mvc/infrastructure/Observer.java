@@ -1,6 +1,5 @@
-package co.edu.unicauca.mvc.infraestructura;
+package co.edu.unicauca.mvc.infrastructure;
 
 public interface Observer {
-
     public void update(Object o);
 }
