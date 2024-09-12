@@ -16,7 +16,9 @@ import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.HashMap;
 import javax.swing.JButton;
-
+import com.toedter.calendar.JDateChooser;
+import java.text.NumberFormat;
+import javax.swing.JFormattedTextField;
 /**
  *
  * @author Default
@@ -30,12 +32,26 @@ public class RegisterConferenceWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterConferenceWindow (StorageService<Conference> objStorageService) {
+        JDateChooser startDate = new JDateChooser();
+        startDate.setDateFormatString("dd/MM/yyyy");
+        
+        JDateChooser endDate = new JDateChooser();
+        endDate.setDateFormatString("dd/MM/yyyy");
+        
+        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
+        JFormattedTextField numberField = new JFormattedTextField(numberFormat);
+        numberField.setColumns(9);
+        
         HashMap<String, FieldConfig> inputFields = new HashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Fecha de inicio:", new FieldConfig(new JTextField(20)));
-        inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
+        inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
+        inputFields.put("Fecha de fin:", new FieldConfig(endDate));
+        inputFields.put("Costo de inscripcion':", new FieldConfig(numberField));
+        inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
+        inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
+        
         super(new JLabel("Registrar Articulo"), inputFields);
-        authors = new ArrayList<>();
+        topics = new ArrayList<>();
         this.objStorageService = objStorageService;
     }
 
@@ -67,9 +83,18 @@ public class RegisterConferenceWindow extends RegisterWindow {
     @Override
     protected void registerAction() {
         ArrayList<String> values = new ArrayList<>();
-        for (JTextField input : inputs) {
-            values.add(input.getText());
-        }
+        fieldConfigs.values().stream()
+            .map(FieldConfig::getFieldType)
+            .forEach(field -> {
+            switch (field) {
+                case JTextField jTextField -> 
+                    values.add(jTextField.getText());
+                case JDateChooser jDateChooser -> 
+                    values.add(jDateChooser.getDate() != null ? jDateChooser.getDate().toString() : "");
+                default -> {
+                }
+            }
+        });
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {

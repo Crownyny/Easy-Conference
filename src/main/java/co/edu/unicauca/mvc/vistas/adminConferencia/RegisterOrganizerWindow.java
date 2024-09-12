@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
+import java.util.HashMap;
 
 /**
  *
@@ -24,7 +26,12 @@ public class RegisterOrganizerWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterOrganizerWindow (StorageService<Organizer> objStorageService) {
-        super(new JLabel("Registrar Conferencia"), new String[]{"Nombre:","Fecha inicio:","Fecha fin:","Costo:","Ubicacion","Temas"});
+        HashMap<String, FieldConfig> inputFields = new HashMap<>();
+        inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
+        
+        super(new JLabel("Registrar Organizador"), inputFields);
         this.objStorageService = objStorageService;
     }
     /**
@@ -54,26 +61,20 @@ public class RegisterOrganizerWindow extends RegisterWindow {
 
     @Override
     protected void registerAction() {
-        boolean flag;
         ArrayList<String> values = new ArrayList<>();
-        for (JTextField input : inputs) {
-            values.add(input.getText());
-            System.out.println(input.getText());
-        }
+        fieldConfigs.values().stream()
+            .map(FieldConfig::getFieldType)
+            .filter(JTextField.class::isInstance)
+            .map(JTextField.class::cast)
+            .map(JTextField::getText)
+            .forEach(values::add);
 
-        try {
             Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2));
 
-            flag = this.objStorageService.store(organizer);
-
-            if (flag) 
+            if (objStorageService.store(organizer)) 
                 Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");
             else
                 Utilities.errorMessage("El registro del organizador no se realizo", "Error en el registro");
-
-        } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El costo debe ser numerico", "Formato de costo invalido");
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

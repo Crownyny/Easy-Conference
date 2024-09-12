@@ -75,7 +75,6 @@ public class ListArticlesWindow extends ListWindow {
         for (int i = 0; i < articleList.size(); i++) {
             String[] row = { 
                 articleList.get(i).getTitle(),  
-                (int) (articleList.get(i).getAuthorCount()) + "", 
                 articleList.get(i).getJournal()
             };
             model.addRow(row);
