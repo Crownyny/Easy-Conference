@@ -12,6 +12,7 @@ import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -26,7 +27,7 @@ public class RegisterOrganizerWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterOrganizerWindow (StorageService<Organizer> objStorageService) {
-        HashMap<String, FieldConfig> inputFields = new HashMap<>();
+        LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
         inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));

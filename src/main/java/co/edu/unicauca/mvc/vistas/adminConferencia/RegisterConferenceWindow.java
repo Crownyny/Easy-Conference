@@ -18,6 +18,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.text.NumberFormat;
+import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
 /**
  *
@@ -42,7 +43,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
         JFormattedTextField numberField = new JFormattedTextField(numberFormat);
         numberField.setColumns(9);
         
-        HashMap<String, FieldConfig> inputFields = new HashMap<>();
+        LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));

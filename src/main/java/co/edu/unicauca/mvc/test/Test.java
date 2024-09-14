@@ -1,6 +1,5 @@
 package co.edu.unicauca.mvc.test;
 
-
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Article;
@@ -10,9 +9,7 @@ import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainAdminWindow;
 import co.edu.unicauca.mvc.vistas.asistente.VtnPrincipalAsistente;
 import co.edu.unicauca.mvc.vistas.autorPublicacion.VtnPrincipalAutor;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.swing.UIManager;
 
 
