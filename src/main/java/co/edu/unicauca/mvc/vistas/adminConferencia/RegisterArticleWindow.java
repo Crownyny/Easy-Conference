@@ -5,6 +5,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -14,6 +15,7 @@ import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
@@ -22,7 +24,7 @@ import javax.swing.JButton;
 public class RegisterArticleWindow extends RegisterWindow {
     
     private final StorageService<Article> objStorageService;
-    private final ArrayList<Author> authors; 
+    private final StorageService<Author> authors; 
 
     /**
      * Creates new form VtnListarArticulos
@@ -34,7 +36,8 @@ public class RegisterArticleWindow extends RegisterWindow {
         inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
         super(new JLabel("Registrar Articulo"), inputFields);
-        authors = new ArrayList<>();
+        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
+        authors = new StorageService<>(authorRepository);
         this.objStorageService = objStorageService;
     }
 
@@ -74,7 +77,7 @@ public class RegisterArticleWindow extends RegisterWindow {
             .forEach(values::add);
         
  
-        Article article = new Article(values.get(0),authors, values.get(1));
+        Article article = new Article(values.get(0),authors.listAll(), values.get(1));
 
         if (objStorageService.store(article))
             Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
@@ -83,6 +86,14 @@ public class RegisterArticleWindow extends RegisterWindow {
 
     }
 
+    @Override
+    protected void extraButtonAction() {
+        ListAuthorWindow objAuthorWindow =
+            new ListAuthorWindow(this.authors);
+        objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        objAuthorWindow.setVisible(true);     
+        System.out.println("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

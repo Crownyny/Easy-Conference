@@ -19,6 +19,10 @@ public class Test {
     
     public static void main(String[] args) {
         seleccionarLookAndField();
+        // Add observers to all services
+        VtnPrincipalAsistente assistantWindow = new VtnPrincipalAsistente();
+        VtnPrincipalAutor authorWindow = new VtnPrincipalAutor();
+        
         
         HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
 
@@ -27,24 +31,18 @@ public class Test {
         serviceMap.put(Conference.class, conferenceService);
 
         MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
-        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
+        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository, assistantWindow, authorWindow );
         serviceMap.put(Organizer.class, organizerService);
 
         MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
-        StorageService<Article> articleService = new StorageService<>(articleRepository);
+        StorageService<Article> articleService = new StorageService<>(articleRepository, assistantWindow, authorWindow );
         serviceMap.put(Article.class, articleService);
 
         MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
-        StorageService<Author> authorService = new StorageService<>(authorRepository);
+        StorageService<Author> authorService = new StorageService<>(authorRepository, assistantWindow, authorWindow );
         serviceMap.put(Author.class, authorService);
 
-        // Add observers to all services
-        VtnPrincipalAsistente assistantWindow = new VtnPrincipalAsistente();
-        VtnPrincipalAutor authorWindow = new VtnPrincipalAutor();
-        for (StorageService<?> service : serviceMap.values()) {
-            service.addObserver(assistantWindow);
-            service.addObserver(authorWindow);
-        }
+
 
         // Associate all services with the admin window
         MainAdminWindow adminWindow = new MainAdminWindow();

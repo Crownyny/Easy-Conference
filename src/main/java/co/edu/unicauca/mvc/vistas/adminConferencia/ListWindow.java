@@ -52,6 +52,7 @@ public abstract class ListWindow extends javax.swing.JInternalFrame {
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
         showGui();
+
     }
     
     public ListWindow(String[] columnNames) 
@@ -85,150 +86,150 @@ public abstract class ListWindow extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void showGui() {
-    // Set up the window size
-    setLayout(new BorderLayout());
-    Toolkit toolkit = Toolkit.getDefaultToolkit();
-    Dimension screenSize = toolkit.getScreenSize();
-    int screenHeight = screenSize.height;
-    int screenWidth = screenSize.width;
-    int panelHeight = (int) (screenHeight * 0.6);
-    int panelWidth = (int) (screenWidth * 0.55);
-    int panelNorthHeight = (int) (panelHeight * 0.1);
-    int panelCenterHeight = (int) (panelHeight * 0.85);
-    int panelSouthHeight = (int) (panelHeight * 0.15);
+    private void showGui() {
+        // Set up the window size
+        setLayout(new BorderLayout());
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+        int panelHeight = (int) (screenHeight * 0.6);
+        int panelWidth = (int) (screenWidth * 0.55);
+        int panelNorthHeight = (int) (panelHeight * 0.1);
+        int panelCenterHeight = (int) (panelHeight * 0.85);
+        int panelSouthHeight = (int) (panelHeight * 0.15);
 
-    this.setSize(panelWidth, panelHeight);
-    GridBagConstraints gbc = new GridBagConstraints();
+        this.setSize(panelWidth, panelHeight);
+        GridBagConstraints gbc = new GridBagConstraints();
 
-    JPanel panelNorth = new JPanel(new GridBagLayout());
-    panelNorth.setPreferredSize(new Dimension(panelWidth, panelNorthHeight));
+        JPanel panelNorth = new JPanel(new GridBagLayout());
+        panelNorth.setPreferredSize(new Dimension(panelWidth, panelNorthHeight));
 
-    int titleFontSize = Math.min(panelWidth, panelHeight) / 25;
-    this.titleLabel.setForeground(Color.WHITE);
-    this.titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize)); 
-    panelNorth.add(titleLabel);
-    panelNorth.setBackground(new Color(0x3c647c));
+        int titleFontSize = Math.min(panelWidth, panelHeight) / 25;
+        this.titleLabel.setForeground(Color.WHITE);
+        this.titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize)); 
+        panelNorth.add(titleLabel);
+        panelNorth.setBackground(new Color(0x3c647c));
 
-    JPanel panelCenter = new JPanel(new GridBagLayout());
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.insets = new Insets(5, 5, 5, 5);
-    int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
+        JPanel panelCenter = new JPanel(new GridBagLayout());
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
 
-    try {
-        
-        BufferedImage iconUpdate = ImageIO.read(getClass().getResource("/resources/print.png"));
-        BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/pen-drawing.png"));
-        // Resize the images to font size
-        Image iconUpdateScaled = iconUpdate.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
-        Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+        try {
 
-        JButton updateButton = addButton("Actualizar", buttonFontSize);
-        updateButton.setIcon(new ImageIcon(iconUpdateScaled));
+            BufferedImage iconUpdate = ImageIO.read(getClass().getResource("/resources/print.png"));
+            BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/pen-drawing.png"));
+            // Resize the images to font size
+            Image iconUpdateScaled = iconUpdate.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+            Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+
+            JButton updateButton = addButton("Actualizar", buttonFontSize);
+            updateButton.setIcon(new ImageIcon(iconUpdateScaled));
+            gbc.gridx = 0; // Column 0
+            gbc.gridy = 0; // Row 0
+            gbc.gridwidth = 1; // Occupies 1 column
+            gbc.weightx = 0.5; // Half of the horizontal space
+            updateButton.addActionListener(e -> updateAction());
+
+            panelCenter.add(updateButton, gbc);
+
+            JButton registerButton = addButton("Registrar", buttonFontSize);
+            registerButton.setIcon(new ImageIcon(iconRegisterScaled)); 
+            gbc.gridx = 1; // Column 1
+            gbc.gridy = 0; // Row 0
+            gbc.gridwidth = 1; // Occupies 1 column
+            gbc.weightx = 0.5; // Half of the horizontal space  
+            registerButton.addActionListener(e -> registerAction());    
+            panelCenter.add(registerButton, gbc);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Customize the header renderer
+        JTableHeader header = this.table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                label.setBackground(new Color(0x3c647c)); 
+                label.setForeground(Color.WHITE); 
+                label.setFont(new Font("Leelawadee UI", Font.BOLD, Math.min(panelWidth, panelHeight) / 35)); // Font size
+                label.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
+                return label;
+            }
+        });
+
+        // Customize cell renderer for centering text
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Apply centered renderer to all columns in the table
+        for (int i = 0; i < this.table.getColumnCount(); i++) {
+            this.table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        JScrollPane tableScrollPane = new JScrollPane(table);
         gbc.gridx = 0; // Column 0
-        gbc.gridy = 0; // Row 0
-        gbc.gridwidth = 1; // Occupies 1 column
-        gbc.weightx = 0.5; // Half of the horizontal space
-        updateButton.addActionListener(e -> updateAction());
+        gbc.gridy = 1; // Row 1
+        gbc.gridwidth = 2; // Occupies 2 columns
+        gbc.weightx = 1.0; // Horizontal space distribution
+        gbc.weighty = 1.0; // Vertical space distribution
+        gbc.fill = GridBagConstraints.BOTH; // Table takes up all space
+        panelCenter.add(tableScrollPane, gbc);
+        panelCenter.setBackground(new Color(0xD7EAF9));
+        panelCenter.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
 
-        panelCenter.add(updateButton, gbc);
+        JPanel panelSouth = new JPanel();
+        panelSouth.setBackground(new Color(0x7F818F));
+        panelSouth.setPreferredSize(new Dimension(panelWidth, panelSouthHeight));
 
-        JButton registerButton = addButton("Registrar", buttonFontSize);
-        registerButton.setIcon(new ImageIcon(iconRegisterScaled)); 
-        gbc.gridx = 1; // Column 1
-        gbc.gridy = 0; // Row 0
-        gbc.gridwidth = 1; // Occupies 1 column
-        gbc.weightx = 0.5; // Half of the horizontal space  
-        registerButton.addActionListener(e -> registerAction());    
-        panelCenter.add(registerButton, gbc);
+        this.getContentPane().add(panelSouth, BorderLayout.SOUTH);           
+        this.getContentPane().add(panelCenter, BorderLayout.CENTER);
+        this.getContentPane().add(panelNorth, BorderLayout.NORTH);
 
-    } catch (IOException e) {
-        e.printStackTrace();
     }
 
-    // Customize the header renderer
-    JTableHeader header = this.table.getTableHeader();
-    header.setDefaultRenderer(new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
-            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            label.setBackground(new Color(0x3c647c)); 
-            label.setForeground(Color.WHITE); 
-            label.setFont(new Font("Leelawadee UI", Font.BOLD, Math.min(panelWidth, panelHeight) / 35)); // Font size
-            label.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
-            return label;
-        }
-    });
+    private JButton addButton(String buttonText, int fontSize) {
+        JButton myButton = new JButton(buttonText);
+        myButton.setBorderPainted(false);
+        myButton.setBackground(new Color(0x2c4464)); // Default background color
+        myButton.setForeground(Color.WHITE);
+        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
+        myButton.setFocusPainted(false);
+        myButton.setContentAreaFilled(false);
+        myButton.setOpaque(true); // Make the button opaque from the start
 
-    // Customize cell renderer for centering text
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        myButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                myButton.setBackground(new Color(52, 112, 224)); // Hover color
+                myButton.repaint();
+                myButton.getParent().repaint();
+                myButton.getParent().revalidate();
+            }
 
-    // Apply centered renderer to all columns in the table
-    for (int i = 0; i < this.table.getColumnCount(); i++) {
-        this.table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            @Override
+            public void mouseExited(MouseEvent e) {
+                myButton.setBackground(new Color(0x2c4464)); // Default background color
+                myButton.repaint();
+                myButton.getParent().repaint();
+                myButton.getParent().revalidate();
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                myButton.setBackground(new Color(52, 112, 224)); // Adjust background if needed
+                myButton.repaint();
+                myButton.getParent().repaint();
+                myButton.getParent().revalidate();
+            }
+        });
+
+        return myButton;
     }
-
-    JScrollPane tableScrollPane = new JScrollPane(table);
-    gbc.gridx = 0; // Column 0
-    gbc.gridy = 1; // Row 1
-    gbc.gridwidth = 2; // Occupies 2 columns
-    gbc.weightx = 1.0; // Horizontal space distribution
-    gbc.weighty = 1.0; // Vertical space distribution
-    gbc.fill = GridBagConstraints.BOTH; // Table takes up all space
-    panelCenter.add(tableScrollPane, gbc);
-    panelCenter.setBackground(new Color(0xD7EAF9));
-    panelCenter.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
-
-    JPanel panelSouth = new JPanel();
-    panelSouth.setBackground(new Color(0x7F818F));
-    panelSouth.setPreferredSize(new Dimension(panelWidth, panelSouthHeight));
-
-    this.getContentPane().add(panelSouth, BorderLayout.SOUTH);           
-    this.getContentPane().add(panelCenter, BorderLayout.CENTER);
-    this.getContentPane().add(panelNorth, BorderLayout.NORTH);
-    
-}
-
-private JButton addButton(String buttonText, int fontSize) {
-    JButton myButton = new JButton(buttonText);
-    myButton.setBorderPainted(false);
-    myButton.setBackground(new Color(0x2c4464)); // Default background color
-    myButton.setForeground(Color.WHITE);
-    myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
-    myButton.setFocusPainted(false);
-    myButton.setContentAreaFilled(false);
-    myButton.setOpaque(true); // Make the button opaque from the start
-
-    myButton.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            myButton.setBackground(new Color(52, 112, 224)); // Hover color
-            myButton.repaint();
-            myButton.getParent().repaint();
-            myButton.getParent().revalidate();
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            myButton.setBackground(new Color(0x2c4464)); // Default background color
-            myButton.repaint();
-            myButton.getParent().repaint();
-            myButton.getParent().revalidate();
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            myButton.setBackground(new Color(52, 112, 224)); // Adjust background if needed
-            myButton.repaint();
-            myButton.getParent().repaint();
-            myButton.getParent().revalidate();
-        }
-    });
-    
-    return myButton;
-}
 
 protected abstract void registerAction();
 protected abstract void updateAction();

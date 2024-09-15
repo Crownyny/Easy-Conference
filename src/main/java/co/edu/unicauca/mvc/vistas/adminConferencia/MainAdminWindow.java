@@ -57,11 +57,6 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
         mainDesktopPane.add(internalFrames.get(ViewStatisticsWindow.class));
 
-        if (!internalFrames.containsKey(ViewSubmittedArticlesConferencesWindow.class)) {
-            internalFrames.put(ViewSubmittedArticlesConferencesWindow.class, new ViewSubmittedArticlesConferencesWindow());
-        }
-        mainDesktopPane.add(internalFrames.get(ViewSubmittedArticlesConferencesWindow.class));
-
         if (services.containsKey(Conference.class)) {
             if (!internalFrames.containsKey(ListConferencesWindow.class)) {
                 internalFrames.put(ListConferencesWindow.class, 
@@ -297,7 +292,6 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
 
         switch (state) {
-            case VIEW_LOANS -> setFrameVisible(ViewSubmittedArticlesConferencesWindow.class);
             case VIEW_STATISTICS -> setFrameVisible(ViewStatisticsWindow.class);
             case LIST_CONFERENCES -> setFrameVisible(ListConferencesWindow.class);
             case LIST_ORGANIZERS -> setFrameVisible(ListOrganizersWindow.class);

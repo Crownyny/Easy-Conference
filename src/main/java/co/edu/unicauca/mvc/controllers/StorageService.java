@@ -1,6 +1,7 @@
 package co.edu.unicauca.mvc.controllers;
 
 import co.edu.unicauca.mvc.dataAccess.InterfaceRepository;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.infrastructure.Subject;
 import java.util.List;
 
@@ -8,18 +9,21 @@ public class StorageService<T> extends Subject{
     
     private final InterfaceRepository repositoryReference;
     
-    public StorageService(InterfaceRepository articleRepositoryReference) {
+    public StorageService(InterfaceRepository articleRepositoryReference, Observer ...observers) {
         this.repositoryReference = articleRepositoryReference;
+        for(Observer observer : observers)
+            this.addObserver(observer);
     }
     
     public boolean store(T obj) {
-        boolean flag = this.repositoryReference.store(obj);
-        this.notifyAllObservers();
+        boolean flag = repositoryReference.store(obj);
+        if(!observers.isEmpty())
+            notifyAllObservers();
         return flag;
     }
 
     public List<T> listAll() {
-        return this.repositoryReference.listAll();
+        return repositoryReference.listAll();
     }  
     
 }

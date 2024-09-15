@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Subject {
 
-    ArrayList<Observer> observers;
+    protected final ArrayList<Observer> observers = new ArrayList<>();
 
     public void Subject() {}
 
@@ -17,9 +17,6 @@ public abstract class Subject {
      * @param obs The observer to be added
      */
     public void addObserver(Observer obs) {
-        if (observers == null) {
-            observers = new ArrayList<>();
-        }
         observers.add(obs);
     }
 
@@ -34,6 +31,7 @@ public abstract class Subject {
             each.update(this);
         }
     }
+
 
 
 }
