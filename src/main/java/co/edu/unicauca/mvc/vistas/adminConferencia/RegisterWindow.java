@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -73,125 +72,107 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showGui() {
-        setLayout(new BorderLayout());
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        List<String> labelsText = new ArrayList<>(fieldConfigs.keySet());
-        int screenHeight = screenSize.height;
-        int screenWidth = screenSize.width;
-        int panelHeight = (int) (screenHeight * 0.55);
-        int panelWidth = (int) (screenWidth * 0.35);
-        
-        int nComponents = fieldConfigs.size();
-        if("".equals(labelsText.get(labelsText.size() - 1)))
-        {
-            nComponents--;
-            System.out.println("Se elimino");
-        }
-        
-        int textFontSize = Math.min(panelWidth, panelHeight) / 30;
-        int componentHeight = (int) (panelHeight * .15); 
-        
-
-        int panelNorthHeight = (int) (panelHeight * .15); 
-        int panelCenterHeight = (int) ( componentHeight * (nComponents + 1));
-        int panelSouthHeight = (int) (panelHeight * .1);
-        int totalHeight = panelNorthHeight + panelCenterHeight + panelSouthHeight;
-        setSize(panelWidth, totalHeight);
-
-        JPanel panelNorth = new JPanel(new GridBagLayout());
-        panelNorth.setPreferredSize(new Dimension(panelWidth, panelNorthHeight));
-
-        int titleFontSize = Math.min(panelWidth, panelHeight) / 20;
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize)); 
-        panelNorth.add(titleLabel);
-        panelNorth.setBackground(new Color(0x3c647c));
-
-        JPanel panelCenter = new JPanel(new GridBagLayout());
-        panelCenter.setBackground(new Color(0xD7EAF9));
-        panelCenter.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-
-        for (int i = 0; i < nComponents; i++) {
-            String labelText = labelsText.get(i);
-            System.out.println(labelText + "-");
-            FieldConfig config = fieldConfigs.get(labelText);    
-            JLabel jlabel = new JLabel(labelText, JLabel.CENTER);
-
-            JComponent field = config.getFieldType(); 
-
-            jlabel.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
-            jlabel.setForeground(new Color(0X121C29));
-            field.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
-
-            gbc.gridx = 0;
-            gbc.gridy = i;
-            gbc.weightx = 0.5;
-            panelCenter.add(jlabel, gbc);
-
-            gbc.gridx = 1;
-            panelCenter.add(field, gbc);
-        }
-
-        int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
-
-        try {
-            if (fieldConfigs.size() != nComponents) {
-                // Get the FieldConfig for the "Assign Author" button
-                FieldConfig config = fieldConfigs.get(""); 
-                JComponent field = config.getFieldType(); 
-                JButton assignButton = addButton((JButton) field, buttonFontSize);
-
-                gbc.gridx = 0; 
-                gbc.gridy = labelsText.size(); 
-                gbc.gridwidth = 1; // Occupy only one column
-                gbc.weightx = 1; // Expand to distribute horizontal space equally
-                gbc.anchor = GridBagConstraints.CENTER; // Center the button horizontally
-                gbc.fill = GridBagConstraints.NONE; // Do not expand the button vertically
-
-                assignButton.addActionListener(e -> registerAction());
-                panelCenter.add(assignButton, gbc);
-            }
-
-            // Load the icon for the "Register" button
-            BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/save.png"));
-            Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
-
-            // Create the "Register" button
-            JButton registerButton = addButton(new JButton(" Registrar"), buttonFontSize);
-            registerButton.setIcon(new ImageIcon(iconScaled));
-
-            gbc.gridx = (fieldConfigs.size() != nComponents) ? 1 : 0; // If there are two buttons, place it in the second column
-            gbc.gridy = labelsText.size(); 
-            gbc.gridwidth = (fieldConfigs.size() == nComponents) ? 2 : 1; // If only one button, span two columns, otherwise one column
-            gbc.weightx = 1; // Distribute horizontal space equally
-            gbc.anchor = GridBagConstraints.CENTER; // Center the button horizontally
-            gbc.fill = GridBagConstraints.NONE; // Do not expand the button vertically
-
-            registerButton.addActionListener(e -> registerAction());
-            panelCenter.add(registerButton, gbc);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
-        JPanel panelSouth = new JPanel();
-        panelSouth.setBackground(new Color(0x7F818F));
-        panelSouth.setPreferredSize(new Dimension(panelWidth, panelSouthHeight));
-
-        this.getContentPane().add(panelSouth, BorderLayout.SOUTH);           
-        this.getContentPane().add(panelCenter, BorderLayout.CENTER);
-        this.getContentPane().add(panelNorth, BorderLayout.NORTH);
+private void showGui() {
+    setLayout(new BorderLayout());
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    Dimension screenSize = toolkit.getScreenSize();
+    List<String> labelsText = new ArrayList<>(fieldConfigs.keySet());
+    int screenHeight = screenSize.height;
+    int screenWidth = screenSize.width;
+    int panelHeight = (int) (screenHeight * 0.55);
+    int panelWidth = (int) (screenWidth * 0.35);
+    
+    int nComponents = fieldConfigs.size();
+    if ("".equals(labelsText.get(labelsText.size() - 1))) {
+        nComponents--;
+        System.out.println("Se elimino");
     }
+    
+    int textFontSize = Math.min(panelWidth, panelHeight) / 30;
+    int componentHeight = (int) (panelHeight * .15);
+    
+    int panelNorthHeight = (int) (panelHeight * .15);
+    int panelCenterHeight = (int) (componentHeight * (nComponents + 1));
+    int panelSouthHeight = (int) (panelHeight * .1);
+    int totalHeight = panelNorthHeight + panelCenterHeight + panelSouthHeight;
+    setSize(panelWidth, totalHeight);
+    
+    JPanel panelNorth = new JPanel(new GridBagLayout());
+    panelNorth.setPreferredSize(new Dimension(panelWidth, panelNorthHeight));
+    
+    int titleFontSize = Math.min(panelWidth, panelHeight) / 20;
+    titleLabel.setForeground(Color.WHITE);
+    titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
+    panelNorth.add(titleLabel);
+    panelNorth.setBackground(new Color(0x3c647c));
+    
+    JPanel panelCenter = new JPanel(new GridBagLayout());
+    panelCenter.setBackground(new Color(0xD7EAF9));
+    panelCenter.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
+    
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(10, 10, 10, 10);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.anchor = GridBagConstraints.CENTER;
+    
+    for (int i = 0; i < nComponents; i++) {
+        String labelText = labelsText.get(i);
+        System.out.println(labelText + "-");
+        FieldConfig config = fieldConfigs.get(labelText);
+        JLabel jlabel = new JLabel(labelText, JLabel.CENTER);
+        
+        JComponent field = config.getFieldType();
+        
+        jlabel.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
+        jlabel.setForeground(new Color(0X121C29));
+        field.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
+        
+        gbc.gridx = 0;
+        gbc.gridy = i;
+        gbc.weightx = 0.5;
+        panelCenter.add(jlabel, gbc);
+        
+        gbc.gridx = 1;
+        panelCenter.add(field, gbc);
+    }
+    
+    JPanel panelButton = new JPanel();
+    panelButton.setBackground(new Color(0xD7EAF9));
+    panelButton.setPreferredSize(new Dimension(panelWidth, componentHeight));
+    
+    int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
+    
+    try {
+        if (fieldConfigs.size() != nComponents) {
+            // Add the "Assign Author" button
+            FieldConfig config = fieldConfigs.get("");
+            JComponent field = config.getFieldType();
+            JButton assignButton = addButton((JButton) field, buttonFontSize);
+            
+            assignButton.addActionListener(e -> extraButtonAction());
+            panelButton.add(assignButton);
+        }
+        
+        // Load and scale the icon for the "Register" button
+        BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/save.png"));
+        Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+        
+        // Create the "Register" button
+        JButton registerButton = addButton(new JButton(" Registrar"), buttonFontSize);
+        registerButton.setIcon(new ImageIcon(iconScaled));
+        
+        registerButton.addActionListener(e -> registerAction());
+        panelButton.add(registerButton);
+        
+    } catch (IOException e) {
+        e.printStackTrace(); // Add error handling here
+    }
+    
+    
+    this.getContentPane().add(panelCenter, BorderLayout.CENTER);
+    this.getContentPane().add(panelNorth, BorderLayout.NORTH);
+    this.getContentPane().add(panelButton, BorderLayout.SOUTH);
+}
 
     
     private JButton addButton(JButton myButton, int fontSize) {
@@ -233,6 +214,7 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
     }
 
     protected abstract void registerAction();
+    protected void extraButtonAction(){};
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

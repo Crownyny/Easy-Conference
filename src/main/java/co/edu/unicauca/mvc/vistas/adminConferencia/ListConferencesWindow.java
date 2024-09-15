@@ -24,7 +24,8 @@ public class ListConferencesWindow extends ListWindow {
      * @param objStorageService
      */
     public ListConferencesWindow(StorageService<Conference> objStorageService) {
-        super("Listado de Conferencias", "Registrar Conferencias", new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo"});
+        super("Listado de Conferencias", "Registrar Conferencias", 
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas"});
         this.objStorageService=objStorageService;
     }
     /**
@@ -83,7 +84,9 @@ public class ListConferencesWindow extends ListWindow {
                 conferenceList.get(i).getName(), 
                 formatter.format(conferenceList.get(i).getStartDate()), 
                 formatter.format(conferenceList.get(i).getEndDate()), 
-                conferenceList.get(i).getRegistrationCost() + ""
+                conferenceList.get(i).getRegistrationCost() + "",
+                conferenceList.get(i).getLocation(),
+                conferenceList.get(i).topicsToString()             
             };
             model.addRow(row);
         }

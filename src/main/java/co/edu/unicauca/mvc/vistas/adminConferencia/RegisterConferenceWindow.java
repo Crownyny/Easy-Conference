@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -20,6 +20,7 @@ import com.toedter.calendar.JDateChooser;
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 /**
  *
  * @author Default
@@ -84,6 +85,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
     @Override
     protected void registerAction() {
         ArrayList<String> values = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         fieldConfigs.values().stream()
             .map(FieldConfig::getFieldType)
             .forEach(field -> {
@@ -91,13 +93,17 @@ public class RegisterConferenceWindow extends RegisterWindow {
                 case JTextField jTextField -> 
                     values.add(jTextField.getText());
                 case JDateChooser jDateChooser -> 
-                    values.add(jDateChooser.getDate() != null ? jDateChooser.getDate().toString() : "");
+                    values.add(jDateChooser.getDate() != null ? dateFormat.format(jDateChooser.getDate()) : "");
                 default -> {
                 }
             }
         });
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        for(String value: values){
+            System.out.println(value);
+        }
+        
+
         try {
             Date startDate = dateFormat.parse(values.get(1));
             Date endDate = dateFormat.parse(values.get(2));
@@ -106,9 +112,15 @@ public class RegisterConferenceWindow extends RegisterWindow {
                 Utilities.warningMessage("La fecha de fin debe ser posterior a la fecha de inicio", "Fecha no válida");
                 return;
             }
+            
+            if(topics.isEmpty())
+            {
+                Utilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
+                return;
+            }
 
             float cost = Float.parseFloat(values.get(3));
-            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),new ArrayList<String>());
+            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),topics);
 
             if (objStorageService.store(conference)) {
                 Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
@@ -122,8 +134,14 @@ public class RegisterConferenceWindow extends RegisterWindow {
             Utilities.warningMessage("La fecha debe seguir el formato dd/MM/yyyy", "Formato de fecha inválido");
         }
     }
-
-
+    
+    @Override
+    protected void extraButtonAction() {
+        AssignTopicWindow objTopicWindow =
+            new AssignTopicWindow(this.topics);
+        objTopicWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        objTopicWindow.setVisible(true);       
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

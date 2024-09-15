@@ -188,6 +188,7 @@ private void showGui() {
     this.getContentPane().add(panelSouth, BorderLayout.SOUTH);           
     this.getContentPane().add(panelCenter, BorderLayout.CENTER);
     this.getContentPane().add(panelNorth, BorderLayout.NORTH);
+    
 }
 
 private JButton addButton(String buttonText, int fontSize) {

@@ -12,7 +12,6 @@ import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 

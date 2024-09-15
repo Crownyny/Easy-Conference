@@ -67,4 +67,12 @@ public class Conference {
     public void setTopics(List<String> topics) {
         this.topics = topics;
     }
+    
+    public String topicsToString() {
+    if (topics.isEmpty()) 
+        return ""; 
+    
+    return String.join(", ", topics);
+}
+
 }
