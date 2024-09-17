@@ -5,11 +5,18 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.Article;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
+import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
+import java.util.HashMap;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -23,11 +30,28 @@ public class ListConferencesWindow extends ListWindow {
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
-    public ListConferencesWindow(StorageService<Conference> objStorageService) {
+    public ListConferencesWindow(MainAdminWindow adminWindow, StorageService<Conference> objStorageService) {
         super("Listado de Conferencias", "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas"});
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
         this.objStorageService=objStorageService;
+
+        //Create the storage services related to the conference (CODE COULD BE GENERIC WITH TEST SIMILAR CODE)
+        //We use a HASHMAP to prevent conflicts to include more events
+        HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
+        
+        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
+        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
+        serviceMap.put(Organizer.class, organizerService);
+
+        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
+        StorageService<Article> articleService = new StorageService<>(articleRepository);
+        serviceMap.put(Article.class, articleService);
+        
+        for (Class<?> entityType : serviceMap.keySet()) {
+            adminWindow.associateService(entityType, serviceMap.get(entityType));
+        }
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,11 +110,17 @@ public class ListConferencesWindow extends ListWindow {
                 formatter.format(conferenceList.get(i).getEndDate()), 
                 conferenceList.get(i).getRegistrationCost() + "",
                 conferenceList.get(i).getLocation(),
-                conferenceList.get(i).topicsToString()             
+                conferenceList.get(i).topicsToString(), 
+                "Seleccionar"
             };
             model.addRow(row);
         }
+    table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+    table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table));
+
     }
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

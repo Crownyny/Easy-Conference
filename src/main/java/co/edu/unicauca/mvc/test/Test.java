@@ -2,10 +2,7 @@ package co.edu.unicauca.mvc.test;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.models.Article;
-import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.models.Conference;
-import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainAdminWindow;
 import co.edu.unicauca.mvc.vistas.asistente.VtnPrincipalAsistente;
 import co.edu.unicauca.mvc.vistas.autorPublicacion.VtnPrincipalAutor;
@@ -21,28 +18,13 @@ public class Test {
         seleccionarLookAndField();
         // Add observers to all services
         VtnPrincipalAsistente assistantWindow = new VtnPrincipalAsistente();
-        VtnPrincipalAutor authorWindow = new VtnPrincipalAutor();
-        
-        
+       VtnPrincipalAutor authorWindow = new VtnPrincipalAutor();
+           
         HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
 
         MemoryArrayListRepository<Conference> conferenceRepository = new MemoryArrayListRepository<>();
         StorageService<Conference> conferenceService = new StorageService<>(conferenceRepository);
         serviceMap.put(Conference.class, conferenceService);
-
-        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
-        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository, assistantWindow, authorWindow );
-        serviceMap.put(Organizer.class, organizerService);
-
-        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
-        StorageService<Article> articleService = new StorageService<>(articleRepository, assistantWindow, authorWindow );
-        serviceMap.put(Article.class, articleService);
-
-        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
-        StorageService<Author> authorService = new StorageService<>(authorRepository, assistantWindow, authorWindow );
-        serviceMap.put(Author.class, authorService);
-
-
 
         // Associate all services with the admin window
         MainAdminWindow adminWindow = new MainAdminWindow();

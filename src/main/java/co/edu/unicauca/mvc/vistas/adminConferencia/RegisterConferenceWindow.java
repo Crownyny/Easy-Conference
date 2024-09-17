@@ -5,6 +5,8 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.Article;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,12 +14,13 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
-import java.util.HashMap;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -31,9 +34,10 @@ public class RegisterConferenceWindow extends RegisterWindow {
     private final ArrayList<String> topics; 
     /**
      * Creates new form VtnListarArticulos
+     * @param adminWindow
      * @param objStorageService
      */
-    public RegisterConferenceWindow (StorageService<Conference> objStorageService) {
+    public RegisterConferenceWindow ( StorageService<Conference> objStorageService) {
         JDateChooser startDate = new JDateChooser();
         startDate.setDateFormatString("dd/MM/yyyy");
         
@@ -52,9 +56,11 @@ public class RegisterConferenceWindow extends RegisterWindow {
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
         
-        super(new JLabel("Registrar Articulo"), inputFields);
+        super(new JLabel("Registrar Conferencia"), inputFields);
         topics = new ArrayList<>();
         this.objStorageService = objStorageService;
+        
+     
     }
 
     /**

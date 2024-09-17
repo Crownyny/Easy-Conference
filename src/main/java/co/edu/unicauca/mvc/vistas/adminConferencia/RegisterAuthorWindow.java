@@ -5,35 +5,35 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
-import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Default
  */
-public class RegisterOrganizerWindow extends RegisterWindow {
-
-    private final StorageService<Organizer> objStorageService;
-
+public class RegisterAuthorWindow extends RegisterWindow {
+    
+    private final StorageService<Author> objStorageService;
     /**
-     * Creates new form VtnListarArticulos
+     * Creates new form RegisterAuthorWindow
      * @param objStorageService
      */
-    public RegisterOrganizerWindow (StorageService<Organizer> objStorageService) {
+    public RegisterAuthorWindow(StorageService<Author> objStorageService) {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
-        
-        super(new JLabel("Registrar Organizador"), inputFields);
+        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Id:", new FieldConfig(new JTextField(10)));
+        inputFields.put("Mail:", new FieldConfig(new JTextField(30)));
+        super(new JLabel("Registrar Autor"), inputFields);
         this.objStorageService = objStorageService;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +59,7 @@ public class RegisterOrganizerWindow extends RegisterWindow {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     
     @Override
     protected void registerAction() {
         ArrayList<String> values = new ArrayList<>();
@@ -68,13 +69,18 @@ public class RegisterOrganizerWindow extends RegisterWindow {
             .map(JTextField.class::cast)
             .map(JTextField::getText)
             .forEach(values::add);
+        
+        try{
+            float id = Float.parseFloat(values.get(2));
+            Author author = new Author(values.get(0),values.get(1), id, values.get(3));
 
-            Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2));
-
-            if (objStorageService.store(organizer)) 
-                Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");
+            if (objStorageService.store(author))
+                Utilities.successMessage("El registro del autor fue exitoso", "Registro exitoso");
             else
-                Utilities.errorMessage("El registro del organizador no se realizo", "Error en el registro");
+                Utilities.successMessage("El registro del autor no se realizo", "Error en el registro");
+        } catch (NumberFormatException ex) {
+            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

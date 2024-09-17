@@ -11,6 +11,7 @@ co\edu\unicauca\mvc\controllers\StorageService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$2.class
 co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.class
+co\edu\unicauca\mvc\vistas\util\ButtonEditor$1.class
 co\edu\unicauca\mvc\utilities\LoadImages.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListConferencesWindow.class
 co\edu\unicauca\mvc\utilities\Utilities.class
@@ -19,11 +20,11 @@ co\edu\unicauca\mvc\dataAccess\InterfaceRepository.class
 co\edu\unicauca\mvc\test\Test.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListOrganizersWindow.class
 co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.class
-co\edu\unicauca\mvc\vistas\adminConferencia\ViewSubmittedArticlesConferencesWindow.class
 co\edu\unicauca\mvc\utilities\FieldConfig.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow$1.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow$1.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow$1.class
+co\edu\unicauca\mvc\vistas\util\ButtonEditor.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.class
 co\edu\unicauca\mvc\models\Conference.class
@@ -32,6 +33,7 @@ co\edu\unicauca\mvc\models\Article.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow$2.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterArticleWindow.class
+co\edu\unicauca\mvc\vistas\util\ButtonRenderer.class
 co\edu\unicauca\mvc\infrastructure\Observer.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.class

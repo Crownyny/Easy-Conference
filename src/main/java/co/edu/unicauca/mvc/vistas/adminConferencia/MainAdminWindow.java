@@ -6,6 +6,7 @@ import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,6 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -41,6 +43,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
     private final Map<Class<? extends JInternalFrame>, JInternalFrame> internalFrames = new HashMap<>();
     private final Map<Class<?>, StorageService<?>> services = new HashMap<>();
     private JDesktopPane mainDesktopPane;
+    private final JPanel cardPane;
 
     public void associateService(Class<?> serviceClass, StorageService<?> serviceObject) {
         services.put(serviceClass, serviceObject);
@@ -60,7 +63,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
         if (services.containsKey(Conference.class)) {
             if (!internalFrames.containsKey(ListConferencesWindow.class)) {
                 internalFrames.put(ListConferencesWindow.class, 
-                    new ListConferencesWindow((StorageService<Conference>) services.get(Conference.class)));
+                    new ListConferencesWindow(this, (StorageService<Conference>) services.get(Conference.class)));
             }
             mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
         }
@@ -83,6 +86,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
     }
 
     public MainAdminWindow() {
+        cardPane = new JPanel(new CardLayout());
         showGui();
     }
 
@@ -143,31 +147,26 @@ public class MainAdminWindow extends javax.swing.JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        // Create and configure buttons panel
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setBackground(new Color(0xD7EAF9));
-        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS)); // Horizontal layout
-        buttonsPanel.add(Box.createHorizontalGlue()); // Push buttons to center
+        
+        // Define buttons and actions
+        String[] mainPanelLabels = {"Gestionar conferencias"};
+        ActionListener[] mainPanelActions = {e -> setVisibility(VisibilityState.LIST_CONFERENCES)};
 
-        // Add buttons to the buttons panel
-        JButton conferenciasGestionButton = addButton("Gestionar conferencias", buttonsPanel);
-        conferenciasGestionButton.addActionListener(e -> setVisibility(VisibilityState.LIST_CONFERENCES));
+        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas"};
+        ActionListener[] conferencePanelActions = {
+            e -> setVisibility(VisibilityState.LIST_ORGANIZERS),
+            e -> setVisibility(VisibilityState.LIST_ARTICLES),
+            e -> setVisibility(VisibilityState.VIEW_STATISTICS)
+        };
 
-        JButton organizadoresGestionButton = addButton("Gestionar organizadores", buttonsPanel);
-        organizadoresGestionButton.addActionListener(e -> setVisibility(VisibilityState.LIST_ORGANIZERS));
+        // Create and add panels to CardLayout
+        JPanel buttonsMainPanel = createButtonPanel(mainPanelLabels, mainPanelActions);
+        JPanel buttonsConferencePanel = createButtonPanel(conferencePanelLabels, conferencePanelActions);
 
-        JButton articulosGestionButton = addButton("Gestionar artículos", buttonsPanel);
-        articulosGestionButton.addActionListener(e -> setVisibility(VisibilityState.LIST_ARTICLES));
+        cardPane.add(buttonsMainPanel, "mainPanel");
+        cardPane.add(buttonsConferencePanel, "conferencePanel");
 
-        JButton articulosHistorialButton = addButton("Ver artículos enviados", buttonsPanel);
-        articulosHistorialButton.addActionListener(e -> setVisibility(VisibilityState.VIEW_LOANS));
-
-        JButton estadisticasButton = addButton("Ver estadísticas", buttonsPanel);
-        estadisticasButton.addActionListener(e -> setVisibility(VisibilityState.VIEW_STATISTICS));
-
-        buttonsPanel.add(Box.createHorizontalGlue()); // Push buttons to center
-
-        panelNorth.add(buttonsPanel, gbc);
+        panelNorth.add(cardPane, gbc);
 
         // Create and configure Center panel
         mainDesktopPane = new JDesktopPane(); // Create the JDesktopPane
@@ -193,12 +192,12 @@ public class MainAdminWindow extends javax.swing.JFrame {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                adjustFontSize(titleLabel, buttonsPanel);
+                adjustFontSize(titleLabel, buttonsMainPanel);
             }
         });
     }
 
-    private void adjustFontSize(JLabel label, JPanel buttonsPanel) {
+    private void adjustFontSize(JLabel label, JPanel buttonsMainPanel) {
         // Get current window size
         int width = this.getWidth();
         int height = this.getHeight();
@@ -208,7 +207,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
         label.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
 
         // Adjust button font size
-        Component[] components = buttonsPanel.getComponents();
+        Component[] components = buttonsMainPanel.getComponents();
         int buttonFontSize = Math.min(width, height) / 48; 
         for (Component component : components) {
             if (component instanceof JButton button) {
@@ -217,8 +216,8 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
 
         // Revalidate and repaint to update layout and centering
-        buttonsPanel.revalidate();
-        buttonsPanel.repaint();
+        buttonsMainPanel.revalidate();
+        buttonsMainPanel.repaint();
     }
 
     private void setOrgIcon(JLabel label, String source, String text, int fontsize, Color textColor) {
@@ -278,7 +277,6 @@ public class MainAdminWindow extends javax.swing.JFrame {
     }
 
     private enum VisibilityState {
-        VIEW_LOANS,
         VIEW_STATISTICS,
         LIST_CONFERENCES,
         LIST_ORGANIZERS,
@@ -308,7 +306,27 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
     }
 
+    // Method to configure panel with common settings
+    private JPanel createButtonPanel(String[] buttonLabels, ActionListener[] actions) {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(0xD7EAF9));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(Box.createHorizontalGlue());
 
+        for (int i = 0; i < buttonLabels.length; i++) {
+            JButton button = addButton(buttonLabels[i], panel);
+            button.addActionListener(actions[i]);
+        }
+
+        panel.add(Box.createHorizontalGlue());
+        return panel;
+    }
+
+    public void showPanel(String paneName) {
+        CardLayout cardLayout = (CardLayout) cardPane.getLayout();
+
+        cardLayout.show(cardPane, paneName);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
