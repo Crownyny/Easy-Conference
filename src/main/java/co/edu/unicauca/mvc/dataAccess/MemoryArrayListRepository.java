@@ -10,6 +10,10 @@ public class MemoryArrayListRepository<T> implements InterfaceRepository<T>{
     public MemoryArrayListRepository() {
         this.list = new ArrayList<>();
     }
+    
+    public MemoryArrayListRepository(ArrayList<T> list) {
+        this.list = list;
+    }
 
     @Override
     public boolean store(T obj) {

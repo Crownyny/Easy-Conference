@@ -1,5 +1,6 @@
 package co.edu.unicauca.mvc.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class Conference {
     private float registrationCost;
     private String location;
     private List<String> topics;
+    private List<Organizer> organizers;
+    private List<Article> articles;
 
     public Conference(String name, Date startDate, Date endDate, float registrationCost, String location, List<String> topics) {
         this.name = name;
@@ -18,6 +21,8 @@ public class Conference {
         this.registrationCost = registrationCost;
         this.location = location;
         this.topics = topics;
+        this.organizers = new ArrayList<>();
+        this.articles = new ArrayList<>();
     }
 
     public String getName() {
@@ -73,6 +78,22 @@ public class Conference {
         return ""; 
     
     return String.join(", ", topics);
-}
+    }
+
+    public List<Organizer> getOrganizers() {
+        return organizers;
+    }
+
+    public void setOrganizers(List<Organizer> organizers) {
+        this.organizers = organizers;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
 
 }

@@ -10,6 +10,10 @@ public class MemoryLinkedListRepository<T> implements InterfaceRepository<T>{
     public MemoryLinkedListRepository() {
         this.list = new LinkedList<>();
     }
+    
+    public MemoryLinkedListRepository(LinkedList<T> list) {
+        this.list = list;
+    }
 
     @Override
     public boolean store(T obj) {

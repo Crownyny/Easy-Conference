@@ -26,7 +26,7 @@ public class Test {
         StorageService<Conference> conferenceService = new StorageService<>(conferenceRepository);
         serviceMap.put(Conference.class, conferenceService);
 
-        // Associate all services with the admin window
+        // Associate all services with the 6admin window
         MainAdminWindow adminWindow = new MainAdminWindow();
         for (Class<?> entityType : serviceMap.keySet()) {
             adminWindow.associateService(entityType, serviceMap.get(entityType));

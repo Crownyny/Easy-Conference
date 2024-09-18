@@ -6,12 +6,12 @@ co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.class
 co\edu\unicauca\mvc\models\Organizer.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$1.class
+co\edu\unicauca\mvc\vistas\util\ButtonClickListener.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.class
 co\edu\unicauca\mvc\controllers\StorageService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$2.class
 co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.class
-co\edu\unicauca\mvc\vistas\util\ButtonEditor$1.class
 co\edu\unicauca\mvc\utilities\LoadImages.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListConferencesWindow.class
 co\edu\unicauca\mvc\utilities\Utilities.class

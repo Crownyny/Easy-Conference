@@ -47,7 +47,21 @@ public class MainAdminWindow extends javax.swing.JFrame {
 
     public void associateService(Class<?> serviceClass, StorageService<?> serviceObject) {
         services.put(serviceClass, serviceObject);
+        removeInternalFrameForService(serviceClass);
         relateInternalFramesToDesktopPane();
+    }
+
+    private void removeInternalFrameForService(Class<?> serviceClass) {
+        if (serviceClass.equals(Conference.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
+            mainDesktopPane.remove(internalFrames.get(ListConferencesWindow.class));
+            internalFrames.remove(ListConferencesWindow.class);
+        } else if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(ListOrganizersWindow.class)) {
+            mainDesktopPane.remove(internalFrames.get(ListOrganizersWindow.class));
+            internalFrames.remove(ListOrganizersWindow.class);
+        } else if (serviceClass.equals(Article.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
+            mainDesktopPane.remove(internalFrames.get(ListArticlesWindow.class));
+            internalFrames.remove(ListArticlesWindow.class);
+        }
     }
 
     private void relateInternalFramesToDesktopPane() {

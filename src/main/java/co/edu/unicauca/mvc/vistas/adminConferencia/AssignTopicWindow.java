@@ -29,7 +29,7 @@ import javax.swing.JScrollPane;
  */
 public class AssignTopicWindow extends javax.swing.JFrame {
 
-    private List<String> myTopics;
+    private final List<String> myTopics;
     
 
     /**

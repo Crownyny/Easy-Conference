@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
+import java.awt.CardLayout;
 import java.util.HashMap;
 import javax.swing.JCheckBox;
 
@@ -25,31 +27,19 @@ import javax.swing.JCheckBox;
 public class ListConferencesWindow extends ListWindow {
 
     private final StorageService<Conference> objStorageService;
+    private  MainAdminWindow adminWindow;
 
     /**
      * Creates new form VtnListarArticulos
+     * @param adminWindow
      * @param objStorageService
      */
     public ListConferencesWindow(MainAdminWindow adminWindow, StorageService<Conference> objStorageService) {
         super("Listado de Conferencias", "Registrar Conferencias", 
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
         this.objStorageService=objStorageService;
-
-        //Create the storage services related to the conference (CODE COULD BE GENERIC WITH TEST SIMILAR CODE)
-        //We use a HASHMAP to prevent conflicts to include more events
-        HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
-        
-        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
-        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
-        serviceMap.put(Organizer.class, organizerService);
-
-        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
-        StorageService<Article> articleService = new StorageService<>(articleRepository);
-        serviceMap.put(Article.class, articleService);
-        
-        for (Class<?> entityType : serviceMap.keySet()) {
-            adminWindow.associateService(entityType, serviceMap.get(entityType));
-        }
+        this.adminWindow = adminWindow;
+        //this.adminWindow = adminWindow;
     }
     
     /**
@@ -115,8 +105,31 @@ public class ListConferencesWindow extends ListWindow {
             };
             model.addRow(row);
         }
+        
+    ButtonClickListener listener = (int row) -> {
+        Conference selectedConference = conferenceList.get(row);
+        ArrayList<Article> articles = (ArrayList<Article>) selectedConference.getArticles();
+        ArrayList<Organizer> organizers = (ArrayList<Organizer>) selectedConference.getOrganizers();
+        HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
+        
+        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>(articles);
+        StorageService<Article> articleService = new StorageService<>(articleRepository);
+        serviceMap.put(Article.class, articleService);
+        
+        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>(organizers);
+        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
+        serviceMap.put(Organizer.class, organizerService);
+        
+        for (Class<?> entityType : serviceMap.keySet()) {
+            adminWindow.associateService(entityType, serviceMap.get(entityType));
+        }
+        
+        adminWindow.showPanel("conferencePanel");
+        setVisible(false);
+    };
+    
     table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-    table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table));
+    table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
 
     }
     
