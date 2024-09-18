@@ -26,14 +26,18 @@ public class RegisterOrganizerWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterOrganizerWindow (StorageService<Organizer> objStorageService) {
+        super(new JLabel("Registrar Organizador"), createInputFields());
+        this.objStorageService = objStorageService;
+    }
+    
+    private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
         inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
-        
-        super(new JLabel("Registrar Organizador"), inputFields);
-        this.objStorageService = objStorageService;
+        return inputFields;
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

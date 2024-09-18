@@ -194,7 +194,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
         int panelSouthHeight = (int) (screenHeight * 0.1);
         panelSouth.setPreferredSize(new Dimension(screenSize.width, panelSouthHeight));
         JLabel logoLabel = new JLabel("");
-        setOrgIcon(logoLabel, "/recursos/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
+        setOrgIcon(logoLabel, "/resources/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
         panelSouth.add(logoLabel, gbc);
 
         // Add panels to the content pane
