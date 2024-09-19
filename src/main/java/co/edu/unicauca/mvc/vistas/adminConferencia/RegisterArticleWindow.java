@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
@@ -83,8 +84,9 @@ public class RegisterArticleWindow extends RegisterWindow {
         
  
         Article article = new Article(values.get(0), values.get(1));
-        MemoryArrayListRepository<Author> conferenceRepository = new MemoryArrayListRepository<>();
-        if (objStorageService.store(new ArticleManagementService(article, conferenceRepository)))
+        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
+        MemoryArrayListRepository<Evaluator> evaluatorRepository = new MemoryArrayListRepository<>();
+        if (objStorageService.store(new ArticleManagementService(article, authorRepository,evaluatorRepository)))
             Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
         else
             Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");

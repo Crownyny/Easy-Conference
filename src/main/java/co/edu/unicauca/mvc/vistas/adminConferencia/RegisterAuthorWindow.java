@@ -76,7 +76,7 @@ public class RegisterAuthorWindow extends RegisterWindow {
         
         try{
             float id = Float.parseFloat(values.get(2));
-            Author author = new Author(values.get(0),values.get(1), id, values.get(3));
+            Author author = new Author(values.get(0),values.get(1), values.get(3), id);
 
             if (objStorageService.store(author))
                 Utilities.successMessage("El registro del autor fue exitoso", "Registro exitoso");

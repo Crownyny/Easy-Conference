@@ -34,6 +34,7 @@ public class RegisterOrganizerWindow extends RegisterWindow {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Mail:", new FieldConfig(new JTextField(20)));
         inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
         return inputFields;
     }
@@ -73,7 +74,7 @@ public class RegisterOrganizerWindow extends RegisterWindow {
             .map(JTextField::getText)
             .forEach(values::add);
 
-            Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2));
+            Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
 
             if (objStorageService.store(organizer)) 
                 Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");

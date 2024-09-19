@@ -263,7 +263,7 @@ public class ListAuthorWindow extends javax.swing.JFrame {
                 author.getFirstName(),
                 author.getLastName(),
                 author.getId() + "",
-                author.getEmail()
+                author.getMail()
             };
             model.addRow(row);
         }

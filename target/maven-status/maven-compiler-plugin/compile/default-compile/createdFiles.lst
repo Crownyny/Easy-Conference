@@ -1,3 +1,4 @@
+co\edu\unicauca\mvc\models\User.class
 co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow$1.class
 co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow$2.class
@@ -11,6 +12,7 @@ co\edu\unicauca\mvc\controllers\ArticleManagementService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.class
 co\edu\unicauca\mvc\controllers\StorageService.class
 co\edu\unicauca\mvc\controllers\ConferenceManagementService.class
+co\edu\unicauca\mvc\models\Evaluator.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$2.class
 co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.class
