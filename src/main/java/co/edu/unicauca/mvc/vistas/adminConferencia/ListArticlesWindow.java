@@ -1,10 +1,12 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Article;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -12,15 +14,16 @@ import co.edu.unicauca.mvc.models.Article;
  */
 public class ListArticlesWindow extends ListWindow {
     
-    private final StorageService<Article> objStorageService;
+    private final StorageService<ArticleManagementService> objStorageService;
 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
-    public ListArticlesWindow(StorageService<Article> objStorageService) {
-        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Autores", "Cantidad de autores", "Revista"});
+    public ListArticlesWindow(StorageService<ArticleManagementService> objStorageService) {
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista"});
         this.objStorageService = objStorageService;
+        System.out.println("ENTRAAAAA");
     }
 
     /**
@@ -70,7 +73,9 @@ public class ListArticlesWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         clearTable();
-        ArrayList<Article> articleList = (ArrayList<Article>) this.objStorageService.listAll();
+        ArrayList<Article> articleList = objStorageService.listAll().stream()
+            .map(ArticleManagementService::getArticle)
+            .collect(Collectors.toCollection(ArrayList::new));
 
         for (int i = 0; i < articleList.size(); i++) {
             String[] row = { 

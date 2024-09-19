@@ -7,8 +7,10 @@ co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.class
 co\edu\unicauca\mvc\models\Organizer.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$1.class
 co\edu\unicauca\mvc\vistas\util\ButtonClickListener.class
+co\edu\unicauca\mvc\controllers\ArticleManagementService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.class
 co\edu\unicauca\mvc\controllers\StorageService.class
+co\edu\unicauca\mvc\controllers\ConferenceManagementService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$2.class
 co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.class

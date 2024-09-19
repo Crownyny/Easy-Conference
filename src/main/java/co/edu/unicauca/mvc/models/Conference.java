@@ -11,8 +11,6 @@ public class Conference {
     private float registrationCost;
     private String location;
     private List<String> topics;
-    private List<Organizer> organizers;
-    private List<Article> articles;
 
     public Conference(String name, Date startDate, Date endDate, float registrationCost, String location, List<String> topics) {
         this.name = name;
@@ -21,8 +19,6 @@ public class Conference {
         this.registrationCost = registrationCost;
         this.location = location;
         this.topics = topics;
-        this.organizers = new ArrayList<>();
-        this.articles = new ArrayList<>();
     }
 
     public String getName() {
@@ -72,28 +68,12 @@ public class Conference {
     public void setTopics(List<String> topics) {
         this.topics = topics;
     }
-    
+
     public String topicsToString() {
-    if (topics.isEmpty()) 
-        return ""; 
-    
-    return String.join(", ", topics);
-    }
+        if (topics.isEmpty()) 
+            return ""; 
 
-    public List<Organizer> getOrganizers() {
-        return organizers;
-    }
-
-    public void setOrganizers(List<Organizer> organizers) {
-        this.organizers = organizers;
-    }
-
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
+        return String.join(", ", topics);
     }
 
 }

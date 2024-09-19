@@ -4,6 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ import javax.swing.JFrame;
  */
 public class RegisterArticleWindow extends RegisterWindow {
     
-    private final StorageService<Article> objStorageService;
+    private final StorageService<ArticleManagementService> objStorageService;
     private final StorageService<Author> authors; 
 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
-    public RegisterArticleWindow (StorageService<Article> objStorageService) {
+    public RegisterArticleWindow (StorageService<ArticleManagementService> objStorageService) {
         super(new JLabel("Registrar Articulo"), createInputFields());
         MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
         authors = new StorageService<>(authorRepository);
@@ -81,9 +82,9 @@ public class RegisterArticleWindow extends RegisterWindow {
             .forEach(values::add);
         
  
-        Article article = new Article(values.get(0),authors.listAll(), values.get(1));
-
-        if (objStorageService.store(article))
+        Article article = new Article(values.get(0), values.get(1));
+        MemoryArrayListRepository<Author> conferenceRepository = new MemoryArrayListRepository<>();
+        if (objStorageService.store(new ArticleManagementService(article, conferenceRepository)))
             Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
         else
             Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");

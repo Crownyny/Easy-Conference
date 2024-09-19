@@ -9,8 +9,8 @@ public class StorageService<T> extends Subject{
     
     private final InterfaceRepository repositoryReference;
     
-    public StorageService(InterfaceRepository articleRepositoryReference, Observer ...observers) {
-        this.repositoryReference = articleRepositoryReference;
+    public StorageService(InterfaceRepository repositoryConference, Observer ...observers) {
+        this.repositoryReference = repositoryConference;
         for(Observer observer : observers)
             this.addObserver(observer);
     }

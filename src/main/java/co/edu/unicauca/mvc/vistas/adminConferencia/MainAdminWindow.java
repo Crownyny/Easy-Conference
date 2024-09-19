@@ -1,6 +1,8 @@
 
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Conference;
@@ -50,15 +52,17 @@ public class MainAdminWindow extends javax.swing.JFrame {
         removeInternalFrameForService(serviceClass);
         relateInternalFramesToDesktopPane();
     }
-
+    
     private void removeInternalFrameForService(Class<?> serviceClass) {
-        if (serviceClass.equals(Conference.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
+        if (serviceClass.equals(ConferenceManagementService.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListConferencesWindow.class));
             internalFrames.remove(ListConferencesWindow.class);
+        
         } else if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(ListOrganizersWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListOrganizersWindow.class));
             internalFrames.remove(ListOrganizersWindow.class);
-        } else if (serviceClass.equals(Article.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
+        
+        } else if (serviceClass.equals(ArticleManagementService.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListArticlesWindow.class));
             internalFrames.remove(ListArticlesWindow.class);
         }
@@ -74,10 +78,10 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
         mainDesktopPane.add(internalFrames.get(ViewStatisticsWindow.class));
 
-        if (services.containsKey(Conference.class)) {
+        if (services.containsKey(ConferenceManagementService.class)) {
             if (!internalFrames.containsKey(ListConferencesWindow.class)) {
                 internalFrames.put(ListConferencesWindow.class, 
-                    new ListConferencesWindow(this, (StorageService<Conference>) services.get(Conference.class)));
+                    new ListConferencesWindow(this, (StorageService<ConferenceManagementService>) services.get(ConferenceManagementService.class)));
             }
             mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
         }
@@ -90,10 +94,11 @@ public class MainAdminWindow extends javax.swing.JFrame {
             mainDesktopPane.add(internalFrames.get(ListOrganizersWindow.class));
         }
 
-        if (services.containsKey(Article.class)) {
+        if (services.containsKey(ArticleManagementService.class)) {
             if (!internalFrames.containsKey(ListArticlesWindow.class)) {
                 internalFrames.put(ListArticlesWindow.class, 
-                    new ListArticlesWindow((StorageService<Article>) services.get(Article.class)));
+                    new ListArticlesWindow((StorageService<ArticleManagementService>) services.get(ArticleManagementService.class)));
+
             }
             mainDesktopPane.add(internalFrames.get(ListArticlesWindow.class));
         }
@@ -166,11 +171,18 @@ public class MainAdminWindow extends javax.swing.JFrame {
         String[] mainPanelLabels = {"Gestionar conferencias"};
         ActionListener[] mainPanelActions = {e -> setVisibility(VisibilityState.LIST_CONFERENCES)};
 
-        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas"};
+        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
         ActionListener[] conferencePanelActions = {
             e -> setVisibility(VisibilityState.LIST_ORGANIZERS),
-            e -> setVisibility(VisibilityState.LIST_ARTICLES),
-            e -> setVisibility(VisibilityState.VIEW_STATISTICS)
+            e -> {
+                setVisibility(VisibilityState.LIST_ARTICLES);
+                System.out.println("ENtrooooooooo");
+                        },
+            e -> setVisibility(VisibilityState.VIEW_STATISTICS),
+            e -> {
+                setVisibility(VisibilityState.NONE);
+                showPanel("mainPanel");
+            }
         };
 
         // Create and add panels to CardLayout

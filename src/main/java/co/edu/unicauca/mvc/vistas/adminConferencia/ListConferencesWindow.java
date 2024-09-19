@@ -4,8 +4,9 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Article;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,8 +17,7 @@ import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
-import java.awt.CardLayout;
-import java.util.HashMap;
+import java.util.stream.Collectors;
 import javax.swing.JCheckBox;
 
 /**
@@ -26,15 +26,15 @@ import javax.swing.JCheckBox;
  */
 public class ListConferencesWindow extends ListWindow {
 
-    private final StorageService<Conference> objStorageService;
-    private  MainAdminWindow adminWindow;
+    private final StorageService<ConferenceManagementService> objStorageService;
+    private final  MainAdminWindow adminWindow;
 
     /**
      * Creates new form VtnListarArticulos
      * @param adminWindow
      * @param objStorageService
      */
-    public ListConferencesWindow(MainAdminWindow adminWindow, StorageService<Conference> objStorageService) {
+    public ListConferencesWindow(MainAdminWindow adminWindow, StorageService<ConferenceManagementService> objStorageService) {
         super("Listado de Conferencias", "Registrar Conferencias", 
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
         this.objStorageService=objStorageService;
@@ -90,7 +90,10 @@ public class ListConferencesWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         clearTable();
-        ArrayList<Conference> conferenceList = (ArrayList<Conference>) objStorageService.listAll();
+        ArrayList<Conference> conferenceList = objStorageService.listAll().stream()
+            .map(ConferenceManagementService::getConference)
+            .collect(Collectors.toCollection(ArrayList::new));
+        
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < conferenceList.size(); i++) {
@@ -106,30 +109,23 @@ public class ListConferencesWindow extends ListWindow {
             model.addRow(row);
         }
         
-    ButtonClickListener listener = (int row) -> {
-        Conference selectedConference = conferenceList.get(row);
-        ArrayList<Article> articles = (ArrayList<Article>) selectedConference.getArticles();
-        ArrayList<Organizer> organizers = (ArrayList<Organizer>) selectedConference.getOrganizers();
-        HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
-        
-        MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>(articles);
-        StorageService<Article> articleService = new StorageService<>(articleRepository);
-        serviceMap.put(Article.class, articleService);
-        
-        MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>(organizers);
-        StorageService<Organizer> organizerService = new StorageService<>(organizerRepository);
-        serviceMap.put(Organizer.class, organizerService);
-        
-        for (Class<?> entityType : serviceMap.keySet()) {
-            adminWindow.associateService(entityType, serviceMap.get(entityType));
-        }
-        
-        adminWindow.showPanel("conferencePanel");
-        setVisible(false);
-    };
-    
-    table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-    table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
+        ButtonClickListener listener = (int row) -> {
+            Conference selectedConference = conferenceList.get(row);
+            ConferenceManagementService conferenceManager = objStorageService.listAll().stream()
+                        .filter(conferenceMngr -> conferenceMngr.getConference().equals(selectedConference))
+                        .findFirst()
+                        .orElse(null);
+            
+            
+
+            adminWindow.associateService(Organizer.class, conferenceManager.getOrganizerService());
+            adminWindow.associateService(ArticleManagementService.class, conferenceManager.getArticleService());
+            adminWindow.showPanel("conferencePanel");
+            setVisible(false);
+        };
+
+        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
 
     }
     

@@ -4,6 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Article;
@@ -20,24 +21,24 @@ import co.edu.unicauca.mvc.utilities.Utilities;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.text.NumberFormatter;
 /**
  *
  * @author Default
  */
 public class RegisterConferenceWindow extends RegisterWindow {
     
-    private final StorageService<Conference> objStorageService;
+    private final StorageService<ConferenceManagementService> objStorageService;
     private final ArrayList<String> topics; 
     /**
      * Creates new form VtnListarArticulos
      * @param adminWindow
      * @param objStorageService
      */
-    public RegisterConferenceWindow ( StorageService<Conference> objStorageService) {
+    public RegisterConferenceWindow ( StorageService<ConferenceManagementService> objStorageService) {
         super(new JLabel("Registrar Conferencia"), createInputFields());
         topics = new ArrayList<>();
         this.objStorageService = objStorageService;
@@ -46,23 +47,32 @@ public class RegisterConferenceWindow extends RegisterWindow {
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         JDateChooser startDate = new JDateChooser();
         startDate.setDateFormatString("dd/MM/yyyy");
-        
+
         JDateChooser endDate = new JDateChooser();
         endDate.setDateFormatString("dd/MM/yyyy");
+
         
         NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-        JFormattedTextField numberField = new JFormattedTextField(numberFormat);
-        numberField.setColumns(9);
+        NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setAllowsInvalid(false); 
+        numberFormatter.setMinimum(0); 
+
         
+        JFormattedTextField numberField = new JFormattedTextField(numberFormatter);
+        numberField.setColumns(9);
+
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));
-        inputFields.put("Costo de inscripcion':", new FieldConfig(numberField));
+        inputFields.put("Costo de inscripcion:", new FieldConfig(numberField));
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
+
         return inputFields;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,8 +138,11 @@ public class RegisterConferenceWindow extends RegisterWindow {
 
             float cost = Float.parseFloat(values.get(3));
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),topics);
-
-            if (objStorageService.store(conference)) {
+            
+            MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
+            MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
+            
+            if (objStorageService.store(new ConferenceManagementService(conference, organizerRepository, articleRepository))) {
                 Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
             } else {
                 Utilities.errorMessage("El registro de la conferencia no se realizó", "Error en el registro");

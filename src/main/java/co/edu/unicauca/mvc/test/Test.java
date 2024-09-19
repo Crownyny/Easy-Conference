@@ -1,5 +1,6 @@
 package co.edu.unicauca.mvc.test;
 
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Conference;
@@ -22,9 +23,9 @@ public class Test {
            
         HashMap<Class<?>, StorageService<?>> serviceMap = new HashMap<>();
 
-        MemoryArrayListRepository<Conference> conferenceRepository = new MemoryArrayListRepository<>();
-        StorageService<Conference> conferenceService = new StorageService<>(conferenceRepository);
-        serviceMap.put(Conference.class, conferenceService);
+        MemoryArrayListRepository<ConferenceManagementService> conferenceRepository = new MemoryArrayListRepository<>();
+        StorageService<ConferenceManagementService> conferenceService = new StorageService<>(conferenceRepository);
+        serviceMap.put(ConferenceManagementService.class, conferenceService);
 
         // Associate all services with the 6admin window
         MainAdminWindow adminWindow = new MainAdminWindow();
