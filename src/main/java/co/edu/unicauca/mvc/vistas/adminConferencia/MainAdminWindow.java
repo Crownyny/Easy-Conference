@@ -194,7 +194,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
         int panelSouthHeight = (int) (screenHeight * 0.1);
         panelSouth.setPreferredSize(new Dimension(screenSize.width, panelSouthHeight));
         JLabel logoLabel = new JLabel("");
-        setOrgIcon(logoLabel, "/recursos/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
+        setOrgIcon(logoLabel, "/resources/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
         panelSouth.add(logoLabel, gbc);
 
         // Add panels to the content pane
@@ -206,12 +206,12 @@ public class MainAdminWindow extends javax.swing.JFrame {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                adjustFontSize(titleLabel, buttonsMainPanel);
+                adjustFontSize(titleLabel, buttonsMainPanel, buttonsConferencePanel);
             }
         });
     }
-
-    private void adjustFontSize(JLabel label, JPanel buttonsMainPanel) {
+    
+    private void adjustFontSize(JLabel label, JPanel... panels) {
         // Get current window size
         int width = this.getWidth();
         int height = this.getHeight();
@@ -220,19 +220,22 @@ public class MainAdminWindow extends javax.swing.JFrame {
         int titleFontSize = Math.min(width, height) / 30; 
         label.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
 
-        // Adjust button font size
-        Component[] components = buttonsMainPanel.getComponents();
+        // Adjust button font size for each panel
         int buttonFontSize = Math.min(width, height) / 48; 
-        for (Component component : components) {
-            if (component instanceof JButton button) {
-                button.setFont(new Font("Cascadia Code", Font.PLAIN, buttonFontSize));
+        for (JPanel panel : panels) {
+            Component[] components = panel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JButton button) {
+                    button.setFont(new Font("Cascadia Code", Font.PLAIN, buttonFontSize));
+                }
             }
-        }
 
-        // Revalidate and repaint to update layout and centering
-        buttonsMainPanel.revalidate();
-        buttonsMainPanel.repaint();
+            // Revalidate and repaint to update layout and centering for each panel
+            panel.revalidate();
+            panel.repaint();
+        }
     }
+
 
     private void setOrgIcon(JLabel label, String source, String text, int fontsize, Color textColor) {
         Image img1 = new ImageIcon(getClass().getResource(source)).getImage();
