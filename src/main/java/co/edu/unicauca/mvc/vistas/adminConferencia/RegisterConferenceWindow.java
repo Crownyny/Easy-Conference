@@ -38,6 +38,12 @@ public class RegisterConferenceWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterConferenceWindow ( StorageService<Conference> objStorageService) {
+        super(new JLabel("Registrar Conferencia"), createInputFields());
+        topics = new ArrayList<>();
+        this.objStorageService = objStorageService;
+    }
+    
+    private static LinkedHashMap<String, FieldConfig> createInputFields() {
         JDateChooser startDate = new JDateChooser();
         startDate.setDateFormatString("dd/MM/yyyy");
         
@@ -55,12 +61,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
         inputFields.put("Costo de inscripcion':", new FieldConfig(numberField));
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
-        
-        super(new JLabel("Registrar Conferencia"), inputFields);
-        topics = new ArrayList<>();
-        this.objStorageService = objStorageService;
-        
-     
+        return inputFields;
     }
 
     /**

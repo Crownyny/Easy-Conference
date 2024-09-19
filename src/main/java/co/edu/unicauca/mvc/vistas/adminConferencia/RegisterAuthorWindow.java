@@ -25,13 +25,17 @@ public class RegisterAuthorWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterAuthorWindow(StorageService<Author> objStorageService) {
+        super(new JLabel("Registrar Autor"), createInputFields());
+        this.objStorageService = objStorageService;
+    }
+    
+    private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
         inputFields.put("Id:", new FieldConfig(new JTextField(10)));
         inputFields.put("Mail:", new FieldConfig(new JTextField(30)));
-        super(new JLabel("Registrar Autor"), inputFields);
-        this.objStorageService = objStorageService;
+        return inputFields;
     }
 
     /**

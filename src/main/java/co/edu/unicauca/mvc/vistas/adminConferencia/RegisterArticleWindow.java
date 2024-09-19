@@ -31,14 +31,18 @@ public class RegisterArticleWindow extends RegisterWindow {
      * @param objStorageService
      */
     public RegisterArticleWindow (StorageService<Article> objStorageService) {
+        super(new JLabel("Registrar Articulo"), createInputFields());
+        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
+        authors = new StorageService<>(authorRepository);
+        this.objStorageService = objStorageService;
+    }
+    
+    private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
-        super(new JLabel("Registrar Articulo"), inputFields);
-        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
-        authors = new StorageService<>(authorRepository);
-        this.objStorageService = objStorageService;
+        return inputFields;
     }
 
     /**
