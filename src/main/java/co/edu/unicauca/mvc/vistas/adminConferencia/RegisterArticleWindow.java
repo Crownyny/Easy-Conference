@@ -86,7 +86,8 @@ public class RegisterArticleWindow extends RegisterWindow {
         Article article = new Article(values.get(0), values.get(1));
         MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
         MemoryArrayListRepository<Evaluator> evaluatorRepository = new MemoryArrayListRepository<>();
-        if (objStorageService.store(new ArticleManagementService(article, authorRepository,evaluatorRepository)))
+        if (objStorageService.store(new ArticleManagementService(article, authors,
+                new StorageService<Evaluator>(evaluatorRepository))))
             Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
         else
             Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
@@ -99,7 +100,6 @@ public class RegisterArticleWindow extends RegisterWindow {
             new ListAuthorWindow(this.authors);
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objAuthorWindow.setVisible(true);     
-        System.out.println("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

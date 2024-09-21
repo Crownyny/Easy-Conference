@@ -20,11 +20,11 @@ import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
-import java.text.NumberFormat;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.text.NumberFormatter;
 /**
  *
  * @author Default
@@ -35,7 +35,6 @@ public class RegisterConferenceWindow extends RegisterWindow {
     private final ArrayList<String> topics; 
     /**
      * Creates new form VtnListarArticulos
-     * @param adminWindow
      * @param objStorageService
      */
     public RegisterConferenceWindow ( StorageService<ConferenceManagementService> objStorageService) {
@@ -51,16 +50,41 @@ public class RegisterConferenceWindow extends RegisterWindow {
         JDateChooser endDate = new JDateChooser();
         endDate.setDateFormatString("dd/MM/yyyy");
 
-        
-        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-        NumberFormatter numberFormatter = new NumberFormatter(numberFormat);
-        numberFormatter.setValueClass(Integer.class);
-        numberFormatter.setAllowsInvalid(false); 
-        numberFormatter.setMinimum(0); 
+        int maxLength = 9; 
+        JFormattedTextField numberField = new JFormattedTextField();
+        numberField.setColumns(maxLength);
 
-        
-        JFormattedTextField numberField = new JFormattedTextField(numberFormatter);
-        numberField.setColumns(9);
+        numberField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+                String text = numberField.getText();
+
+                if (ch == KeyEvent.VK_BACK_SPACE) {
+                    return;
+                }
+
+                if ((text.isEmpty() && ch == '0') || !Character.isDigit(ch) 
+                        || (text.length() >= maxLength))
+                {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    if (!numberField.getText().isEmpty()) {
+                        int value = Integer.parseInt(numberField.getText());
+                        if (value < 0) {
+                            numberField.setText("0");
+                        }
+                    }
+                } catch (NumberFormatException ex) {
+                    numberField.setText("0");
+                }
+            }
+        });
 
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
@@ -69,7 +93,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
         inputFields.put("Costo de inscripcion:", new FieldConfig(numberField));
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
-
+        
         return inputFields;
     }
 

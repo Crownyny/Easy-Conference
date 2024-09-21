@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.models.Article;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -39,7 +34,6 @@ public class ListConferencesWindow extends ListWindow {
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
         this.objStorageService=objStorageService;
         this.adminWindow = adminWindow;
-        //this.adminWindow = adminWindow;
     }
     
     /**
@@ -115,8 +109,6 @@ public class ListConferencesWindow extends ListWindow {
                         .filter(conferenceMngr -> conferenceMngr.getConference().equals(selectedConference))
                         .findFirst()
                         .orElse(null);
-            
-            
 
             adminWindow.associateService(Organizer.class, conferenceManager.getOrganizerService());
             adminWindow.associateService(ArticleManagementService.class, conferenceManager.getArticleService());

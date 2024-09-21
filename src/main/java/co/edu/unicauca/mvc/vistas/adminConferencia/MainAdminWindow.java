@@ -6,6 +6,7 @@ import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.models.Organizer;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -97,11 +98,12 @@ public class MainAdminWindow extends javax.swing.JFrame {
         if (services.containsKey(ArticleManagementService.class)) {
             if (!internalFrames.containsKey(ListArticlesWindow.class)) {
                 internalFrames.put(ListArticlesWindow.class, 
-                    new ListArticlesWindow((StorageService<ArticleManagementService>) services.get(ArticleManagementService.class)));
+                    new ListArticlesWindow( (StorageService<ArticleManagementService>) services.get(ArticleManagementService.class)));
 
             }
             mainDesktopPane.add(internalFrames.get(ListArticlesWindow.class));
         }
+        
     }
 
     public MainAdminWindow() {

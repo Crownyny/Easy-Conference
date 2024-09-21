@@ -1,7 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.models.Article;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;

@@ -10,6 +10,7 @@ C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\m
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\test\Test.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterEvaluatorWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonClickListener.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonRenderer.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.java
@@ -25,6 +26,7 @@ C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\m
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\User.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListOrganizersWindow.java

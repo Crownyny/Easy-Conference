@@ -4,9 +4,12 @@ co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow$2.class
 co\edu\unicauca\mvc\models\Author.class
 co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.class
+co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow$2.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.class
+co\edu\unicauca\mvc\vistas\adminConferencia\RegisterEvaluatorWindow.class
 co\edu\unicauca\mvc\models\Organizer.class
 co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow$1.class
+co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow$1.class
 co\edu\unicauca\mvc\vistas\util\ButtonClickListener.class
 co\edu\unicauca\mvc\controllers\ArticleManagementService.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.class
@@ -29,9 +32,11 @@ co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow$1.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow$1.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow$1.class
 co\edu\unicauca\mvc\vistas\util\ButtonEditor.class
+co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.class
 co\edu\unicauca\mvc\models\Conference.class
+co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow$1.class
 co\edu\unicauca\mvc\infrastructure\Subject.class
 co\edu\unicauca\mvc\models\Article.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.class

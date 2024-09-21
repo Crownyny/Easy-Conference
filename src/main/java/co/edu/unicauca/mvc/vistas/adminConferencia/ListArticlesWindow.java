@@ -2,11 +2,15 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.models.Evaluator;
+import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
+import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
+import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
 import java.util.ArrayList;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
-import co.edu.unicauca.mvc.models.Article;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -18,12 +22,12 @@ public class ListArticlesWindow extends ListWindow {
 
     /**
      * Creates new form VtnListarArticulos
+     * @param adminWindow
      * @param objStorageService
      */
-    public ListArticlesWindow(StorageService<ArticleManagementService> objStorageService) {
-        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista"});
+    public ListArticlesWindow( StorageService<ArticleManagementService> objStorageService) {
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"});
         this.objStorageService = objStorageService;
-        System.out.println("ENTRAAAAA");
     }
 
     /**
@@ -73,17 +77,36 @@ public class ListArticlesWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         clearTable();
-        ArrayList<Article> articleList = objStorageService.listAll().stream()
-            .map(ArticleManagementService::getArticle)
-            .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<ArticleManagementService> articleList = (ArrayList<ArticleManagementService>) objStorageService.listAll();
+        
 
-        for (int i = 0; i < articleList.size(); i++) {
+        for (int i = 0; i < articleList.size(); i++) 
+        {
+            for (Author autor : articleList.get(i).getAuthorService().listAll())
+            {
+                System.out.println("auTHOR");          
+            }
+
             String[] row = { 
-                articleList.get(i).getTitle(),  
-                articleList.get(i).getJournal()
+                articleList.get(i).getArticle().getTitle(),  
+                articleList.get(i).getArticle().getJournal(),
+                articleList.get(i).getAuthorService().listAll().size()+"",
+                "Seleccionar"
             };
             model.addRow(row);
         }
+        
+        ButtonClickListener listener = (int row) -> {
+            ArticleManagementService selectedArticleManager = articleList.get(row);
+
+            ListEvaluatorWindow objEvaluatorWindow =
+                new ListEvaluatorWindow(selectedArticleManager.getEvaluatorService());
+            objEvaluatorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            objEvaluatorWindow.setVisible(true);     
+        };
+
+        table.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
