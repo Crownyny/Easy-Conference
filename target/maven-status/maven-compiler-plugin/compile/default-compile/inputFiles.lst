@@ -1,38 +1,39 @@
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterArticleWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ArticleManagementService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonEditor.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\test\Test.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterEvaluatorWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonClickListener.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonRenderer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\FieldConfig.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\StorageService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Evaluator.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Conference.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListConferencesWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Article.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\User.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListOrganizersWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Author.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\autorPublicacion\VtnPrincipalAutor.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ConferenceManagementService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterOrganizerWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListEvaluatorWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/dataAccess/InterfaceRepository.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterEvaluatorWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/Evaluator.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/autorPublicacion/VtnPrincipalAutor.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListConferencesWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/util/ButtonEditor.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterAuthorWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/utilities/FieldConfig.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListAuthorWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/Article.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/Conference.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/util/ButtonRenderer.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/User.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ViewStatisticsWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListArticlesWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/ListOrganizersWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/AssignTopicWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/controllers/ConferenceManagementService.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/MainAdminWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterArticleWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/infrastructure/Observer.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/dataAccess/MemoryArrayListRepository.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/Author.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/utilities/LoadImages.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/utilities/CustomScrollBarUI.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/models/Organizer.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/infrastructure/Subject.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/asistente/VtnPrincipalAsistente.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/controllers/ArticleManagementService.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/dataAccess/MemoryLinkedListRepository.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/utilities/Utilities.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/adminConferencia/RegisterConferenceWindow.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/test/Test.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/controllers/StorageService.java
+/home/david/Easy-Conference/src/main/java/co/edu/unicauca/mvc/vistas/util/ButtonClickListener.java
