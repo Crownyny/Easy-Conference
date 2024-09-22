@@ -1,49 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import java.util.ArrayList;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import co.edu.unicauca.mvc.models.Article;
-import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Default
  */
-public class RegisterArticleWindow extends RegisterWindow {
+public class RegisterEvaluatorWindow extends RegisterWindow {
     
-    private final StorageService<ArticleManagementService> objStorageService;
-    private final StorageService<Author> authors; 
-
+    private final StorageService<Evaluator> objStorageService;
     /**
-     * Creates new form VtnListarArticulos
+     * Creates new form RegisterAuthorWindow
      * @param objStorageService
      */
-    public RegisterArticleWindow (StorageService<ArticleManagementService> objStorageService) {
-        super(new JLabel("Registrar Articulo"), createInputFields());
-        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
-        authors = new StorageService<>(authorRepository);
+    public RegisterEvaluatorWindow(StorageService<Evaluator> objStorageService) {
+        super(new JLabel("Registrar Evaluador"), createInputFields());
         this.objStorageService = objStorageService;
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
-        inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
+        inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Mail::", new FieldConfig(new JTextField(10)));
+        inputFields.put("Afiliation:", new FieldConfig(new JTextField(30)));
         return inputFields;
     }
 
@@ -71,7 +58,7 @@ public class RegisterArticleWindow extends RegisterWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+     
     @Override
     protected void registerAction() {
         ArrayList<String> values = new ArrayList<>();
@@ -82,23 +69,16 @@ public class RegisterArticleWindow extends RegisterWindow {
             .map(JTextField::getText)
             .forEach(values::add);
         
- 
-        Article article = new Article(values.get(0), values.get(1));
-        MemoryArrayListRepository<Evaluator> evaluatorRepository = new MemoryArrayListRepository<>();
-        if (objStorageService.store(new ArticleManagementService(article, authors,
-                new StorageService<>(evaluatorRepository))))
-            Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
-        else
-            Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
+        try{
+            Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));
 
-    }
-
-    @Override
-    protected void extraButtonAction() {
-        ListAuthorWindow objAuthorWindow =
-            new ListAuthorWindow(this.authors);
-        objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        objAuthorWindow.setVisible(true);     
+            if (objStorageService.store(evaluator))
+                Utilities.successMessage("El registro del autor fue exitoso", "Registro exitoso");
+            else
+                Utilities.successMessage("El registro del autor no se realizo", "Error en el registro");
+        } catch (NumberFormatException ex) {
+            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
