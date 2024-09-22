@@ -32,14 +32,14 @@ import javax.swing.JFrame;
 public class RegisterConferenceWindow extends RegisterWindow {
     
     private final StorageService<ConferenceManagementService> objStorageService;
-    private final ArrayList<String> topics; 
+    private final ArrayList<String> selectedTopics; 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
     public RegisterConferenceWindow ( StorageService<ConferenceManagementService> objStorageService) {
         super(new JLabel("Registrar Conferencia"), createInputFields());
-        topics = new ArrayList<>();
+        selectedTopics = new ArrayList<>();
         this.objStorageService = objStorageService;
     }
     
@@ -154,14 +154,14 @@ public class RegisterConferenceWindow extends RegisterWindow {
                 return;
             }
             
-            if(topics.isEmpty())
+            if(selectedTopics.isEmpty())
             {
                 Utilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
                 return;
             }
 
             float cost = Float.parseFloat(values.get(3));
-            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),topics);
+            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
             
             MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
             MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
@@ -182,7 +182,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
     @Override
     protected void extraButtonAction() {
         AssignTopicWindow objTopicWindow =
-            new AssignTopicWindow(this.topics);
+            new AssignTopicWindow(this.selectedTopics);
         objTopicWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objTopicWindow.setVisible(true);       
     }

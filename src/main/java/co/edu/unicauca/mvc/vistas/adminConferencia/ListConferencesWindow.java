@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.vistas.panels.MainPanel;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
@@ -22,14 +23,14 @@ import javax.swing.JCheckBox;
 public class ListConferencesWindow extends ListWindow {
 
     private final StorageService<ConferenceManagementService> objStorageService;
-    private final  MainAdminWindow adminWindow;
+    private final  MainPanel adminWindow;
 
     /**
      * Creates new form VtnListarArticulos
      * @param adminWindow
      * @param objStorageService
      */
-    public ListConferencesWindow(MainAdminWindow adminWindow, StorageService<ConferenceManagementService> objStorageService) {
+    public ListConferencesWindow(MainPanel adminWindow, StorageService<ConferenceManagementService> objStorageService) {
         super("Listado de Conferencias", "Registrar Conferencias", 
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
         this.objStorageService=objStorageService;
@@ -112,7 +113,7 @@ public class ListConferencesWindow extends ListWindow {
 
             adminWindow.associateService(Organizer.class, conferenceManager.getOrganizerService());
             adminWindow.associateService(ArticleManagementService.class, conferenceManager.getArticleService());
-            adminWindow.showPanel("conferencePanel");
+            adminWindow.getCardManager().showPanel("conferencePanel");
             setVisible(false);
         };
 

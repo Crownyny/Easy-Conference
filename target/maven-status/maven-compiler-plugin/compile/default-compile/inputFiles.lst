@@ -2,10 +2,13 @@ C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\m
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainWindow.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\CardPanelManager.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterArticleWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ArticleManagementService.java
+C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\panels\MainPanel.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonEditor.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\test\Test.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.java
@@ -24,7 +27,6 @@ C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\m
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Article.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\User.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainAdminWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.java
