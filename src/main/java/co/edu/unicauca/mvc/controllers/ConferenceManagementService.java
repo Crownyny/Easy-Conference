@@ -1,7 +1,6 @@
 package co.edu.unicauca.mvc.controllers;
 
 import co.edu.unicauca.mvc.dataAccess.InterfaceRepository;
-import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
 import java.util.List;
@@ -11,7 +10,7 @@ public class ConferenceManagementService {
     private final StorageService<Organizer> organizerService;
     private final StorageService<ArticleManagementService> articleService;
 
-    public ConferenceManagementService(Conference conference,InterfaceRepository<Organizer> organzizerRepository, InterfaceRepository<Article> articleRepository) {
+    public ConferenceManagementService(Conference conference,InterfaceRepository<Organizer> organzizerRepository, InterfaceRepository<ArticleManagementService> articleRepository) {
         this.conference = conference;
         this.organizerService = new StorageService<>(organzizerRepository);
         this.articleService = new StorageService<>(articleRepository);
@@ -31,7 +30,7 @@ public class ConferenceManagementService {
              organizerService.store(organizer);
     }
     
-    public void storeOrganizer(ArticleManagementService ... articles)
+    public void storeArticle(ArticleManagementService ... articles)
     {
         for (ArticleManagementService article : articles)
             articleService.store(article);

@@ -3,7 +3,9 @@ package co.edu.unicauca.mvc.vistas.panels;
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListArticlesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListConferencesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListOrganizersWindow;
@@ -105,7 +107,6 @@ public class MainPanel extends JPanel{
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         createMainPanel(); 
     }
-
     
     
     private void createMainPanel() {

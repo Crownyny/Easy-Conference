@@ -2,10 +2,11 @@ package co.edu.unicauca.mvc.vistas.panels;
 
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.controllers.UserManagementService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -31,12 +32,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
-public class LoginPanel extends JPanel {
-    private final StorageService<User> users;
+public class LogInPanel extends JPanel {
+    private final StorageService<UserManagementService> users;
+    private final MainWindow adminWindow;
     private final Color errorColor = new Color(0xE81010);
 
-    public LoginPanel(StorageService<User> users) {
+    public LogInPanel( MainWindow adminWindow, StorageService<UserManagementService> users) {
         this.users = users;
+        this.adminWindow = adminWindow;
         createPanel();
     }
 
@@ -136,7 +139,24 @@ public class LoginPanel extends JPanel {
         gbc.weighty = 0.3;
         gbc.gridy = 4;
         int labelFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 27;
-        boxPanel.add(createLabel("No tienes una cuenta? Registrate!", labelFontSize), gbc);
+        JLabel accountLabel = createLabel("No tienes una cuenta? Registrate!", labelFontSize);
+        accountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                adminWindow.getCardManager().showPanel("signInPanel");
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                accountLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                accountLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        boxPanel.add(accountLabel, gbc);
     }
 
     private JPanel createRowPanel(Color color) 
@@ -269,7 +289,8 @@ public class LoginPanel extends JPanel {
         button.getParent().revalidate();
     }
 
-    private void loginAction(List<JTextField> inputs) {
+    private void loginAction(List<JTextField> inputs) 
+    {
         String email = inputs.get(0).getText();
         String password = inputs.get(1).getText();
         JTextField inputEmail = inputs.get(0);
@@ -290,13 +311,13 @@ public class LoginPanel extends JPanel {
             return;
         }
         
-        for (User user : users.listAll())
+        for (UserManagementService user : users.listAll())
         {
-            String userPassword = user.getPassword();
-            String userEmail = user.getMail();
+            String userPassword = user.getUser().getPassword();
+            String userEmail = user.getUser().getMail();
 
             if (password.equals(userPassword) & userEmail.equals(email)) {
-                changePanel();
+                setMainPanel();
                 return;
             }            
         }
@@ -310,17 +331,17 @@ public class LoginPanel extends JPanel {
         inputPassword.setForeground(errorColor);
         inputPassword.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
-
-    private void changePanel()
+    
+    private void setMainPanel()
     {
         MemoryArrayListRepository<ConferenceManagementService> conferenceRepository = new MemoryArrayListRepository<>();
         StorageService<ConferenceManagementService> conferenceService = new StorageService<>(conferenceRepository);
-        MainWindow adminWindow = new MainWindow();
         
         MainPanel mainPanel = (MainPanel) adminWindow.getCardManager().getPanel("mainPanel");
         mainPanel.associateService(ConferenceManagementService.class, conferenceService);
-        adminWindow.setVisible(true);
+        adminWindow.getCardManager().showPanel("mainPanel");
     }
+    
     public Dimension defineSize() 
     {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

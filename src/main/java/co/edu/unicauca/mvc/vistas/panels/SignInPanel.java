@@ -1,56 +1,171 @@
 package co.edu.unicauca.mvc.vistas.panels;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.controllers.UserManagementService;
+import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.User;
+import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
 
 public class SignInPanel extends JPanel
 {
-    private final StorageService<User> users;
+    private final MainWindow adminWindow;
+    private final StorageService<UserManagementService> users;
+    
+    private final Color errorColor = new Color(0xE81010);
+    private final String[] placeholders = {"  Nombres", "  Apellidos", "  Email", "  Contraseña" };
 
-    public SignInPanel(StorageService<User> users) {
+    public SignInPanel(MainWindow adminWindow, StorageService<UserManagementService> users) {
         this.users = users;
+        this.adminWindow = adminWindow;
         createPanel();
     }
-    
     private void createPanel() {
-        setBackground(new Color(0xD7EAF9));
-        setLayout(new GridBagLayout());
-        
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER; 
-        gbc.fill = GridBagConstraints.NONE; 
-        gbc.weightx = 1;
-        gbc.weighty = 1; 
+          setBackground(new Color(0xD7EAF9));
+          setLayout(new BorderLayout());
 
-        JPanel boxPanel = new JPanel(new GridBagLayout());
-        boxPanel.setPreferredSize(defineSize()); 
-        boxPanel.setBackground(new Color(0xD7EAF9)); 
-        //addRowsToBoxPanel(boxPanel);
+          // Create layered pane
+          JLayeredPane layeredPane = new JLayeredPane();
+          layeredPane.setLayout(null); // Disable automatic layout
 
-        add(boxPanel, gbc);
-    }    
+          // Add the main center panel
+          JPanel centerPanel = createCenterPanel();
+          layeredPane.add(centerPanel, JLayeredPane.DEFAULT_LAYER);
+
+          // Add the arrow in the top-right corner
+          JLabel iconLabel = createIconLabel();
+          layeredPane.add(iconLabel, JLayeredPane.PALETTE_LAYER);
+
+          // Add a listener to reposition and resize components when the panel is resized
+          addComponentListener(new ComponentAdapter() {
+              @Override
+              public void componentResized(ComponentEvent e) {
+                  updateComponentBounds(layeredPane, centerPanel, iconLabel);
+              }
+          });
+
+          add(layeredPane, BorderLayout.CENTER);
+      }
+
+      private JPanel createCenterPanel() {
+          JPanel centerPanel = new JPanel(new GridBagLayout());
+          centerPanel.setBackground(new Color(0xD7EAF9)); // Direct color value
+
+          GridBagConstraints gbc = new GridBagConstraints();
+          gbc.gridx = 0;
+          gbc.gridy = 0;
+          gbc.anchor = GridBagConstraints.CENTER;
+          gbc.fill = GridBagConstraints.NONE;
+          gbc.weightx = 1;
+          gbc.weighty = 1;
+
+          JPanel boxPanel = new JPanel(new GridBagLayout());
+          boxPanel.setPreferredSize(defineSize());
+          boxPanel.setBackground(new Color(0xD7EAF9)); // Direct color value
+          addRowsToBoxPanel(boxPanel);
+
+          centerPanel.add(boxPanel, gbc);
+          return centerPanel;
+      }
+
+    private JLabel createIconLabel() {
+        JLabel iconLabel = new JLabel();
+        try {
+            BufferedImage icon = loadAndScaleIcon("/resources/left_arrow.png");
+            iconLabel.setIcon(new ImageIcon(icon));
+            iconLabel.setPreferredSize(new Dimension(icon.getWidth(), icon.getHeight())); // Set preferred size
+
+            // Add mouse listener for cursor and scaling effects
+            iconLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    adminWindow.getCardManager().showPanel("logInPanel");
+                }
+
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent e) {
+                    iconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    // Scale up the icon
+                    iconLabel.setIcon(new ImageIcon(scaleIcon(icon, 1.2))); // Increase size by 20%
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent e) {
+                    iconLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    // Reset to original size
+                    iconLabel.setIcon(new ImageIcon(scaleIcon(icon, 1.0))); // Reset to original size
+                }
+            });
+        } catch (IOException e) {
+        }
+        return iconLabel;
+    }
+
+    private BufferedImage scaleIcon(BufferedImage icon, double scaleFactor) {
+        int newWidth = (int) (icon.getWidth() * scaleFactor);
+        int newHeight = (int) (icon.getHeight() * scaleFactor);
+        Image scaledImage = icon.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
+        BufferedImage scaledIcon = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = scaledIcon.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+
+        return scaledIcon;
+    }
+
+
+      private BufferedImage loadAndScaleIcon(String path) throws IOException {
+          BufferedImage icon = ImageIO.read(getClass().getResource(path));
+          Image iconScaled = icon.getScaledInstance(40, 40, Image.SCALE_SMOOTH); // Fixed size directly
+
+          BufferedImage bufferedIcon = new BufferedImage(iconScaled.getWidth(null), iconScaled.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+          Graphics2D g2d = bufferedIcon.createGraphics();
+          g2d.drawImage(iconScaled, 0, 0, null);
+          g2d.dispose();
+
+          float[] scales = { 0.0f, 0.5f, 1f, 1.0f };
+          RescaleOp op = new RescaleOp(scales, new float[4], null);
+          return op.filter(bufferedIcon, null);
+      }
+
+      private void updateComponentBounds(JLayeredPane layeredPane, JPanel centerPanel, JLabel iconLabel) {
+          layeredPane.setBounds(0, 0, getWidth(), getHeight());
+          centerPanel.setBounds(0, 0, getWidth(), getHeight());
+          iconLabel.setBounds(getWidth() - 40 - 20, 10, 40, 40); // Fixed size directly
+      }
+
     
-    /*
     private void addRowsToBoxPanel(JPanel boxPanel) 
     {
         List<JTextField> inputs = new ArrayList<>();
@@ -94,13 +209,13 @@ public class SignInPanel extends JPanel
 
         // Rows with text fields
         gbc.weighty = 0.45;
-        String[] texts = { "  Email", "  Contraseña" };
 
-        for (int i = 1; i <= 2; i++) {
+
+        for (int i = 1; i <= 4; i++) {
             gbc.gridy = i;
             JPanel row = createRowPanel(new Color(0xD7EAF9));
 
-            JTextField inputField = createInputField(texts[i - 1]);
+            JTextField inputField = createInputField(placeholders[i - 1]);
             inputField.setPreferredSize(new Dimension(1, (int) (boxPanel.getPreferredSize().height * 0.1)));
 
             row.setLayout(new GridBagLayout());
@@ -116,26 +231,194 @@ public class SignInPanel extends JPanel
         }
 
         // "Ingresar" button
-        gbc.gridy = 3;
-        gbc.weighty = 0.2;
-        int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 21;
-        JButton mainButton = addButton(new JButton("Ingresar"), buttonFontSize);
-        mainButton.addActionListener(e -> loginAction(inputs));
-        boxPanel.add(mainButton, gbc);
-
-        // Final label
+        gbc.gridy = 5;
         gbc.weighty = 0.3;
-        gbc.gridy = 4;
-        int labelFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 27;
-        boxPanel.add(createLabel("No tienes una cuenta? Registrate!", labelFontSize), gbc);
-    }*/
+        int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 25;
+        JButton mainButton = addButton(new JButton("Registrarse"), buttonFontSize);
+        mainButton.addActionListener(e -> signInAction(inputs));
+        boxPanel.add(mainButton, gbc);
+    }
+    private JButton addButton(JButton myButton, int fontSize) 
+    {
+        myButton.setBorderPainted(false);
+        myButton.setBackground(new Color(0x2c4464));
+        myButton.setForeground(Color.WHITE);
+        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize));
+        myButton.setFocusPainted(false);
+        myButton.setContentAreaFilled(false);
+        myButton.setOpaque(true);
 
+        myButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                updateButtonBackground(myButton, new Color(52, 112, 224));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                updateButtonBackground(myButton, new Color(0x2c4464));
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                updateButtonBackground(myButton, new Color(52, 112, 224));
+            }
+        });
+
+        return myButton;
+    }
+    
+    private void updateButtonBackground(JButton button, Color color)
+    {
+        button.setBackground(color);
+        button.repaint();
+        button.getParent().repaint();
+        button.getParent().revalidate();
+    }
+    
+    private JPanel createRowPanel(Color color) 
+    {
+        JPanel panel = new JPanel();
+        panel.setBackground(color); 
+        return panel;
+    }
+    
+    private JTextField createInputField(String placeholder) 
+    {
+        JTextField input = new JTextField(20);
+
+        Color initialBorderColor = new Color(0x505a74);
+        Color activeBorderColor = new Color(52, 112, 224);
+        Color placeholderColor = new Color(0x86949f);
+        Color textColor = new Color(0x0f0f1e);
+
+        int fontsize = input.getFont().getSize();
+        MatteBorder initialBorder = new MatteBorder(0, 0, 2, 0, initialBorderColor);
+        input.setBorder(BorderFactory.createCompoundBorder(
+            initialBorder, 
+            BorderFactory.createEmptyBorder(0, 2, 0, 2) // Padding de 10px en los lados izquierdo y derecho
+        ));
+
+        input.setBackground(new Color(0xD7EAF9));
+
+        input.setText(placeholder);
+        input.setHorizontalAlignment(JLabel.CENTER);
+        input.setForeground(placeholderColor);
+        input.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
+
+        input.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (input.getText().equals(placeholder) || input.getForeground().equals(errorColor) ) {
+                    input.setText("");
+                    input.setForeground(textColor);  // Set to normal text color
+                    input.setHorizontalAlignment(JLabel.LEFT);
+                }
+                // Change the border color when the text field is focused
+                input.setBorder(BorderFactory.createCompoundBorder(
+                    new MatteBorder(0, 0, 2, 0, activeBorderColor),
+                    BorderFactory.createEmptyBorder(0, 2, 0, 2)
+                ));
+                
+                input.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (input.getText().isEmpty()) {
+                    input.setText(placeholder);
+                    input.setForeground(placeholderColor);  // Set to placeholder color
+                    input.setHorizontalAlignment(JLabel.CENTER);
+                }
+                // Revert to the initial border color when focus is lost
+                input.setBorder(BorderFactory.createCompoundBorder(
+                    new MatteBorder(0, 0, 2, 0, initialBorderColor),
+                    BorderFactory.createEmptyBorder(0, 2, 0, 2)
+                ));
+            }
+        });        
+
+        return input;
+    }
+    
+    private void signInAction(List<JTextField> inputs)
+    {
+        JTextField inputEmail = inputs.get(2);
+        JTextField inputPassword = inputs.get(3);
+       
+        String password = inputPassword.getText();
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String upperCaseRegex = ".*[A-Z].*";
+        String lowerCaseRegex = ".*[a-z].*";
+        String digitRegex = ".*\\d.*";
+        String specialCharRegex = ".*[@$!%*?&].*";
+        String minLengthRegex = ".{8,}";
+        String[] messages = {"Debes ingresar tu nombre", "Debes ingresar tu apellido"
+                , "Debes ingresar un email valido", "Debes ingresar una contraseña valida"};        
+        
+        for (int i = 0; i < 2; i++)
+        {
+            if (inputs.get(i).getText().equals(placeholders[i]) || inputs.get(i).getText().isEmpty())
+            {
+                inputError(inputs.get(i), messages[i]);
+                return;
+            }
+        }
+
+        if (!inputEmail.getText().matches(emailRegex)) {
+            inputError(inputEmail, messages[2]);
+            return;
+        }
+        
+        if (!password.matches(passwordRegex)) {
+            if (!password.matches(minLengthRegex)) {
+            inputError(inputPassword, "Password must be at least 8 characters long.");
+            } else if (!password.matches(upperCaseRegex)) {
+                inputError(inputPassword, "Password must contain at least one uppercase letter.");
+            } else if (!password.matches(lowerCaseRegex)) {
+                inputError(inputPassword, "Password must contain at least one lowercase letter.");
+            } else if (!password.matches(digitRegex)) {
+                inputError(inputPassword, "Password must contain at least one digit.");
+            } else if (!password.matches(specialCharRegex)) {
+                inputError(inputPassword, "Password must contain at least one special character.");
+} 
+            return;
+        }
+        
+        createAccount(inputs);
+        adminWindow.getCardManager().showPanel("logInPanel");
+    }
+     
+    private void inputError(JTextField input, String message)
+    {
+        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, errorColor);
+        int fontsize = input.getFont().getSize();
+        input.setBorder(BorderFactory.createCompoundBorder(
+            errorBorder, 
+            BorderFactory.createEmptyBorder(0, 2, 0, 2) 
+        ));
+
+        input.setHorizontalAlignment(JLabel.CENTER);
+        input.setText(message);
+        input.setForeground(errorColor);
+        input.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
+    }
+    
+    private void createAccount(List<JTextField> inputs)
+    {
+        User newUser = new User(inputs.get(0).getText(), inputs.get(1).getText(), 
+                inputs.get(2).getText(), inputs.get(3).getText());
+        UserManagementService newUserService = new UserManagementService(newUser,
+                new MemoryArrayListRepository<>(), new MemoryArrayListRepository<>());
+        users.store(newUserService);
+    }
     
     public Dimension defineSize() 
     {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenSize.width * .25);
-        int height = (int) (screenSize.height * .4);
+        int height = (int) (screenSize.height * .5);
         return new Dimension(width, height);
     }    
 }

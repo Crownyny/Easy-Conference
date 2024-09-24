@@ -4,10 +4,10 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.models.Article;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -164,7 +164,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
             
             MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
-            MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
+            MemoryArrayListRepository<ArticleManagementService> articleRepository = new MemoryArrayListRepository<>();
             
             if (objStorageService.store(new ConferenceManagementService(conference, organizerRepository, articleRepository))) {
                 Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
