@@ -28,6 +28,7 @@ co\edu\unicauca\mvc\vistas\util\ButtonEditor.class
 co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.class
 co\edu\unicauca\mvc\models\Conference.class
+co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow$2.class
 co\edu\unicauca\mvc\infrastructure\Subject.class
 co\edu\unicauca\mvc\models\Article.class
 co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.class
