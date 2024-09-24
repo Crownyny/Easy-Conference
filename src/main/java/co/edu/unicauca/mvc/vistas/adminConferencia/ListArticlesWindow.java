@@ -12,10 +12,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Default
- */
 public class ListArticlesWindow extends ListWindow {
     
     private final StorageService<ArticleManagementService> objStorageService;

@@ -1,24 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package co.edu.unicauca.mvc.utilities;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import java.util.LinkedHashMap;
 
-/**
- *
- * @author david
- */
-public class Elements {
+public class Elements extends JFrame {
     public static final Color errorColor = new Color(0xE81010);
+    
     public static JTextField createInputField(String placeholder) {
         JTextField input = new JTextField(20);
 
@@ -75,4 +79,70 @@ public class Elements {
 
         return input;
     }
+    
+    public static JButton addButton(JButton myButton, int fontSize) {
+        myButton.setBorderPainted(false);
+        myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+        myButton.setForeground(Color.WHITE);
+        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
+        myButton.setFocusPainted(false);
+        myButton.setContentAreaFilled(false);
+        myButton.setOpaque(true); // Make the button opaque from the start
+
+        myButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                myButton.setBackground(new Color(52, 112, 224)); // Hover color with transparency
+                myButton.repaint(); // Repaint the button
+                myButton.getParent().repaint(); // Ensure the parent container is also repainted
+                myButton.getParent().revalidate();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+                myButton.repaint(); // Repaint the button and the container
+                myButton.getParent().repaint(); // Ensure the parent container is also repainted
+                myButton.getParent().revalidate();
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                myButton.setBackground(new Color(52, 112, 224)); // Adjust background if needed
+                myButton.repaint();
+                myButton.getParent().repaint(); // Repaint the button's container
+                myButton.getParent().revalidate(); // Revalidate the container's layout
+            }
+        });
+
+        return myButton;
+    }
+    
+    public static void updateButtonBackground(JButton button, Color color)
+    {
+        button.setBackground(color);
+        button.repaint();
+        button.getParent().repaint();
+        button.getParent().revalidate();
+    }
+    
+    public static Dimension defineSize() 
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.width * .25);
+        int height = (int) (screenSize.height * .4);
+        return new Dimension(width, height);
+    }
+    
+    public static ArrayList<String> extractTextFields(LinkedHashMap<String, FieldConfig> fieldConfigs) {
+        ArrayList<String> values = new ArrayList<>();
+        fieldConfigs.values().stream()
+            .map(FieldConfig::getFieldType)
+            .filter(JTextField.class::isInstance)
+            .map(JTextField.class::cast)
+            .map(JTextField::getText)
+            .forEach(values::add);
+        return values;
+    }
+    
 }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.models.Evaluator;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
@@ -74,13 +75,7 @@ public class RegisterArticleWindow extends RegisterWindow {
     
     @Override
     protected void registerAction() {
-        ArrayList<String> values = new ArrayList<>();
-        fieldConfigs.values().stream()
-            .map(FieldConfig::getFieldType)
-            .filter(JTextField.class::isInstance)
-            .map(JTextField.class::cast)
-            .map(JTextField::getText)
-            .forEach(values::add);
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
  
         Article article = new Article(values.get(0), values.get(1));

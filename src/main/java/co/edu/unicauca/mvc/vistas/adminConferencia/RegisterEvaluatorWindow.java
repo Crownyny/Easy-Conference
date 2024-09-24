@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Evaluator;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.ArrayList;
@@ -61,13 +62,7 @@ public class RegisterEvaluatorWindow extends RegisterWindow {
      
     @Override
     protected void registerAction() {
-        ArrayList<String> values = new ArrayList<>();
-        fieldConfigs.values().stream()
-            .map(FieldConfig::getFieldType)
-            .filter(JTextField.class::isInstance)
-            .map(JTextField.class::cast)
-            .map(JTextField::getText)
-            .forEach(values::add);
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{
             Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));

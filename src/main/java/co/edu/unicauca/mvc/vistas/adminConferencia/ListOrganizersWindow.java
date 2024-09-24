@@ -6,10 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Organizer;
 
-/**
- *
- * @author Default
- */
 public class ListOrganizersWindow extends ListWindow {
 
     private final StorageService<Organizer> objStorageService;
