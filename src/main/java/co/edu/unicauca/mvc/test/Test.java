@@ -5,12 +5,14 @@ import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.vistas.panels.LoginPanel;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 
 public class Test {
 
     
     public static void main(String[] args) {
+            seleccionarLookAndField();
         // Add observers to services
         JFrame frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,5 +27,14 @@ public class Test {
     }
     
     
-    
+    private static void seleccionarLookAndField()
+    {
+        for(UIManager.LookAndFeelInfo laf:UIManager.getInstalledLookAndFeels()){
+            if("Nimbus".equals(laf.getName()))
+                try {
+                UIManager.setLookAndFeel(laf.getClassName());
+                 } catch (Exception ex) {
+            }
+        }
+    }
 }
