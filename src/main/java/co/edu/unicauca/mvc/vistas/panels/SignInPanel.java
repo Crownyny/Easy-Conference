@@ -4,6 +4,7 @@ import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.controllers.UserManagementService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.User;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -90,10 +91,9 @@ public class SignInPanel extends JPanel
           gbc.weighty = 1;
 
           JPanel boxPanel = new JPanel(new GridBagLayout());
-          boxPanel.setPreferredSize(defineSize());
+          boxPanel.setPreferredSize(Elements.defineSize(0.25, 0.4));
           boxPanel.setBackground(new Color(0xD7EAF9)); // Direct color value
           addRowsToBoxPanel(boxPanel);
-
           centerPanel.add(boxPanel, gbc);
           return centerPanel;
       }
@@ -234,38 +234,9 @@ public class SignInPanel extends JPanel
         gbc.gridy = 5;
         gbc.weighty = 0.3;
         int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 25;
-        JButton mainButton = addButton(new JButton("Registrarse"), buttonFontSize);
+        JButton mainButton = Elements.addButton(new JButton("Registrarse"), buttonFontSize);
         mainButton.addActionListener(e -> signInAction(inputs));
         boxPanel.add(mainButton, gbc);
-    }
-    private JButton addButton(JButton myButton, int fontSize) 
-    {
-        myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464));
-        myButton.setForeground(Color.WHITE);
-        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize));
-        myButton.setFocusPainted(false);
-        myButton.setContentAreaFilled(false);
-        myButton.setOpaque(true);
-
-        myButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(52, 112, 224));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(0x2c4464));
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(52, 112, 224));
-            }
-        });
-
-        return myButton;
     }
     
     private void updateButtonBackground(JButton button, Color color)
@@ -413,12 +384,4 @@ public class SignInPanel extends JPanel
                 new MemoryArrayListRepository<>(), new MemoryArrayListRepository<>());
         users.store(newUserService);
     }
-    
-    public Dimension defineSize() 
-    {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * .25);
-        int height = (int) (screenSize.height * .5);
-        return new Dimension(width, height);
-    }    
 }
