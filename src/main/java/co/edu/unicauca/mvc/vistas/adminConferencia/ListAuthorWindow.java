@@ -6,6 +6,7 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.Elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -124,7 +125,7 @@ public class ListAuthorWindow extends javax.swing.JFrame {
             Image iconUpdateScaled = iconUpdate.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
             Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-            JButton updateButton = addButton("Actualizar", buttonFontSize);
+            JButton updateButton = Elements.addButton(new JButton( "Actualizar"), buttonFontSize);
             updateButton.setIcon(new ImageIcon(iconUpdateScaled));
             gbc.gridx = 0; // Column 0
             gbc.gridy = 0; // Row 0
@@ -134,7 +135,7 @@ public class ListAuthorWindow extends javax.swing.JFrame {
 
             panelCenter.add(updateButton, gbc);
 
-            JButton registerButton = addButton("Registrar", buttonFontSize);
+            JButton registerButton = Elements.addButton(new JButton( "Registrar"), buttonFontSize);
             registerButton.setIcon(new ImageIcon(iconRegisterScaled)); 
             gbc.gridx = 1; // Column 1
             gbc.gridy = 0; // Row 0
@@ -192,47 +193,6 @@ public class ListAuthorWindow extends javax.swing.JFrame {
 
     }
 
-    private JButton addButton(String buttonText, int fontSize) {
-        JButton myButton = new JButton(buttonText);
-        myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464)); // Default background color
-        myButton.setForeground(Color.WHITE);
-        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
-        myButton.setFocusPainted(false);
-        myButton.setContentAreaFilled(false);
-        myButton.setOpaque(true); // Make the button opaque from the start
-
-        myButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Hover color
-                myButton.repaint();
-                myButton.getParent().repaint();
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                myButton.setBackground(new Color(0x2c4464)); // Default background color
-                myButton.repaint();
-                myButton.getParent().repaint();
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Adjust background if needed
-                myButton.repaint();
-                myButton.getParent().repaint();
-                myButton.getParent().revalidate();
-            }
-        });
-
-        return myButton;
-    }
-    
-   
-    
     protected void updateAction() {                                                 
         fillTable();
     }   

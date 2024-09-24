@@ -1,6 +1,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.utilities.CustomScrollBarUI;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -138,7 +139,7 @@ public class AssignTopicWindow extends javax.swing.JFrame {
             BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/save.png"));
             Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-            JButton registerButton = addButton(new JButton(" Registrar"), buttonFontSize);
+            JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
             registerButton.setIcon(new ImageIcon(iconScaled));
 
             registerButton.addActionListener(e -> {
@@ -164,44 +165,6 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         this.getContentPane().add(scrollPane, BorderLayout.CENTER);
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
         this.getContentPane().add(panelButton, BorderLayout.SOUTH);
-    }
-
-    private JButton addButton(JButton myButton, int fontSize) {
-        myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
-        myButton.setForeground(Color.WHITE);
-        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
-        myButton.setFocusPainted(false);
-        myButton.setContentAreaFilled(false);
-        myButton.setOpaque(true); // Make the button opaque from the start
-
-        myButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Hover color with transparency
-                myButton.repaint(); // Repaint the button
-                myButton.getParent().repaint(); // Ensure the parent container is also repainted
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
-                myButton.repaint(); // Repaint the button and the container
-                myButton.getParent().repaint(); // Ensure the parent container is also repainted
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Adjust background if needed
-                myButton.repaint();
-                myButton.getParent().repaint(); // Repaint the button's container
-                myButton.getParent().revalidate(); // Revalidate the container's layout
-            }
-        });
-
-        return myButton;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

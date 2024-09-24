@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
@@ -66,20 +67,14 @@ public class RegisterOrganizerWindow extends RegisterWindow {
 
     @Override
     protected void registerAction() {
-        ArrayList<String> values = new ArrayList<>();
-        fieldConfigs.values().stream()
-            .map(FieldConfig::getFieldType)
-            .filter(JTextField.class::isInstance)
-            .map(JTextField.class::cast)
-            .map(JTextField::getText)
-            .forEach(values::add);
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
 
-            Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
+        Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
 
-            if (objStorageService.store(organizer)) 
-                Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");
-            else
-                Utilities.errorMessage("El registro del organizador no se realizo", "Error en el registro");
+        if (objStorageService.store(organizer)) 
+            Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");
+        else
+            Utilities.errorMessage("El registro del organizador no se realizo", "Error en el registro");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.ArrayList;
@@ -62,13 +63,7 @@ public class RegisterAuthorWindow extends RegisterWindow {
      
     @Override
     protected void registerAction() {
-        ArrayList<String> values = new ArrayList<>();
-        fieldConfigs.values().stream()
-            .map(FieldConfig::getFieldType)
-            .filter(JTextField.class::isInstance)
-            .map(JTextField.class::cast)
-            .map(JTextField::getText)
-            .forEach(values::add);
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{
             float id = Float.parseFloat(values.get(2));

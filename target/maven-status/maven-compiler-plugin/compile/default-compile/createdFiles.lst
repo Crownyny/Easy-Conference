@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$3.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI.class
 co\edu\unicauca\mvc\vistas\panels\LogInPanel$4.class
@@ -8,3 +9,9 @@ co\edu\unicauca\mvc\controllers\UserManagementService.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$2.class
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$2.class
 co\edu\unicauca\mvc\vistas\panels\LogInPanel$5.class
+=======
+co\edu\unicauca\mvc\utilities\Elements$2.class
+co\edu\unicauca\mvc\utilities\CustomScrollBarUI.class
+co\edu\unicauca\mvc\utilities\Elements$1.class
+co\edu\unicauca\mvc\utilities\Elements.class
+>>>>>>> ffbd9d4c6e962f38091029950bd2e7de9321fb4e

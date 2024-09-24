@@ -4,6 +4,8 @@ import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.controllers.UserManagementService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.User;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -32,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
+
 public class LogInPanel extends JPanel {
     private final StorageService<UserManagementService> users;
     private final MainWindow adminWindow;
@@ -56,7 +59,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 1; 
 
         JPanel boxPanel = new JPanel(new GridBagLayout());
-        boxPanel.setPreferredSize(defineSize()); 
+        boxPanel.setPreferredSize(Elements.defineSize()); 
         boxPanel.setBackground(new Color(0xD7EAF9)); 
         addRowsToBoxPanel(boxPanel);
 
@@ -112,7 +115,7 @@ public class LogInPanel extends JPanel {
             gbc.gridy = i;
             JPanel row = createRowPanel(new Color(0xD7EAF9));
 
-            JTextField inputField = createInputField(texts[i - 1]);
+            JTextField inputField = Elements.createInputField(texts[i - 1]);
             inputField.setPreferredSize(new Dimension(1, (int) (boxPanel.getPreferredSize().height * 0.1)));
 
             row.setLayout(new GridBagLayout());
@@ -131,7 +134,7 @@ public class LogInPanel extends JPanel {
         gbc.gridy = 3;
         gbc.weighty = 0.2;
         int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 21;
-        JButton mainButton = addButton(new JButton("Ingresar"), buttonFontSize);
+        JButton mainButton = Elements.addButton(new JButton("Ingresar"), buttonFontSize);
         mainButton.addActionListener(e -> loginAction(inputs));
         boxPanel.add(mainButton, gbc);
 
@@ -165,64 +168,6 @@ public class LogInPanel extends JPanel {
         panel.setBackground(color); 
         return panel;
     }
-    
-    private JTextField createInputField(String placeholder) 
-    {
-        JTextField input = new JTextField(20);
-
-        Color initialBorderColor = new Color(0x505a74);
-        Color activeBorderColor = new Color(52, 112, 224);
-        Color placeholderColor = new Color(0x86949f);
-        Color textColor = new Color(0x0f0f1e);
-
-        int fontsize = input.getFont().getSize();
-        MatteBorder initialBorder = new MatteBorder(0, 0, 2, 0, initialBorderColor);
-        input.setBorder(BorderFactory.createCompoundBorder(
-            initialBorder, 
-            BorderFactory.createEmptyBorder(0, 2, 0, 2) // Padding de 10px en los lados izquierdo y derecho
-        ));
-
-        input.setBackground(new Color(0xD7EAF9));
-
-        input.setText(placeholder);
-        input.setHorizontalAlignment(JLabel.CENTER);
-        input.setForeground(placeholderColor);
-        input.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
-
-        input.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (input.getText().equals(placeholder) || input.getForeground().equals(errorColor) ) {
-                    input.setText("");
-                    input.setForeground(textColor);  // Set to normal text color
-                    input.setHorizontalAlignment(JLabel.LEFT);
-                }
-                // Change the border color when the text field is focused
-                input.setBorder(BorderFactory.createCompoundBorder(
-                    new MatteBorder(0, 0, 2, 0, activeBorderColor),
-                    BorderFactory.createEmptyBorder(0, 2, 0, 2)
-                ));
-                
-                input.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (input.getText().isEmpty()) {
-                    input.setText(placeholder);
-                    input.setForeground(placeholderColor);  // Set to placeholder color
-                    input.setHorizontalAlignment(JLabel.CENTER);
-                }
-                // Revert to the initial border color when focus is lost
-                input.setBorder(BorderFactory.createCompoundBorder(
-                    new MatteBorder(0, 0, 2, 0, initialBorderColor),
-                    BorderFactory.createEmptyBorder(0, 2, 0, 2)
-                ));
-            }
-        });        
-
-        return input;
-    }
 
     private JLabel createLabel(String text, int fontsize)
     {
@@ -250,44 +195,6 @@ public class LogInPanel extends JPanel {
         });        
         return label;
     }
-    
-    private JButton addButton(JButton myButton, int fontSize) 
-    {
-        myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464));
-        myButton.setForeground(Color.WHITE);
-        myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize));
-        myButton.setFocusPainted(false);
-        myButton.setContentAreaFilled(false);
-        myButton.setOpaque(true);
-
-        myButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(52, 112, 224));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(0x2c4464));
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                updateButtonBackground(myButton, new Color(52, 112, 224));
-            }
-        });
-
-        return myButton;
-    }
-
-    private void updateButtonBackground(JButton button, Color color)
-    {
-        button.setBackground(color);
-        button.repaint();
-        button.getParent().repaint();
-        button.getParent().revalidate();
-    }
 
     private void loginAction(List<JTextField> inputs) 
     {
@@ -295,7 +202,7 @@ public class LogInPanel extends JPanel {
         String password = inputs.get(1).getText();
         JTextField inputEmail = inputs.get(0);
         JTextField inputPassword = inputs.get(1);
-        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, errorColor);
+        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Elements.errorColor);
         int fontsize = inputEmail.getFont().getSize();
 
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
@@ -306,7 +213,7 @@ public class LogInPanel extends JPanel {
             ));
             inputEmail.setHorizontalAlignment(JLabel.CENTER);
             inputEmail.setText("Email invalido");
-            inputEmail.setForeground(errorColor);
+            inputEmail.setForeground(Elements.errorColor);
             inputEmail.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
             return;
         }
@@ -328,7 +235,7 @@ public class LogInPanel extends JPanel {
             ));
         inputEmail.setHorizontalAlignment(JLabel.CENTER);
         inputPassword.setText("La Contraseña y el Email no coinciden");
-        inputPassword.setForeground(errorColor);
+        inputPassword.setForeground(Elements.errorColor);
         inputPassword.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
     
@@ -341,6 +248,7 @@ public class LogInPanel extends JPanel {
         mainPanel.associateService(ConferenceManagementService.class, conferenceService);
         adminWindow.getCardManager().showPanel("mainPanel");
     }
+
     
     public Dimension defineSize() 
     {
@@ -349,4 +257,5 @@ public class LogInPanel extends JPanel {
         int height = (int) (screenSize.height * .4);
         return new Dimension(width, height);
     }
+
 }

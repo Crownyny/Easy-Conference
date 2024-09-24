@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
@@ -44,3 +45,51 @@ C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\m
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ConferenceManagementService.java
 C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java
+=======
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\test\Test.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\Elements.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListArticlesWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ViewStatisticsWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\panels\LoginPanel.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\panels\SignInPanel.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\User.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Conference.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListOrganizersWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonRenderer.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\ArticleManagementService.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Evaluator.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\ConferenceManagementService.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListEvaluatorWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterConferenceWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\StorageService.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterArticleWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListConferencesWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\Utilities.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterEvaluatorWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Person.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\FieldConfig.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\CustomScrollBarUI.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Article.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\asistente\VtnPrincipalAsistente.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonClickListener.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterOrganizerWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\autorPublicacion\VtnPrincipalAutor.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\panels\MainPanel.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Author.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\ListAuthorWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonEditor.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\MainWindow.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\CardPanelManager.java
+C:\Users\Jorge Varon\OneDrive\Documentos\SextoSemestre\IngenieriaDeSoftwareII\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\adminConferencia\RegisterAuthorWindow.java
+>>>>>>> ffbd9d4c6e962f38091029950bd2e7de9321fb4e
