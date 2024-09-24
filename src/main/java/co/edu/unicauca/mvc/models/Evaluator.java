@@ -4,7 +4,7 @@ package co.edu.unicauca.mvc.models;
  *
  * @author Default
  */
-public class Evaluator extends User{
+public class Evaluator extends Person{
     private String afiliation;
 
     public Evaluator() {

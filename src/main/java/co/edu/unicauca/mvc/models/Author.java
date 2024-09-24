@@ -1,6 +1,6 @@
 package co.edu.unicauca.mvc.models;
 
-public class Author extends User{
+public class Author extends Person{
     private float id;
 
     public Author(String firstName, String lastName, String email, float id) {

@@ -1,6 +1,6 @@
 package co.edu.unicauca.mvc.models;
 
-public class Organizer  extends User{
+public class Organizer  extends Person{
     private String university;
 
     public Organizer() {
