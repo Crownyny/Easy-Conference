@@ -181,8 +181,16 @@ public class RegisterConferenceWindow extends RegisterWindow {
     
     @Override
     protected void extraButtonAction() {
+        String[] conferenceTopics = {
+            "Inteligencia Artificial", "Ciencia de Datos", "Ciberseguridad", "Internet de las Cosas",
+            "Blockchain", "Desarrollo Web", "Computación en la Nube", "Realidad Virtual", 
+            "Desarrollo de Software", "Ingeniería de Sistemas", "Automatización de Pruebas",
+            "Machine Learning", "Big Data", "Robótica", "Computación Cuántica", 
+            "Sistemas Embebidos", "Algoritmos y Complejidad", "Redes de Computadoras", 
+            "Bases de Datos", "Tecnologías Emergentes","Otro"
+        };
         AssignTopicWindow objTopicWindow =
-            new AssignTopicWindow(this.selectedTopics);
+            new AssignTopicWindow(this.selectedTopics,conferenceTopics);
         objTopicWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objTopicWindow.setVisible(true);       
     }
