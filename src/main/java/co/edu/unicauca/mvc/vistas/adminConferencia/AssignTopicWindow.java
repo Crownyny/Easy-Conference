@@ -1,10 +1,13 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.utilities.CustomScrollBarUI;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -22,6 +25,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -30,14 +36,17 @@ import javax.swing.JScrollPane;
 public class AssignTopicWindow extends javax.swing.JFrame {
 
     private final List<String> myTopics;
-    
+    private final String[] conferenceTopics;
 
     /**
      * Creates new form AssignWindow
-     * @param myTopics
+     *
+     * @param myTopics Selected Topics
+     * @param conferenceTopics Possibles topics of the conference
      */
-    public AssignTopicWindow(ArrayList<String> myTopics) {
+    public AssignTopicWindow(ArrayList<String> myTopics, String[] conferenceTopics) {
         this.myTopics = myTopics;
+        this.conferenceTopics = conferenceTopics;
         showGui();
     }
 
@@ -95,37 +104,37 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         panelNorth.add(titleLabel);
         panelNorth.setBackground(new Color(0x3c647c));
 
-
-        String[] conferenceTopics = {
-            "Inteligencia Artificial", "Ciencia de Datos", "Ciberseguridad", "Internet de las Cosas",
-            "Blockchain", "Desarrollo Web", "Computación en la Nube", "Realidad Virtual", 
-            "Desarrollo de Software", "Ingeniería de Sistemas", "Automatización de Pruebas",
-            "Machine Learning", "Big Data", "Robótica", "Computación Cuántica", 
-            "Sistemas Embebidos", "Algoritmos y Complejidad", "Redes de Computadoras", 
-            "Bases de Datos", "Tecnologías Emergentes","Otro"
-        };
-
         JPanel panelCenter = new JPanel(new GridLayout(0, 2));
-        
+        panelCenter.setBackground(new Color(0xD7EAF9));
         List<JCheckBox> checkboxes = new ArrayList<>();
-        for(String topic : conferenceTopics) {
+        for (String topic : conferenceTopics) {
             JCheckBox checkBox = new JCheckBox();
+            checkBox.setText(topic);
             checkboxes.add(checkBox);
             panelCenter.add(checkBox);
-            panelCenter.add(new JLabel(topic));
         }
 
         // Añadir scroll al panel central
         JScrollPane scrollPane = new JScrollPane(panelCenter);
         scrollPane.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
+        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
 
-        JPanel panelButton = new JPanel();
+        JPanel panelButton = new JPanel(new GridBagLayout());
+        //Condiciones para centrar el boton en el panel
+        GridBagConstraints gbcButton = new GridBagConstraints();
+
+        // Configuración para centrar el botón verticalmente
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.weighty = 2.0;  // Hace que el componente se centre verticalmente
+        gbcButton.anchor = GridBagConstraints.CENTER;  // Centrarlo horizontal y verticalmente
+
         panelButton.setBackground(new Color(0xD7EAF9));
         panelButton.setPreferredSize(new Dimension(panelWidth, componentHeight));
 
         int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
 
-        try { 
+        try {
             BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/save.png"));
             Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
@@ -136,19 +145,18 @@ public class AssignTopicWindow extends javax.swing.JFrame {
                 myTopics.clear();
                 for (int i = 0; i < conferenceTopics.length; i++) {
                     if (checkboxes.get(i).isSelected()) {
-                        myTopics.add(conferenceTopics[i]); 
+                        myTopics.add(conferenceTopics[i]);
                     }
                 }
-                if(myTopics.isEmpty())
+                if (myTopics.isEmpty()) {
                     Utilities.warningMessage("De seleccionar al menos un tema", "Registro fallido");
-                else
-                {
+                } else {
                     Utilities.successMessage("Los temas se registraron correctamente", "Registro exitoso");
                     System.out.println("Temas seleccionados: " + myTopics);
                     this.dispose();
                 }
             });
-            panelButton.add(registerButton);
+            panelButton.add(registerButton, gbcButton);
 
         } catch (IOException e) {
         }
@@ -194,7 +202,7 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         });
 
         return myButton;
-    }    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

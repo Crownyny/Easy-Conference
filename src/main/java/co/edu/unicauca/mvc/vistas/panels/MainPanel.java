@@ -1,10 +1,14 @@
+package co.edu.unicauca.mvc.vistas.panels;
 
-package co.edu.unicauca.mvc.vistas.adminConferencia;
-
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.models.Article;
-import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.vistas.adminConferencia.ListArticlesWindow;
+import co.edu.unicauca.mvc.vistas.adminConferencia.ListConferencesWindow;
+import co.edu.unicauca.mvc.vistas.adminConferencia.ListOrganizersWindow;
+import co.edu.unicauca.mvc.vistas.adminConferencia.ViewStatisticsWindow;
+import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -28,37 +32,32 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
-/**
- *
- * @author Default
- */
-public class MainAdminWindow extends javax.swing.JFrame {
-
+public class MainPanel extends JPanel{
     private final Map<Class<? extends JInternalFrame>, JInternalFrame> internalFrames = new HashMap<>();
     private final Map<Class<?>, StorageService<?>> services = new HashMap<>();
     private JDesktopPane mainDesktopPane;
-    private final JPanel cardPane;
+    private final CardPanelManager cardManager;
 
     public void associateService(Class<?> serviceClass, StorageService<?> serviceObject) {
         services.put(serviceClass, serviceObject);
         removeInternalFrameForService(serviceClass);
         relateInternalFramesToDesktopPane();
     }
-
+    
     private void removeInternalFrameForService(Class<?> serviceClass) {
-        if (serviceClass.equals(Conference.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
+        if (serviceClass.equals(ConferenceManagementService.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListConferencesWindow.class));
             internalFrames.remove(ListConferencesWindow.class);
+        
         } else if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(ListOrganizersWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListOrganizersWindow.class));
             internalFrames.remove(ListOrganizersWindow.class);
-        } else if (serviceClass.equals(Article.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
+        
+        } else if (serviceClass.equals(ArticleManagementService.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
             mainDesktopPane.remove(internalFrames.get(ListArticlesWindow.class));
             internalFrames.remove(ListArticlesWindow.class);
         }
@@ -74,10 +73,10 @@ public class MainAdminWindow extends javax.swing.JFrame {
         }
         mainDesktopPane.add(internalFrames.get(ViewStatisticsWindow.class));
 
-        if (services.containsKey(Conference.class)) {
+        if (services.containsKey(ConferenceManagementService.class)) {
             if (!internalFrames.containsKey(ListConferencesWindow.class)) {
                 internalFrames.put(ListConferencesWindow.class, 
-                    new ListConferencesWindow(this, (StorageService<Conference>) services.get(Conference.class)));
+                    new ListConferencesWindow(this, (StorageService<ConferenceManagementService>) services.get(ConferenceManagementService.class)));
             }
             mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
         }
@@ -90,54 +89,31 @@ public class MainAdminWindow extends javax.swing.JFrame {
             mainDesktopPane.add(internalFrames.get(ListOrganizersWindow.class));
         }
 
-        if (services.containsKey(Article.class)) {
+        if (services.containsKey(ArticleManagementService.class)) {
             if (!internalFrames.containsKey(ListArticlesWindow.class)) {
                 internalFrames.put(ListArticlesWindow.class, 
-                    new ListArticlesWindow((StorageService<Article>) services.get(Article.class)));
+                    new ListArticlesWindow( (StorageService<ArticleManagementService>) services.get(ArticleManagementService.class)));
+
             }
             mainDesktopPane.add(internalFrames.get(ListArticlesWindow.class));
         }
+        
     }
 
-    public MainAdminWindow() {
-        cardPane = new JPanel(new CardLayout());
-        showGui();
+    public MainPanel() {
+        super(new BorderLayout()); // Main panel replacing the JFrame's content
+        cardManager = new CardPanelManager(new JPanel(new CardLayout()));
+        createMainPanel(); 
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-    private void showGui() {
-        // Maximize the window and remove decorations
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setLayout(new BorderLayout());
-
+    
+    
+    private void createMainPanel() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int screenHeight = screenSize.height;
 
-        // Create and configure North panel
+        // Create and configure the north panel
         JPanel panelNorth = new JPanel();
         panelNorth.setBackground(new Color(0xD7EAF9));
         panelNorth.setLayout(new GridBagLayout());
@@ -151,44 +127,47 @@ public class MainAdminWindow extends javax.swing.JFrame {
         gbc.weightx = 1.0;
         gbc.insets = new Insets((int) (panelNorthHeight * 0.01), 0, (int) (panelNorthHeight * 0.1), 0); // Padding
 
-        // Add title label to the North panel
+        // Add title label to the north panel
         JLabel titleLabel = new JLabel("");
         setLabel(titleLabel, "EASY CONFERENCE", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
         panelNorth.add(titleLabel, gbc);
 
-        // Configure GridBagConstraints for buttons
+        // Set GridBagConstraints for buttons
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        
-        // Define buttons and actions
+        // Define buttons and their actions
         String[] mainPanelLabels = {"Gestionar conferencias"};
-        ActionListener[] mainPanelActions = {e -> setVisibility(VisibilityState.LIST_CONFERENCES)};
+        ActionListener[] mainPanelActions = {e -> setVisibility(MainPanel.VisibilityState.LIST_CONFERENCES)};
 
-        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas"};
+        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
         ActionListener[] conferencePanelActions = {
-            e -> setVisibility(VisibilityState.LIST_ORGANIZERS),
-            e -> setVisibility(VisibilityState.LIST_ARTICLES),
-            e -> setVisibility(VisibilityState.VIEW_STATISTICS)
+            e -> setVisibility(MainPanel.VisibilityState.LIST_ORGANIZERS),
+            e -> setVisibility(MainPanel.VisibilityState.LIST_ARTICLES),
+            e -> setVisibility(MainPanel.VisibilityState.VIEW_STATISTICS),
+            e -> {
+                setVisibility(MainPanel.VisibilityState.NONE);
+                cardManager.showPanel("mainPanel");
+            }
         };
 
-        // Create and add panels to CardLayout
+        // Create and add button panels to CardLayout
         JPanel buttonsMainPanel = createButtonPanel(mainPanelLabels, mainPanelActions);
         JPanel buttonsConferencePanel = createButtonPanel(conferencePanelLabels, conferencePanelActions);
 
-        cardPane.add(buttonsMainPanel, "mainPanel");
-        cardPane.add(buttonsConferencePanel, "conferencePanel");
+        cardManager.addPanel(buttonsMainPanel, "mainPanel");
+        cardManager.addPanel(buttonsConferencePanel, "conferencePanel");
 
-        panelNorth.add(cardPane, gbc);
+        panelNorth.add(cardManager.getCardPane(), gbc);
 
-        // Create and configure Center panel
-        mainDesktopPane = new JDesktopPane(); // Create the JDesktopPane
+        // Create and configure the center panel with JDesktopPane
+        mainDesktopPane = new JDesktopPane();
         JPanel panelCenter = new JPanel(new BorderLayout());
         panelCenter.setBackground(Color.GREEN);
-        panelCenter.add(mainDesktopPane, BorderLayout.CENTER); // Add JDesktopPane to Center panel
+        panelCenter.add(mainDesktopPane, BorderLayout.CENTER); // Add JDesktopPane to the center panel
 
-        // Create and configure South panel
+        // Create and configure the south panel
         JPanel panelSouth = new JPanel();
         panelSouth.setBackground(new Color(0x696A78));
         int panelSouthHeight = (int) (screenHeight * 0.1);
@@ -197,21 +176,21 @@ public class MainAdminWindow extends javax.swing.JFrame {
         setOrgIcon(logoLabel, "/resources/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
         panelSouth.add(logoLabel, gbc);
 
-        // Add panels to the content pane
-        this.getContentPane().add(panelNorth, BorderLayout.NORTH);
-        this.getContentPane().add(panelCenter, BorderLayout.CENTER);
-        this.getContentPane().add(panelSouth, BorderLayout.SOUTH);
+        // Add panels to the main panel
+        add(panelNorth, BorderLayout.NORTH);
+        add(panelCenter, BorderLayout.CENTER);
+        add(panelSouth, BorderLayout.SOUTH);
 
-        // Add ComponentListener to adjust font size dynamically
+        // Adjust font size dynamically based on window size
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                adjustFontSize(titleLabel, buttonsMainPanel);
+                adjustFontSize(titleLabel, buttonsMainPanel, buttonsConferencePanel);
             }
         });
     }
-
-    private void adjustFontSize(JLabel label, JPanel buttonsMainPanel) {
+    
+    private void adjustFontSize(JLabel label, JPanel... panels) {
         // Get current window size
         int width = this.getWidth();
         int height = this.getHeight();
@@ -220,19 +199,22 @@ public class MainAdminWindow extends javax.swing.JFrame {
         int titleFontSize = Math.min(width, height) / 30; 
         label.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
 
-        // Adjust button font size
-        Component[] components = buttonsMainPanel.getComponents();
+        // Adjust button font size for each panel
         int buttonFontSize = Math.min(width, height) / 48; 
-        for (Component component : components) {
-            if (component instanceof JButton button) {
-                button.setFont(new Font("Cascadia Code", Font.PLAIN, buttonFontSize));
+        for (JPanel panel : panels) {
+            Component[] components = panel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JButton button) {
+                    button.setFont(new Font("Cascadia Code", Font.PLAIN, buttonFontSize));
+                }
             }
-        }
 
-        // Revalidate and repaint to update layout and centering
-        buttonsMainPanel.revalidate();
-        buttonsMainPanel.repaint();
+            // Revalidate and repaint to update layout and centering for each panel
+            panel.revalidate();
+            panel.repaint();
+        }
     }
+
 
     private void setOrgIcon(JLabel label, String source, String text, int fontsize, Color textColor) {
         Image img1 = new ImageIcon(getClass().getResource(source)).getImage();
@@ -336,12 +318,7 @@ public class MainAdminWindow extends javax.swing.JFrame {
         return panel;
     }
 
-    public void showPanel(String paneName) {
-        CardLayout cardLayout = (CardLayout) cardPane.getLayout();
-
-        cardLayout.show(cardPane, paneName);
+    public CardPanelManager getCardManager() {
+        return cardManager;
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

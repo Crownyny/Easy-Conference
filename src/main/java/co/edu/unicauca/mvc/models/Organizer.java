@@ -1,30 +1,14 @@
 package co.edu.unicauca.mvc.models;
 
-public class Organizer {
-    private String firstName;
-    private String lastName;
+public class Organizer  extends Person{
     private String university;
 
-    public Organizer(String firstName, String lastName, String university) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Organizer() {
+    }
+
+    public Organizer(String firstName, String lastName, String mail, String university) {
+        super(firstName, lastName, mail);
         this.university = university;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getUniversity() {

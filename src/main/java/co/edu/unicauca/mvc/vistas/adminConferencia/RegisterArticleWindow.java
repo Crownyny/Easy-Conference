@@ -4,6 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
@@ -23,14 +25,14 @@ import javax.swing.JFrame;
  */
 public class RegisterArticleWindow extends RegisterWindow {
     
-    private final StorageService<Article> objStorageService;
+    private final StorageService<ArticleManagementService> objStorageService;
     private final StorageService<Author> authors; 
 
     /**
      * Creates new form VtnListarArticulos
      * @param objStorageService
      */
-    public RegisterArticleWindow (StorageService<Article> objStorageService) {
+    public RegisterArticleWindow (StorageService<ArticleManagementService> objStorageService) {
         super(new JLabel("Registrar Articulo"), createInputFields());
         MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
         authors = new StorageService<>(authorRepository);
@@ -81,9 +83,10 @@ public class RegisterArticleWindow extends RegisterWindow {
             .forEach(values::add);
         
  
-        Article article = new Article(values.get(0),authors.listAll(), values.get(1));
-
-        if (objStorageService.store(article))
+        Article article = new Article(values.get(0), values.get(1));
+        MemoryArrayListRepository<Evaluator> evaluatorRepository = new MemoryArrayListRepository<>();
+        if (objStorageService.store(new ArticleManagementService(article, authors,
+                new StorageService<>(evaluatorRepository))))
             Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
         else
             Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
@@ -96,7 +99,6 @@ public class RegisterArticleWindow extends RegisterWindow {
             new ListAuthorWindow(this.authors);
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objAuthorWindow.setVisible(true);     
-        System.out.println("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

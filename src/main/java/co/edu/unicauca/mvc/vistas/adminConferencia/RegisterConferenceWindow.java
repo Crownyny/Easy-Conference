@@ -4,6 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.models.Article;
@@ -19,8 +20,8 @@ import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
-import java.text.NumberFormat;
-import java.util.HashMap;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedHashMap;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -30,39 +31,72 @@ import javax.swing.JFrame;
  */
 public class RegisterConferenceWindow extends RegisterWindow {
     
-    private final StorageService<Conference> objStorageService;
-    private final ArrayList<String> topics; 
+    private final StorageService<ConferenceManagementService> objStorageService;
+    private final ArrayList<String> selectedTopics; 
     /**
      * Creates new form VtnListarArticulos
-     * @param adminWindow
      * @param objStorageService
      */
-    public RegisterConferenceWindow ( StorageService<Conference> objStorageService) {
+    public RegisterConferenceWindow ( StorageService<ConferenceManagementService> objStorageService) {
         super(new JLabel("Registrar Conferencia"), createInputFields());
-        topics = new ArrayList<>();
+        selectedTopics = new ArrayList<>();
         this.objStorageService = objStorageService;
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         JDateChooser startDate = new JDateChooser();
         startDate.setDateFormatString("dd/MM/yyyy");
-        
+
         JDateChooser endDate = new JDateChooser();
         endDate.setDateFormatString("dd/MM/yyyy");
-        
-        NumberFormat numberFormat = NumberFormat.getIntegerInstance();
-        JFormattedTextField numberField = new JFormattedTextField(numberFormat);
-        numberField.setColumns(9);
-        
+
+        int maxLength = 9; 
+        JFormattedTextField numberField = new JFormattedTextField();
+        numberField.setColumns(maxLength);
+
+        numberField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+                String text = numberField.getText();
+
+                if (ch == KeyEvent.VK_BACK_SPACE) {
+                    return;
+                }
+
+                if ((text.isEmpty() && ch == '0') || !Character.isDigit(ch) 
+                        || (text.length() >= maxLength))
+                {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    if (!numberField.getText().isEmpty()) {
+                        int value = Integer.parseInt(numberField.getText());
+                        if (value < 0) {
+                            numberField.setText("0");
+                        }
+                    }
+                } catch (NumberFormatException ex) {
+                    numberField.setText("0");
+                }
+            }
+        });
+
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));
-        inputFields.put("Costo de inscripcion':", new FieldConfig(numberField));
+        inputFields.put("Costo de inscripcion:", new FieldConfig(numberField));
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
+        
         return inputFields;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,16 +154,19 @@ public class RegisterConferenceWindow extends RegisterWindow {
                 return;
             }
             
-            if(topics.isEmpty())
+            if(selectedTopics.isEmpty())
             {
                 Utilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
                 return;
             }
 
             float cost = Float.parseFloat(values.get(3));
-            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),topics);
-
-            if (objStorageService.store(conference)) {
+            Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
+            
+            MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
+            MemoryArrayListRepository<Article> articleRepository = new MemoryArrayListRepository<>();
+            
+            if (objStorageService.store(new ConferenceManagementService(conference, organizerRepository, articleRepository))) {
                 Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
             } else {
                 Utilities.errorMessage("El registro de la conferencia no se realizó", "Error en el registro");
@@ -144,8 +181,16 @@ public class RegisterConferenceWindow extends RegisterWindow {
     
     @Override
     protected void extraButtonAction() {
+        String[] conferenceTopics = {
+            "Inteligencia Artificial", "Ciencia de Datos", "Ciberseguridad", "Internet de las Cosas",
+            "Blockchain", "Desarrollo Web", "Computación en la Nube", "Realidad Virtual", 
+            "Desarrollo de Software", "Ingeniería de Sistemas", "Automatización de Pruebas",
+            "Machine Learning", "Big Data", "Robótica", "Computación Cuántica", 
+            "Sistemas Embebidos", "Algoritmos y Complejidad", "Redes de Computadoras", 
+            "Bases de Datos", "Tecnologías Emergentes","Otro"
+        };
         AssignTopicWindow objTopicWindow =
-            new AssignTopicWindow(this.topics);
+            new AssignTopicWindow(this.selectedTopics,conferenceTopics);
         objTopicWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objTopicWindow.setVisible(true);       
     }
