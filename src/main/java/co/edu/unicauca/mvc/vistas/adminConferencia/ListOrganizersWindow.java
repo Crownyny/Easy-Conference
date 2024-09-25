@@ -1,6 +1,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -42,10 +43,6 @@ public class ListOrganizersWindow extends ListWindow {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    protected void updateAction() {                                                 
-        fillTable();
-    }   
 
     @Override
     protected void registerAction(){
@@ -77,6 +74,11 @@ public class ListOrganizersWindow extends ListWindow {
             };
             model.addRow(row);
         }
+    }
+
+    @Override
+    public void update(Object o) {
+        fillTable();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

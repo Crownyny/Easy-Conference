@@ -166,6 +166,7 @@ public class RegisterConferenceWindow extends RegisterWindow {
             MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
             MemoryArrayListRepository<ArticleManagementService> articleRepository = new MemoryArrayListRepository<>();
             
+            
             if (objStorageService.store(new ConferenceManagementService(conference, organizerRepository, articleRepository))) {
                 Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
             } else {

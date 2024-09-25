@@ -6,15 +6,12 @@ import co.edu.unicauca.mvc.utilities.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,9 +23,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -85,7 +79,6 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         int screenWidth = screenSize.width;
         int panelHeight = (int) (screenHeight * 0.55);
         int panelWidth = (int) (screenWidth * 0.35);
-        int textFontSize = Math.min(panelWidth, panelHeight) / 30;
         int componentHeight = (int) (panelHeight * .15);
 
         int panelNorthHeight = (int) (panelHeight * 0.1);

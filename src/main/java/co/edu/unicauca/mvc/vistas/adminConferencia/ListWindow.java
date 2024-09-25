@@ -1,5 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.utilities.Elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,8 +12,6 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -30,7 +29,7 @@ import javax.swing.table.JTableHeader;
  *
  * @author Default
  */
-public abstract class ListWindow extends javax.swing.JInternalFrame {
+public abstract class ListWindow extends javax.swing.JInternalFrame implements Observer{
     
     protected JLabel titleLabel;
     protected String registrarButtonText;
@@ -118,35 +117,20 @@ public abstract class ListWindow extends javax.swing.JInternalFrame {
         int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
 
         try {
-
-            BufferedImage iconUpdate = ImageIO.read(getClass().getResource("/resources/print.png"));
             BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/pen-drawing.png"));
             // Resize the images to font size
-            Image iconUpdateScaled = iconUpdate.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
             Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
-
-            JButton updateButton = Elements.addButton(new JButton(" Actualizar"), buttonFontSize);
-            updateButton.setIcon(new ImageIcon(iconUpdateScaled));
-            gbc.gridx = 0; // Column 0
-            gbc.gridy = 0; // Row 0
-            gbc.gridwidth = 1; // Occupies 1 column
-            gbc.weightx = 0.5; // Half of the horizontal space
-            updateButton.addActionListener(e -> updateAction());
-
-            panelCenter.add(updateButton, gbc);
 
             JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
             registerButton.setIcon(new ImageIcon(iconRegisterScaled)); 
             gbc.gridx = 1; // Column 1
             gbc.gridy = 0; // Row 0
             gbc.gridwidth = 1; // Occupies 1 column
-            gbc.weightx = 0.5; // Half of the horizontal space  
+            gbc.weightx = 1; // Half of the horizontal space  
             registerButton.addActionListener(e -> registerAction());    
             panelCenter.add(registerButton, gbc);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) {}
 
         // Customize the header renderer
         JTableHeader header = this.table.getTableHeader();
@@ -193,8 +177,7 @@ public abstract class ListWindow extends javax.swing.JInternalFrame {
 
     }
 
-protected abstract void registerAction();
-protected abstract void updateAction();
+    protected abstract void registerAction();
 
     
 

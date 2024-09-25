@@ -3,9 +3,8 @@ package co.edu.unicauca.mvc.vistas.panels;
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Organizer;
-import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListArticlesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListConferencesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListOrganizersWindow;
@@ -81,6 +80,7 @@ public class MainPanel extends JPanel{
                     new ListConferencesWindow(this, (StorageService<ConferenceManagementService>) services.get(ConferenceManagementService.class)));
             }
             mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
+            services.get(ConferenceManagementService.class).addObserver((Observer) internalFrames.get(ListConferencesWindow.class));
         }
 
         if (services.containsKey(Organizer.class)) {
@@ -89,6 +89,7 @@ public class MainPanel extends JPanel{
                     new ListOrganizersWindow((StorageService<Organizer>) services.get(Organizer.class)));
             }
             mainDesktopPane.add(internalFrames.get(ListOrganizersWindow.class));
+            services.get(Organizer.class).addObserver((Observer) internalFrames.get(ListOrganizersWindow.class));
         }
 
         if (services.containsKey(ArticleManagementService.class)) {
@@ -98,6 +99,7 @@ public class MainPanel extends JPanel{
 
             }
             mainDesktopPane.add(internalFrames.get(ListArticlesWindow.class));
+            services.get(ArticleManagementService.class).addObserver((Observer) internalFrames.get(ListArticlesWindow.class));
         }
         
     }

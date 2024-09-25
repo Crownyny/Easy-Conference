@@ -1,6 +1,7 @@
 package co.edu.unicauca.mvc.controllers;
 
 import co.edu.unicauca.mvc.dataAccess.InterfaceRepository;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
 import java.util.List;
@@ -45,8 +46,18 @@ public class ConferenceManagementService {
         return organizerService.listAll();
     }       
     
-        public List<ArticleManagementService> listArticles()
+    public List<ArticleManagementService> listArticles()
     {
         return articleService.listAll();
-    }       
+    }  
+    
+    public void addOrganizerObserver(Observer obs)
+    {
+        organizerService.addObserver(obs);
+    }
+    
+    public void addArticleObserver(Observer obs)
+    {
+        articleService.addObserver(obs);
+    }
 }

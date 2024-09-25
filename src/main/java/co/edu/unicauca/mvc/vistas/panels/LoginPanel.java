@@ -4,7 +4,6 @@ import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.controllers.UserManagementService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import java.awt.Color;
@@ -16,8 +15,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -38,7 +35,6 @@ import javax.swing.border.MatteBorder;
 public class LogInPanel extends JPanel {
     private final StorageService<UserManagementService> users;
     private final MainWindow adminWindow;
-    private final Color errorColor = new Color(0xE81010);
 
     public LogInPanel( MainWindow adminWindow, StorageService<UserManagementService> users) {
         this.users = users;

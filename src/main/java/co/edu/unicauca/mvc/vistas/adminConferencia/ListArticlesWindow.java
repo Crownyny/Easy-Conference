@@ -2,8 +2,6 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.models.Author;
-import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
@@ -49,10 +47,6 @@ public class ListArticlesWindow extends ListWindow {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    protected void updateAction() {                                                 
-        fillTable();
-    }   
 
     @Override
     protected void registerAction() {
@@ -78,11 +72,6 @@ public class ListArticlesWindow extends ListWindow {
 
         for (int i = 0; i < articleList.size(); i++) 
         {
-            for (Author autor : articleList.get(i).getAuthorService().listAll())
-            {
-                System.out.println("auTHOR");          
-            }
-
             String[] row = { 
                 articleList.get(i).getArticle().getTitle(),  
                 articleList.get(i).getArticle().getJournal(),
@@ -104,7 +93,13 @@ public class ListArticlesWindow extends ListWindow {
         table.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
     }
+    
 
+    @Override
+    public void update(Object o) 
+    {
+        fillTable();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

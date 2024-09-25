@@ -3,6 +3,7 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -32,7 +33,7 @@ public class ListConferencesWindow extends ListWindow {
      */
     public ListConferencesWindow(MainPanel adminWindow, StorageService<ConferenceManagementService> objStorageService) {
         super("Listado de Conferencias", "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", "Ingresar"});
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
         this.objStorageService=objStorageService;
         this.adminWindow = adminWindow;
     }
@@ -60,11 +61,6 @@ public class ListConferencesWindow extends ListWindow {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    @Override 
-    protected void updateAction() {                                                 
-        fillTable();
-    }   
-
     @Override
     protected void registerAction(){
         RegisterConferenceWindow registerConferenceWindow =
@@ -120,6 +116,11 @@ public class ListConferencesWindow extends ListWindow {
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
 
+    }
+
+    @Override
+    public void update(Object o) {
+        fillTable();
     }
     
  
