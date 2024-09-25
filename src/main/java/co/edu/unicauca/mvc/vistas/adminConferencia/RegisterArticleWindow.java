@@ -92,6 +92,7 @@ public class RegisterArticleWindow extends RegisterWindow {
     protected void extraButtonAction() {
         ListAuthorWindow objAuthorWindow =
             new ListAuthorWindow(this.authors);
+        this.authors.addObserver(objAuthorWindow);
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objAuthorWindow.setVisible(true);     
     }

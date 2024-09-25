@@ -86,6 +86,7 @@ public class ListArticlesWindow extends ListWindow {
 
             ListEvaluatorWindow objEvaluatorWindow =
                 new ListEvaluatorWindow(selectedArticleManager.getEvaluatorService());
+            selectedArticleManager.getEvaluatorService().addObserver(objEvaluatorWindow);
             objEvaluatorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             objEvaluatorWindow.setVisible(true);     
         };
