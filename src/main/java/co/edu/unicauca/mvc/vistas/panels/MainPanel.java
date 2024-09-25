@@ -5,6 +5,7 @@ import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListArticlesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListConferencesWindow;
 import co.edu.unicauca.mvc.vistas.adminConferencia.ListOrganizersWindow;
@@ -24,8 +25,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Box;
@@ -234,47 +233,6 @@ public class MainPanel extends JPanel{
         label.setForeground(textColor);
     }
 
-    private JButton addButton(String buttonText, JPanel container) {
-        JButton myButton = new JButton(buttonText);
-        container.add(myButton);
-        container.add(Box.createHorizontalStrut(20)); 
-        myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
-        myButton.setForeground(Color.WHITE);
-        myButton.setFont(new Font("Lucida Console", Font.BOLD, 1)); // Fontsize doesn't matter
-        myButton.setFocusPainted(false);
-        myButton.setContentAreaFilled(false);
-        myButton.setOpaque(true); // Make the button opaque from the start
-
-        myButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Hover color with transparency
-                myButton.repaint(); // Repaint the button
-                myButton.getParent().repaint(); // Ensure the parent container is also repainted
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
-                myButton.repaint(); // Repaint the button and the container
-                myButton.getParent().repaint(); // Ensure the parent container is also repainted
-                myButton.getParent().revalidate();
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                myButton.setBackground(new Color(52, 112, 224)); // Adjust background if necessary
-                myButton.repaint();
-                myButton.getParent().repaint(); // Repaint the button's container
-                myButton.getParent().revalidate(); // Revalidate the layout of the container
-            }
-        });
-
-        return myButton;
-    }
-
     private enum VisibilityState {
         VIEW_STATISTICS,
         LIST_CONFERENCES,
@@ -313,7 +271,7 @@ public class MainPanel extends JPanel{
         panel.add(Box.createHorizontalGlue());
 
         for (int i = 0; i < buttonLabels.length; i++) {
-            JButton button = addButton(buttonLabels[i], panel);
+            JButton button = Elements.addButton(buttonLabels[i], panel);
             button.addActionListener(actions[i]);
         }
 

@@ -2,10 +2,20 @@ co\edu\unicauca\mvc\vistas\panels\SignInPanel$3.class
 co\edu\unicauca\mvc\utilities\Elements$2.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI.class
 co\edu\unicauca\mvc\utilities\Elements$1.class
+<<<<<<< HEAD
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$4.class
+=======
+>>>>>>> 1fa365cbf1ee45413e036d7081c7cd26f3ad33dc
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$1.class
 co\edu\unicauca\mvc\utilities\Elements.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$1.class
 co\edu\unicauca\mvc\controllers\UserManagementService.class
+<<<<<<< HEAD
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$2.class
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$2.class
+=======
+co\edu\unicauca\mvc\utilities\Elements$4.class
+co\edu\unicauca\mvc\utilities\CustomScrollBarUI$2.class
+co\edu\unicauca\mvc\vistas\panels\SignInPanel$2.class
+co\edu\unicauca\mvc\utilities\Elements$3.class
+>>>>>>> 1fa365cbf1ee45413e036d7081c7cd26f3ad33dc
