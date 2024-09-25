@@ -37,6 +37,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
+/*
+*
+*@author DavidCachón
+*/
 public class SignInPanel extends JPanel
 {
     private final MainWindow adminWindow;
