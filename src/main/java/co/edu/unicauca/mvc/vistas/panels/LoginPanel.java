@@ -4,8 +4,8 @@ import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.controllers.UserManagementService;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.utilities.Utilities;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,6 +16,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -27,10 +29,8 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
@@ -58,7 +58,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 1; 
 
         JPanel boxPanel = new JPanel(new GridBagLayout());
-        boxPanel.setPreferredSize(Elements.defineSize(0.25, 0.4)); 
+        boxPanel.setPreferredSize(Elements.defineSize(0.25, 0.4));
         boxPanel.setBackground(new Color(0xD7EAF9)); 
         addRowsToBoxPanel(boxPanel);
 
@@ -67,7 +67,7 @@ public class LogInPanel extends JPanel {
     
     private void addRowsToBoxPanel(JPanel boxPanel) 
     {
-        List<JComponent> inputs = new ArrayList<>();
+        List<JTextField> inputs = new ArrayList<>();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.fill = GridBagConstraints.BOTH;
@@ -114,12 +114,7 @@ public class LogInPanel extends JPanel {
             gbc.gridy = i;
             JPanel row = createRowPanel(new Color(0xD7EAF9));
 
-            JComponent inputField;
-            if (i == 2) { // Si es la segunda fila, usar JPasswordField
-                inputField = (JPasswordField)Elements.createPasswordField(" Contraseña");
-            } else {
-                inputField = (JTextField)Elements.createInputField(texts[i - 1]);
-            }
+            JTextField inputField = Elements.createInputField(texts[i - 1]);
             inputField.setPreferredSize(new Dimension(1, (int) (boxPanel.getPreferredSize().height * 0.1)));
 
             row.setLayout(new GridBagLayout());
@@ -146,7 +141,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 0.3;
         gbc.gridy = 4;
         int labelFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 27;
-        JLabel accountLabel = Elements.createLabel("No tienes una cuenta? Registrate!", labelFontSize);
+        JLabel accountLabel = createLabel("No tienes una cuenta? Registrate!", labelFontSize);
         accountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -173,55 +168,75 @@ public class LogInPanel extends JPanel {
         return panel;
     }
 
-    private void loginAction(List<JComponent> inputs) {
-        String email = ((JTextField) inputs.get(0)).getText(); // Cast seguro a JTextField
-        JPasswordField inputPassword = (JPasswordField) inputs.get(1); // Cast seguro a JPasswordField
-        char[] passwordChars = inputPassword.getPassword();
-        String password = new String(passwordChars);  // Convertir el arreglo de caracteres a String
-    
-        JTextField inputEmail = (JTextField) inputs.get(0); // Cast seguro
+    private JLabel createLabel(String text, int fontsize)
+    {
+        JLabel label = new JLabel(text);
+        
+        Color activeColor = new Color(52, 112, 224);
+        Color initalColor = new Color(0x2c4464);        
+        
+        label.setForeground(initalColor);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
+        
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent  e) {
+                label.setForeground(activeColor);
+                label.setFont(new Font("Leelawadee UI", Font.BOLD,(int) (fontsize * 1.15)));
+            }
 
+            @Override
+            public void mouseExited(MouseEvent  e) {
+                label.setForeground(initalColor);
+                label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
+            }
+        });        
+        return label;
+    }
+
+    private void loginAction(List<JTextField> inputs) 
+    {
+        String email = inputs.get(0).getText();
+        String password = inputs.get(1).getText();
+        JTextField inputEmail = inputs.get(0);
+        JTextField inputPassword = inputs.get(1);
         MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Elements.errorColor);
         int fontsize = inputEmail.getFont().getSize();
 
-        // Validación de email
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if (!email.matches(emailRegex)) {
             inputEmail.setBorder(BorderFactory.createCompoundBorder(
-                    errorBorder,
-                    BorderFactory.createEmptyBorder(0, 2, 0, 2)
+                errorBorder, 
+                BorderFactory.createEmptyBorder(0, 2, 0, 2) 
             ));
             inputEmail.setHorizontalAlignment(JLabel.CENTER);
             inputEmail.setText("Email invalido");
             inputEmail.setForeground(Elements.errorColor);
-            inputEmail.setFont(new Font("Leelawadee UI", Font.BOLD, fontsize));
+            inputEmail.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
             return;
         }
-
-        // Recorre la lista de usuarios para comparar email y contraseña
-        for (UserManagementService user : users.listAll()) {
+        
+        for (UserManagementService user : users.listAll())
+        {
             String userPassword = user.getUser().getPassword();
             String userEmail = user.getUser().getMail();
 
-            // Asegúrate de comparar bien la contraseña y el email
-            if (password.equals(userPassword) && userEmail.equals(email)) {
+            if (password.equals(userPassword) & userEmail.equals(email)) {
                 setMainPanel();
                 return;
-            }
+            }            
         }
-     
+        
         inputPassword.setBorder(BorderFactory.createCompoundBorder(
-                errorBorder,
-                BorderFactory.createEmptyBorder(0, 2, 0, 2)
-        ));
-        inputPassword.setHorizontalAlignment(JLabel.CENTER);
-        inputPassword.setText("");  // Limpia el campo de la contraseña
-        // Utilities.successMessage("La contraseña y el correo no coinciden", "Contraseña incorrecta");  //Alternativa
-        inputPassword.setToolTipText("La Contraseña y el Email no coinciden"); // Muestra un mensaje emergente
+                errorBorder, 
+                BorderFactory.createEmptyBorder(0, 2, 0, 2) 
+            ));
+        inputEmail.setHorizontalAlignment(JLabel.CENTER);
+        inputPassword.setText("La Contraseña y el Email no coinciden");
         inputPassword.setForeground(Elements.errorColor);
-        inputPassword.setFont(new Font("Leelawadee UI", Font.BOLD, fontsize));
+        inputPassword.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
-
     
     private void setMainPanel()
     {
@@ -231,6 +246,15 @@ public class LogInPanel extends JPanel {
         MainPanel mainPanel = (MainPanel) adminWindow.getCardManager().getPanel("mainPanel");
         mainPanel.associateService(ConferenceManagementService.class, conferenceService);
         adminWindow.getCardManager().showPanel("mainPanel");
+    }
+
+    
+    public Dimension defineSize() 
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.width * .25);
+        int height = (int) (screenSize.height * .4);
+        return new Dimension(width, height);
     }
 
 }
