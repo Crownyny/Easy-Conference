@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import java.util.LinkedHashMap;
 import javax.swing.Box;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
@@ -269,5 +272,43 @@ public class Elements extends JFrame {
         });
 
         return input;
+    }
+    
+    public static JFormattedTextField createNumberField(int maxLength) {
+        JFormattedTextField numberField = new JFormattedTextField();
+        numberField.setColumns(maxLength);
+
+        numberField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+                String text = numberField.getText();
+
+                if (ch == KeyEvent.VK_BACK_SPACE) {
+                    return;
+                }
+
+                if ((text.isEmpty() && ch == '0') || !Character.isDigit(ch) 
+                        || (text.length() >= maxLength))
+                {
+                    e.consume();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    if (!numberField.getText().isEmpty()) {
+                        int value = Integer.parseInt(numberField.getText());
+                        if (value < 0) {
+                            numberField.setText("0");
+                        }
+                    }
+                } catch (NumberFormatException ex) {
+                    numberField.setText("0");
+                }
+            }
+        });
+        return numberField;
     }
 }

@@ -30,7 +30,7 @@ public class RegisterAuthorWindow extends RegisterWindow {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Id:", new FieldConfig(new JTextField(10)));
+        inputFields.put("Id:", new FieldConfig(Elements.createNumberField(20)));
         inputFields.put("Mail:", new FieldConfig(new JTextField(30)));
         return inputFields;
     }
