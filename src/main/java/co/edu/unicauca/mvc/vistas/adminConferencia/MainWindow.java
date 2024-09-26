@@ -30,7 +30,7 @@ public class MainWindow extends JFrame {
         
         LogInPanel logInPanel = new LogInPanel(cardManager);
         SignInPanel signInPanel = new SignInPanel(cardManager);
-        MainPanel mainPanel = new MainPanel();
+        MainPanel mainPanel = new MainPanel(cardManager);
 
         cardManager.addPanel(logInPanel, "logInPanel");
         cardManager.addPanel(signInPanel, "signInPanel");

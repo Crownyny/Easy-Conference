@@ -39,11 +39,25 @@ public class MainPanel extends JPanel{
     private final Map<Class<?>, Integer> services = new HashMap<>();
     private JDesktopPane mainDesktopPane;
     private final CardPanelManager cardManager;
+    private final CardPanelManager generalCardManager;
 
     public void associateService(Class<?> serviceClass, int ID) {
         services.put(serviceClass, ID);
         removeInternalFrameForService(serviceClass);
         relateInternalFramesToDesktopPane();
+    }
+    
+    public void relateAllConferences()
+    {
+        removeInternalFrameForService(Conference.class);
+        if (!internalFrames.containsKey(ListConferencesWindow.class)) {
+            internalFrames.put(ListConferencesWindow.class, 
+                new ListConferencesWindow(this, services.get(Conference.class), "Descubrir conferencias", true));
+        }
+        mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
+        GeneralRepository.getConferenceService().
+                addObserver((Observer) internalFrames.get(ListConferencesWindow.class));
+        ( (ListConferencesWindow) internalFrames.get(ListConferencesWindow.class)).update();
     }
     
 private void removeInternalFrameForService(Class<?> serviceClass) {
@@ -110,8 +124,9 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         
     }
 
-    public MainPanel() {
+    public MainPanel(CardPanelManager generalCardManager) {
         super(new BorderLayout()); // Main panel replacing the JFrame's content
+        this.generalCardManager = generalCardManager;
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         createMainPanel(); 
     }
@@ -147,8 +162,21 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         gbc.anchor = GridBagConstraints.CENTER;
 
         // Define buttons and their actions
-        String[] mainPanelLabels = {"Gestionar conferencias"};
-        ActionListener[] mainPanelActions = {e -> setVisibility(MainPanel.VisibilityState.LIST_CONFERENCES)};
+        String[] mainPanelLabels = {"Mis conferencias", "Descubrir conferencias" , "Cerrar Sesion"};
+        ActionListener[] mainPanelActions = {
+            e -> 
+            {
+                removeInternalFrameForService(Conference.class);
+                relateInternalFramesToDesktopPane();
+                setVisibility(MainPanel.VisibilityState.LIST_CONFERENCES);
+            },               
+            e -> 
+            {
+                relateAllConferences();
+                setVisibility(MainPanel.VisibilityState.LIST_CONFERENCES);
+            },
+            e -> generalCardManager.showPanel("logInPanel")
+        };
 
         String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
         ActionListener[] conferencePanelActions = {

@@ -22,6 +22,7 @@ public class ListConferencesWindow extends ListWindow {
 
     private final int userID;
     private final  MainPanel adminWindow;
+    private boolean flag = false;
 
     /**
      * Creates new form VtnListarArticulos
@@ -34,6 +35,14 @@ public class ListConferencesWindow extends ListWindow {
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
         this.adminWindow = adminWindow;
         this.userID =userID;
+    }
+    
+    public ListConferencesWindow(MainPanel adminWindow, int userID, String title, boolean flag) {
+        super(title, "Registrar Conferencias", 
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
+        this.adminWindow = adminWindow;
+        this.userID =userID;
+        this.flag = flag;
     }
     
     /**
@@ -79,8 +88,11 @@ public class ListConferencesWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         clearTable();
-        ArrayList<Conference> conferenceList = (ArrayList) GeneralRepository.
-                getConferenceService().listAll();
+        ArrayList<Conference> conferenceList;
+        if(flag)
+           conferenceList = (ArrayList) GeneralRepository.getConferenceService().listAll();
+        else 
+            conferenceList = (ArrayList) GeneralRepository.getConferencesByUserId(userID);
         
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
