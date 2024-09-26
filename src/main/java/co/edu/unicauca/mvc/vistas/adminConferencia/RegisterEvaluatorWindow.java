@@ -66,6 +66,8 @@ public class RegisterEvaluatorWindow extends RegisterWindow
             Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));
             GeneralRepository.getArticleLinkServiceById(articleID).storeEvaluators(evaluator.getId());
             GeneralRepository.storeEvaluator(evaluator);
+            Utilities.successMessage("Evaluador asociado a este articulo", "Asignación de evaluador");
+            cleanInputs();
               
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");

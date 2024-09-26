@@ -1,6 +1,15 @@
 package co.edu.unicauca.mvc.utilities;
 
+import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -52,5 +61,24 @@ public class Utilities {
         return JOptionPane.showConfirmDialog(null, msg, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
-}
+    public static void cleanInputs(LinkedHashMap<String, FieldConfig> fieldConfigs) {
+        List<String> labelsText = new ArrayList<>(fieldConfigs.keySet());
+        int nComponents = fieldConfigs.size();
+        if ("".equals(labelsText.get(labelsText.size() - 1))) {
+            nComponents--;
+            System.out.println("Se elimino");
+        }
+        for (int i = 0; i < nComponents; i++) {
+            String labelText = labelsText.get(i);
+            System.out.println(labelText + "-");
+            FieldConfig config = fieldConfigs.get(labelText);
+            JComponent input =config.getFieldType();
+            if (input instanceof JTextField) {
+                ((JTextField) input).setText(""); // Limpia el JTextField
+            } else {
+                ((JDateChooser) input).setDate(null); // Limpia el JDateChooser
+            }
+        }
+    }
 
+}

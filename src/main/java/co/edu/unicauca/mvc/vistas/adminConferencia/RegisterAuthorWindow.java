@@ -68,7 +68,8 @@ public class RegisterAuthorWindow extends RegisterWindow {
             Author author = new Author(values.get(0),values.get(1), values.get(2));
             System.out.println("Deberia llamar a update");
             tempAuthors.store(author);
-            Utilities.successMessage("Correcto", "Formato de costo inválido");
+            Utilities.successMessage("Se asoció un nuevo autor a este articulo", "Creación de autores");
+            cleanInputs();
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }
