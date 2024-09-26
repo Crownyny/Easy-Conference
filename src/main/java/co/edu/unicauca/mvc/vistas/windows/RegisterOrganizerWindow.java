@@ -4,7 +4,6 @@
  */
 package co.edu.unicauca.mvc.vistas.windows;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -20,10 +19,12 @@ import java.util.LinkedHashMap;
  * @author Default
  */
 public class RegisterOrganizerWindow extends RegisterWindow {
+
     private int conferenceID;
 
     /**
      * Creates new form VtnListarArticulos
+     *
      * @param conferenceID
      */
     public RegisterOrganizerWindow(int conferenceID) {
@@ -39,7 +40,7 @@ public class RegisterOrganizerWindow extends RegisterWindow {
         inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
         return inputFields;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +73,8 @@ public class RegisterOrganizerWindow extends RegisterWindow {
         Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeOrganizers(organizer.getId());
         GeneralRepository.storeOrganizer(organizer);
+        Utilities.successMessage("Organizador creado correctamente", "Creación de evaluador");
+        cleanInputs();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

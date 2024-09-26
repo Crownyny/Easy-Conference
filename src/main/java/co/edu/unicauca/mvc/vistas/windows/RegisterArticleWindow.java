@@ -15,6 +15,7 @@ import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
+import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,16 +25,16 @@ import javax.swing.JFrame;
  * @author Default
  */
 public class RegisterArticleWindow extends RegisterWindow {
-    
+
     private int conferenceID = 0;
     private final StorageService<Author> tempAuthors;
 
-    public RegisterArticleWindow (int conferenceID) {
+    public RegisterArticleWindow(int conferenceID) {
         super(new JLabel("Registrar Articulo"), createInputFields());
         this.conferenceID = conferenceID;
         this.tempAuthors = new StorageService<>(new MemoryArrayListRepository<>());
     }
-    
+
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
@@ -66,29 +67,30 @@ public class RegisterArticleWindow extends RegisterWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     @Override
     protected void registerAction() {
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);         
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         Article article = new Article(values.get(0), values.get(1));
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeArticles(article.getId());
         GeneralRepository.storeArticle(article);
-        for (Author author : tempAuthors.listAll())
-        {
+        for (Author author : tempAuthors.listAll()) {
             GeneralRepository.getArticleLinkServiceById(article.getId()).
-                    storeAuthors(author.getId()); 
-            GeneralRepository.storeAuthor(author);    
+                    storeAuthors(author.getId());
+            GeneralRepository.storeAuthor(author);
         }
+        Utilities.successMessage("Artículo creado correctamente", "Creación de artículo");
+        cleanInputs();
     }
 
     @Override
     protected void extraButtonAction() {
-        ListAuthorWindow objAuthorWindow =
-        new ListAuthorWindow(tempAuthors);
+        ListAuthorWindow objAuthorWindow
+                = new ListAuthorWindow(tempAuthors);
         tempAuthors.addObserver((Observer) objAuthorWindow);
         System.out.println("Se a;adio el observador");
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        objAuthorWindow.setVisible(true);     
+        objAuthorWindow.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

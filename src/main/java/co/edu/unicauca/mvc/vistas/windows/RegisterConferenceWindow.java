@@ -124,6 +124,8 @@ public class RegisterConferenceWindow extends RegisterWindow {
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
             GeneralRepository.getUserLinkServiceById(userID).storeConferences(conference.getId());
             GeneralRepository.storeConference(conference);
+            Utilities.successMessage("Conferencia creada correctamente", "Creación de conferencia");
+            cleanInputs();
 
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El costo debe ser numérico", "Formato de costo inválido");

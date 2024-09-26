@@ -6,6 +6,7 @@ package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
+import co.edu.unicauca.mvc.utilities.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -173,7 +174,9 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
         this.getContentPane().add(panelButton, BorderLayout.SOUTH);
     }
-
+    protected void cleanInputs(){
+        Utilities.cleanInputs(fieldConfigs);
+    }
     protected abstract void registerAction();
     protected void extraButtonAction(){};
 
