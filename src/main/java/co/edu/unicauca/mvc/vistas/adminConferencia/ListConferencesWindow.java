@@ -114,7 +114,10 @@ public class ListConferencesWindow extends ListWindow {
             
             adminWindow.associateService(Organizer.class, selectedConference.getId());
             adminWindow.associateService(Article.class, selectedConference.getId());
-            adminWindow.getCardManager().showPanel("conferencePanel");
+            if(flag)
+                adminWindow.getCardManager().showPanel("otherConferencePanel");
+            else
+                adminWindow.getCardManager().showPanel("myConferencePanel");
             setVisible(false);
         };
 

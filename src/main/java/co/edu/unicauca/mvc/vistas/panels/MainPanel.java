@@ -178,8 +178,8 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
             e -> generalCardManager.showPanel("logInPanel")
         };
 
-        String[] conferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
-        ActionListener[] conferencePanelActions = {
+        String[] myConferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
+        ActionListener[] myConferencePanelActions = {
             e -> setVisibility(MainPanel.VisibilityState.LIST_ORGANIZERS),
             e -> setVisibility(MainPanel.VisibilityState.LIST_ARTICLES),
             e -> setVisibility(MainPanel.VisibilityState.VIEW_STATISTICS),
@@ -188,14 +188,25 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
                 cardManager.showPanel("firstPanel");
             }
         };
+        
+        String[] otherConferencePanelLabels = {"Gestionar artículos", "Regresar"};
+        ActionListener[] otherConferencePanelActions = {
+            e -> setVisibility(MainPanel.VisibilityState.LIST_ARTICLES),
+            e -> {
+                setVisibility(MainPanel.VisibilityState.NONE);
+                cardManager.showPanel("firstPanel");
+            }
+        };
+
 
         // Create and add button panels to CardLayout
         JPanel buttonsMainPanel = createButtonPanel(mainPanelLabels, mainPanelActions);
-        JPanel buttonsConferencePanel = createButtonPanel(conferencePanelLabels, conferencePanelActions);
-
+        JPanel buttonsMyConferencePanel = createButtonPanel(myConferencePanelLabels, myConferencePanelActions);
+        JPanel buttonsOtherConferencePanel = createButtonPanel(otherConferencePanelLabels, otherConferencePanelActions);
+        
         cardManager.addPanel(buttonsMainPanel, "firstPanel");
-        cardManager.addPanel(buttonsConferencePanel, "conferencePanel");
-
+        cardManager.addPanel(buttonsMyConferencePanel, "myConferencePanel");
+        cardManager.addPanel(buttonsOtherConferencePanel, "otherConferencePanel");
         panelNorth.add(cardManager.getCardPane(), gbc);
 
         // Create and configure the center panel with JDesktopPane
@@ -222,7 +233,7 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                adjustFontSize(titleLabel, buttonsMainPanel, buttonsConferencePanel);
+                adjustFontSize(titleLabel, buttonsMainPanel, buttonsMyConferencePanel, buttonsOtherConferencePanel);
             }
         });
     }
