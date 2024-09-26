@@ -3,14 +3,16 @@ package co.edu.unicauca.mvc.models;
 import java.util.Date;
 import java.util.List;
 
-public class Conference {
+public class Conference implements InterfaceIdentifiable{
     private String name;
     private Date startDate;
     private Date endDate;
     private float registrationCost;
     private String location;
     private List<String> topics;
-
+    private int id;
+    private static int idCont = 0;
+    
     public Conference(String name, Date startDate, Date endDate, float registrationCost, String location, List<String> topics) {
         this.name = name;
         this.startDate = startDate;
@@ -18,6 +20,7 @@ public class Conference {
         this.registrationCost = registrationCost;
         this.location = location;
         this.topics = topics;
+        this.id = ++idCont;
     }
 
     public String getName() {
@@ -73,6 +76,15 @@ public class Conference {
             return ""; 
 
         return String.join(", ", topics);
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

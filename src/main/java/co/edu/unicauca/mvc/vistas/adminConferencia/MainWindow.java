@@ -1,9 +1,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.controllers.UserManagementService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.models.User;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
+import co.edu.unicauca.mvc.models.*;
 import co.edu.unicauca.mvc.vistas.panels.LogInPanel;
 import co.edu.unicauca.mvc.vistas.panels.MainPanel;
 import co.edu.unicauca.mvc.vistas.panels.SignInPanel;
@@ -18,24 +16,20 @@ public class MainWindow extends JFrame {
     
     public MainWindow() {
         super("Easy Conference");
-        configWindow();
-        
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
+        configWindow();       
         linkPanels();
         getContentPane().add(cardManager.getCardPane());
     }
     
     private void linkPanels()
     {
-        MemoryArrayListRepository<UserManagementService> userRepository = new MemoryArrayListRepository<>();
-        StorageService<UserManagementService> userService = new StorageService<>(userRepository);
-        userService.store(new UserManagementService(
-                new User("Julian","Meneses","something@gmail.com","123"),
-        new MemoryArrayListRepository<>(),
-        new MemoryArrayListRepository<>()));
+
+        GeneralRepository.storeUser(
+                new User("a@a.com","123","Julian","Meneses"));
         
-        LogInPanel logInPanel = new LogInPanel(this, userService);
-        SignInPanel signInPanel = new SignInPanel(this,userService);
+        LogInPanel logInPanel = new LogInPanel(cardManager);
+        SignInPanel signInPanel = new SignInPanel(cardManager);
         MainPanel mainPanel = new MainPanel();
 
         cardManager.addPanel(logInPanel, "logInPanel");

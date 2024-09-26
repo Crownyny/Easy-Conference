@@ -4,10 +4,7 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.ArticleManagementService;
-import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
-import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +12,6 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Conference;
-import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import javax.swing.JButton;
@@ -31,16 +27,16 @@ import javax.swing.JFrame;
  */
 public class RegisterConferenceWindow extends RegisterWindow {
     
-    private final StorageService<ConferenceManagementService> objStorageService;
+    private final int userID;
     private final ArrayList<String> selectedTopics; 
     /**
      * Creates new form VtnListarArticulos
-     * @param objStorageService
+     * @param idUser
      */
-    public RegisterConferenceWindow ( StorageService<ConferenceManagementService> objStorageService) {
+    public RegisterConferenceWindow (int idUser) {
         super(new JLabel("Registrar Conferencia"), createInputFields());
         selectedTopics = new ArrayList<>();
-        this.objStorageService = objStorageService;
+        this.userID = idUser;
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
@@ -162,16 +158,8 @@ public class RegisterConferenceWindow extends RegisterWindow {
 
             float cost = Float.parseFloat(values.get(3));
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
-            
-            MemoryArrayListRepository<Organizer> organizerRepository = new MemoryArrayListRepository<>();
-            MemoryArrayListRepository<ArticleManagementService> articleRepository = new MemoryArrayListRepository<>();
-            
-            
-            if (objStorageService.store(new ConferenceManagementService(conference, organizerRepository, articleRepository))) {
-                Utilities.successMessage("El registro de la conferencia fue exitoso", "Registro exitoso");
-            } else {
-                Utilities.errorMessage("El registro de la conferencia no se realizó", "Error en el registro");
-            }
+            GeneralRepository.getUserLinkServiceById(userID).storeConferences(conference.getId());
+            GeneralRepository.storeConference(conference);
 
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El costo debe ser numérico", "Formato de costo inválido");

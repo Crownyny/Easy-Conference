@@ -1,19 +1,10 @@
 package co.edu.unicauca.mvc.models;
 
 public class Author extends Person{
-    private float id;
 
-    public Author(String firstName, String lastName, String email, float id) {
-        super(firstName, lastName, email);
-        this.id = id;
+    private static int idCont = 0;
+    public Author(String firstName, String lastName, String mail) {
+        super(firstName, lastName, mail, ++idCont);
     }
-
-    public float getId() {
-        return id;
-    }
-
-    public void setId(float id) {
-        this.id = id;
-    }  
 
 }

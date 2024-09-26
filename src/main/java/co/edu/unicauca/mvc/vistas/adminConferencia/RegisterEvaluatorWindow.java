@@ -1,6 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
@@ -14,17 +14,15 @@ import javax.swing.JTextField;
  *
  * @author Default
  */
-public class RegisterEvaluatorWindow extends RegisterWindow {
-    
-    private final StorageService<Evaluator> objStorageService;
-    /**
-     * Creates new form RegisterAuthorWindow
-     * @param objStorageService
-     */
-    public RegisterEvaluatorWindow(StorageService<Evaluator> objStorageService) {
+public class RegisterEvaluatorWindow extends RegisterWindow 
+{
+    private final int articleID;
+
+    public RegisterEvaluatorWindow( int articleID) {
         super(new JLabel("Registrar Evaluador"), createInputFields());
-        this.objStorageService = objStorageService;
+        this.articleID = articleID;
     }
+
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
@@ -66,11 +64,9 @@ public class RegisterEvaluatorWindow extends RegisterWindow {
         
         try{
             Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));
-
-            if (objStorageService.store(evaluator))
-                Utilities.successMessage("El registro del autor fue exitoso", "Registro exitoso");
-            else
-                Utilities.successMessage("El registro del autor no se realizo", "Error en el registro");
+            GeneralRepository.getArticleLinkServiceById(articleID).storeEvaluators(evaluator.getId());
+            GeneralRepository.storeEvaluator(evaluator);
+              
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }

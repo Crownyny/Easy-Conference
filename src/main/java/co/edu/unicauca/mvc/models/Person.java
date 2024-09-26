@@ -1,18 +1,21 @@
 package co.edu.unicauca.mvc.models;
 
-public abstract class Person {
+public abstract class Person implements InterfaceIdentifiable{
     protected String firstName;
     protected String lastName;
     protected String mail;
-
+    protected int id;
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String mail) {
+    public Person(String firstName, String lastName, String mail, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
+        this.id = id;
     }
+
+
 
     public String getFirstName() {
         return firstName;
@@ -36,6 +39,15 @@ public abstract class Person {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

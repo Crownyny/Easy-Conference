@@ -16,21 +16,20 @@ import javax.swing.JTextField;
  */
 public class RegisterAuthorWindow extends RegisterWindow {
     
-    private final StorageService<Author> objStorageService;
+    private final StorageService<Author> tempAuthors;
     /**
      * Creates new form RegisterAuthorWindow
-     * @param objStorageService
+     * @param tempAuthors
      */
-    public RegisterAuthorWindow(StorageService<Author> objStorageService) {
+    public RegisterAuthorWindow(StorageService<Author> tempAuthors) {
         super(new JLabel("Registrar Autor"), createInputFields());
-        this.objStorageService = objStorageService;
+        this.tempAuthors = tempAuthors;
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Id:", new FieldConfig(new JTextField(10)));
         inputFields.put("Mail:", new FieldConfig(new JTextField(30)));
         return inputFields;
     }
@@ -66,13 +65,10 @@ public class RegisterAuthorWindow extends RegisterWindow {
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{
-            float id = Float.parseFloat(values.get(2));
-            Author author = new Author(values.get(0),values.get(1), values.get(3), id);
-
-            if (objStorageService.store(author))
-                Utilities.successMessage("El registro del autor fue exitoso", "Registro exitoso");
-            else
-                Utilities.successMessage("El registro del autor no se realizo", "Error en el registro");
+            Author author = new Author(values.get(0),values.get(1), values.get(2));
+            System.out.println("Deberia llamar a update");
+            tempAuthors.store(author);
+            Utilities.successMessage("Correcto", "Formato de costo inválido");
         } catch (NumberFormatException ex) {
             Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }

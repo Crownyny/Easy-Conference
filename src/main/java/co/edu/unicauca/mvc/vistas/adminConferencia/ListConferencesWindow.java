@@ -1,9 +1,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.ArticleManagementService;
-import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
-import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.infrastructure.Observer;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
+import co.edu.unicauca.mvc.models.Article;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -14,7 +12,6 @@ import co.edu.unicauca.mvc.vistas.panels.MainPanel;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
-import java.util.stream.Collectors;
 import javax.swing.JCheckBox;
 
 /**
@@ -23,19 +20,20 @@ import javax.swing.JCheckBox;
  */
 public class ListConferencesWindow extends ListWindow {
 
-    private final StorageService<ConferenceManagementService> objStorageService;
+    private final int userID;
     private final  MainPanel adminWindow;
 
     /**
      * Creates new form VtnListarArticulos
      * @param adminWindow
-     * @param objStorageService
+     * @param userID
+     * @param title
      */
-    public ListConferencesWindow(MainPanel adminWindow, StorageService<ConferenceManagementService> objStorageService) {
-        super("Listado de Conferencias", "Registrar Conferencias", 
+    public ListConferencesWindow(MainPanel adminWindow, int userID, String title) {
+        super(title, "Registrar Conferencias", 
                 new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
-        this.objStorageService=objStorageService;
         this.adminWindow = adminWindow;
+        this.userID =userID;
     }
     
     /**
@@ -64,7 +62,7 @@ public class ListConferencesWindow extends ListWindow {
     @Override
     protected void registerAction(){
         RegisterConferenceWindow registerConferenceWindow =
-        new RegisterConferenceWindow(objStorageService);
+        new RegisterConferenceWindow(userID);
         registerConferenceWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         registerConferenceWindow.setVisible(true);       
     }
@@ -81,9 +79,8 @@ public class ListConferencesWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         clearTable();
-        ArrayList<Conference> conferenceList = objStorageService.listAll().stream()
-            .map(ConferenceManagementService::getConference)
-            .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Conference> conferenceList = (ArrayList) GeneralRepository.
+                getConferenceService().listAll();
         
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -102,13 +99,9 @@ public class ListConferencesWindow extends ListWindow {
         
         ButtonClickListener listener = (int row) -> {
             Conference selectedConference = conferenceList.get(row);
-            ConferenceManagementService conferenceManager = objStorageService.listAll().stream()
-                        .filter(conferenceMngr -> conferenceMngr.getConference().equals(selectedConference))
-                        .findFirst()
-                        .orElse(null);
-
-            adminWindow.associateService(Organizer.class, conferenceManager.getOrganizerService());
-            adminWindow.associateService(ArticleManagementService.class, conferenceManager.getArticleService());
+            
+            adminWindow.associateService(Organizer.class, selectedConference.getId());
+            adminWindow.associateService(Article.class, selectedConference.getId());
             adminWindow.getCardManager().showPanel("conferencePanel");
             setVisible(false);
         };
@@ -119,7 +112,7 @@ public class ListConferencesWindow extends ListWindow {
     }
 
     @Override
-    public void update(Object o) {
+    public void update() {
         fillTable();
     }
     

@@ -1,9 +1,10 @@
 package co.edu.unicauca.mvc.dataAccess;
 
+import co.edu.unicauca.mvc.models.InterfaceIdentifiable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryArrayListRepository<T> implements InterfaceRepository<T>{
+public class MemoryArrayListRepository<T extends InterfaceIdentifiable> implements InterfaceRepository<T>{
 
     protected final ArrayList<T> list;
 
@@ -23,5 +24,13 @@ public class MemoryArrayListRepository<T> implements InterfaceRepository<T>{
     @Override
     public List<T> listAll() {
         return this.list;
+    }
+
+    @Override
+    public T getById(int id) {
+        return list.stream()
+           .filter(obj -> obj.getId() == id)  
+           .findFirst()
+           .orElse(null);
     }
 }

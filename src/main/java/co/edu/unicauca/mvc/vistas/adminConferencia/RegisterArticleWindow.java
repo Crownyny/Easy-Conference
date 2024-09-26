@@ -4,18 +4,17 @@
  */
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.ArticleManagementService;
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.infrastructure.Observer;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
-import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,18 +25,13 @@ import javax.swing.JFrame;
  */
 public class RegisterArticleWindow extends RegisterWindow {
     
-    private final StorageService<ArticleManagementService> objStorageService;
-    private final StorageService<Author> authors; 
+    private int conferenceID = 0;
+    private final StorageService<Author> tempAuthors;
 
-    /**
-     * Creates new form VtnListarArticulos
-     * @param objStorageService
-     */
-    public RegisterArticleWindow (StorageService<ArticleManagementService> objStorageService) {
+    public RegisterArticleWindow (int conferenceID) {
         super(new JLabel("Registrar Articulo"), createInputFields());
-        MemoryArrayListRepository<Author> authorRepository = new MemoryArrayListRepository<>();
-        authors = new StorageService<>(authorRepository);
-        this.objStorageService = objStorageService;
+        this.conferenceID = conferenceID;
+        this.tempAuthors = new StorageService<>(new MemoryArrayListRepository<>());
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
@@ -75,23 +69,24 @@ public class RegisterArticleWindow extends RegisterWindow {
     
     @Override
     protected void registerAction() {
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
-        
- 
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);         
         Article article = new Article(values.get(0), values.get(1));
-        MemoryArrayListRepository<Evaluator> evaluatorRepository = new MemoryArrayListRepository<>();
-        if (objStorageService.store(new ArticleManagementService(article, authors,
-                new StorageService<>(evaluatorRepository))))
-            Utilities.successMessage("El registro del articulo fue exitoso", "Registro exitoso");
-        else
-            Utilities.successMessage("El registro del articulo no se realizo", "Error en el registro");
-
+        GeneralRepository.getConferenceLinkServiceById(conferenceID).storeArticles(article.getId());
+        GeneralRepository.storeArticle(article);
+        for (Author author : tempAuthors.listAll())
+        {
+            GeneralRepository.getArticleLinkServiceById(article.getId()).
+                    storeAuthors(author.getId()); 
+            GeneralRepository.storeAuthor(author);    
+        }
     }
 
     @Override
     protected void extraButtonAction() {
         ListAuthorWindow objAuthorWindow =
-            new ListAuthorWindow(this.authors);
+            new ListAuthorWindow(tempAuthors);
+        tempAuthors.addObserver((Observer) objAuthorWindow);
+        System.out.println("Se a;adio el observador");
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objAuthorWindow.setVisible(true);     
     }

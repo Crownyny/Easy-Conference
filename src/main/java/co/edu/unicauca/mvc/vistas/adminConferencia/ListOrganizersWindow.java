@@ -1,7 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.infrastructure.Observer;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -9,15 +8,11 @@ import co.edu.unicauca.mvc.models.Organizer;
 
 public class ListOrganizersWindow extends ListWindow {
 
-    private final StorageService<Organizer> objStorageService;
+    private final int conferenceID;
 
-    /**
-     * Creates new form VtnListarArticulos
-     * @param objStorageService
-     */
-    public ListOrganizersWindow (StorageService<Organizer> objStorageService) {
+    public ListOrganizersWindow (int conferenceID) {
         super("Listado de Organizadores", "Registrar Organizadores", new String[]{"Nombres", "Apellidos", "Universidad"});
-        this.objStorageService=objStorageService;
+        this.conferenceID =conferenceID;
     }
 
     /**
@@ -47,7 +42,7 @@ public class ListOrganizersWindow extends ListWindow {
     @Override
     protected void registerAction(){
         RegisterOrganizerWindow registerOrganizerWindow =
-        new RegisterOrganizerWindow(objStorageService);
+        new RegisterOrganizerWindow(conferenceID);
         registerOrganizerWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         registerOrganizerWindow.setVisible(true);       
     }
@@ -64,8 +59,8 @@ public class ListOrganizersWindow extends ListWindow {
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         clearTable();
-        ArrayList<Organizer> organizerList = (ArrayList<Organizer>) objStorageService.listAll();
-
+        ArrayList<Organizer> organizerList = (ArrayList<Organizer>) GeneralRepository.getOrganizersByConferenceId(conferenceID);
+        System.out.println("Saque datos");
         for (int i = 0; i < organizerList.size(); i++) {
             String[] row = { 
                 organizerList.get(i).getFirstName(), 
@@ -74,10 +69,11 @@ public class ListOrganizersWindow extends ListWindow {
             };
             model.addRow(row);
         }
+        
     }
 
     @Override
-    public void update(Object o) {
+    public void update() {
         fillTable();
     }
 

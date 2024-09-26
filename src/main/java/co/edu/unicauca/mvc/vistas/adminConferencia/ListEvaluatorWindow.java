@@ -1,6 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.Elements;
@@ -35,21 +35,18 @@ import javax.swing.table.JTableHeader;
  * @author Default
  */
 public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer{
-    protected final StorageService<Evaluator> objStorageService;
+    private final int articleID;
     protected JLabel titleLabel;
     protected String registerButtonText;
     protected String[] columnNames;
     protected JTable table;
 
-    /**
-     * Creates new form VtnListarArticulos
-     * @param objStorageService
-     */
-    public ListEvaluatorWindow(StorageService<Evaluator> objStorageService) {
+
+    public ListEvaluatorWindow( int articleID) {
+        this.articleID = articleID;
         titleLabel = new JLabel("Listado de evaluadores");
         registerButtonText = "Registrar evaluadores";
         columnNames = new String[]{"Nombre", "Apellido", "Email", "Institucion asociada"};
-        this.objStorageService = objStorageService;
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
@@ -174,7 +171,7 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
 
     protected void registerAction() {
         RegisterEvaluatorWindow objVtnRegisterArticle =
-            new RegisterEvaluatorWindow(this.objStorageService);
+            new RegisterEvaluatorWindow( articleID);// Pass the articleId to register
         objVtnRegisterArticle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objVtnRegisterArticle.setVisible(true);       
     }
@@ -190,7 +187,7 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         clearTable();
-        ArrayList<Evaluator> evaluatorList = (ArrayList<Evaluator>) this.objStorageService.listAll();
+        ArrayList<Evaluator> evaluatorList = (ArrayList<Evaluator>) GeneralRepository.getEvaluatorService().listAll();
 
         for (Evaluator evaluator : evaluatorList) {
             String[] row = { 
@@ -205,7 +202,7 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
     }
 
     @Override
-    public void update(Object o) {
+    public void update() {
         fillTable();
     }
 

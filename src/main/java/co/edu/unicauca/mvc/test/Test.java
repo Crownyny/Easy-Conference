@@ -1,5 +1,6 @@
 package co.edu.unicauca.mvc.test;
 
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
 import javax.swing.UIManager;
 
@@ -10,6 +11,7 @@ public class Test {
     public static void main(String[] args) {
         seleccionarLookAndField();
         // Add observers to services
+        GeneralRepository.initializeManagementService();
         MainWindow adminWindow = new MainWindow();
         adminWindow.setVisible(true);       
     }

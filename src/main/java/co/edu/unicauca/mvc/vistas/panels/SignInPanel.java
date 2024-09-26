@@ -1,11 +1,9 @@
 package co.edu.unicauca.mvc.vistas.panels;
 
-import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.controllers.UserManagementService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
+import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -15,13 +13,10 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
@@ -39,17 +34,15 @@ import javax.swing.border.MatteBorder;
 
 public class SignInPanel extends JPanel
 {
-    private final MainWindow adminWindow;
-    private final StorageService<UserManagementService> users;
-    
-    private final Color errorColor = new Color(0xE81010);
+    private final CardPanelManager cardManager;
     private final String[] placeholders = {"  Nombres", "  Apellidos", "  Email", "  Contraseña" };
 
-    public SignInPanel(MainWindow adminWindow, StorageService<UserManagementService> users) {
-        this.users = users;
-        this.adminWindow = adminWindow;
+    public SignInPanel(CardPanelManager cardManager) {
+        this.cardManager = cardManager;
         createPanel();
     }
+
+
     private void createPanel() {
           setBackground(new Color(0xD7EAF9));
           setLayout(new BorderLayout());
@@ -108,7 +101,7 @@ public class SignInPanel extends JPanel
             iconLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    adminWindow.getCardManager().showPanel("logInPanel");
+                    cardManager.showPanel("logInPanel");
                 }
 
                 @Override
@@ -238,13 +231,7 @@ public class SignInPanel extends JPanel
         boxPanel.add(mainButton, gbc);
     }
     
-    private void updateButtonBackground(JButton button, Color color)
-    {
-        button.setBackground(color);
-        button.repaint();
-        button.getParent().repaint();
-        button.getParent().revalidate();
-    }
+
     
     private JPanel createRowPanel(Color color) 
     {
@@ -279,7 +266,7 @@ public class SignInPanel extends JPanel
         input.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (input.getText().equals(placeholder) || input.getForeground().equals(errorColor) ) {
+                if (input.getText().equals(placeholder) || input.getForeground().equals(Elements.errorColor) ) {
                     input.setText("");
                     input.setForeground(textColor);  // Set to normal text color
                     input.setHorizontalAlignment(JLabel.LEFT);
@@ -357,12 +344,12 @@ public class SignInPanel extends JPanel
         }
         
         createAccount(inputs);
-        adminWindow.getCardManager().showPanel("logInPanel");
+        cardManager.showPanel("logInPanel");
     }
      
     private void inputError(JTextField input, String message)
     {
-        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, errorColor);
+        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Elements.errorColor);
         int fontsize = input.getFont().getSize();
         input.setBorder(BorderFactory.createCompoundBorder(
             errorBorder, 
@@ -371,16 +358,14 @@ public class SignInPanel extends JPanel
 
         input.setHorizontalAlignment(JLabel.CENTER);
         input.setText(message);
-        input.setForeground(errorColor);
+        input.setForeground(Elements.errorColor);
         input.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
     
     private void createAccount(List<JTextField> inputs)
     {
-        User newUser = new User(inputs.get(0).getText(), inputs.get(1).getText(), 
-                inputs.get(2).getText(), inputs.get(3).getText());
-        UserManagementService newUserService = new UserManagementService(newUser,
-                new MemoryArrayListRepository<>(), new MemoryArrayListRepository<>());
-        users.store(newUserService);
+        User newUser = new User(inputs.get(2).getText(), inputs.get(3).getText(), 
+                inputs.get(0).getText(), inputs.get(1).getText());
+        GeneralRepository.storeUser(newUser);
     }
 }

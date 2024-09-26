@@ -5,6 +5,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -19,18 +20,17 @@ import java.util.LinkedHashMap;
  * @author Default
  */
 public class RegisterOrganizerWindow extends RegisterWindow {
-
-    private final StorageService<Organizer> objStorageService;
+    private int conferenceID;
 
     /**
      * Creates new form VtnListarArticulos
-     * @param objStorageService
+     * @param conferenceID
      */
-    public RegisterOrganizerWindow (StorageService<Organizer> objStorageService) {
+    public RegisterOrganizerWindow(int conferenceID) {
         super(new JLabel("Registrar Organizador"), createInputFields());
-        this.objStorageService = objStorageService;
+        this.conferenceID = conferenceID;
     }
-    
+
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
@@ -70,11 +70,8 @@ public class RegisterOrganizerWindow extends RegisterWindow {
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
 
         Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
-
-        if (objStorageService.store(organizer)) 
-            Utilities.successMessage("El registro del organizador fue exitoso", "Registro exitoso");
-        else
-            Utilities.errorMessage("El registro del organizador no se realizo", "Error en el registro");
+        GeneralRepository.getConferenceLinkServiceById(conferenceID).storeOrganizers(organizer.getId());
+        GeneralRepository.storeOrganizer(organizer);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

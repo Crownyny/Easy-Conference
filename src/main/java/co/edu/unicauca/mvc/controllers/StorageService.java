@@ -26,4 +26,8 @@ public class StorageService<T> extends Subject{
         return repositoryReference.listAll();
     }  
     
+    public T getById(int id) {
+        return (T) repositoryReference.getById(id);
+    }  
+    
 }

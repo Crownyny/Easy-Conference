@@ -5,6 +5,7 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.Elements;
@@ -39,7 +40,7 @@ import javax.swing.table.JTableHeader;
  * @author Default
  */
 public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
-    protected final StorageService<Author> objStorageService;
+    private final StorageService<Author> tempAuthors;
     protected JLabel titleLabel;
     protected String registerButtonText;
     protected String[] columnNames;
@@ -47,13 +48,13 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
 
     /**
      * Creates new form VtnListarArticulos
-     * @param objStorageService
+     * @param tempAuthors
      */
-    public ListAuthorWindow(StorageService<Author> objStorageService) {
+    public ListAuthorWindow(StorageService<Author> tempAuthors) {
+        this.tempAuthors = tempAuthors;
         titleLabel = new JLabel("Listado de autores");
         registerButtonText = "Registrar autor";
-        columnNames = new String[]{"Nombre", "Apellido", "ID", "Email"};
-        this.objStorageService = objStorageService;
+        columnNames = new String[]{"Nombre", "Apellido", "Email"};
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
@@ -179,7 +180,7 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
 
     protected void registerAction() {
         RegisterAuthorWindow objVtnRegisterArticle =
-            new RegisterAuthorWindow(this.objStorageService);
+            new RegisterAuthorWindow(tempAuthors);
         objVtnRegisterArticle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objVtnRegisterArticle.setVisible(true);       
     }
@@ -195,13 +196,12 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         clearTable();
-        ArrayList<Author> authorList = (ArrayList<Author>) this.objStorageService.listAll();
+        ArrayList<Author> authorList = (ArrayList<Author>) tempAuthors.listAll();// Fix show all 
 
         for (Author author : authorList) {
             String[] row = { 
                 author.getFirstName(),
                 author.getLastName(),
-                author.getId() + "",
                 author.getMail()
             };
             model.addRow(row);
@@ -209,8 +209,9 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
     }
 
     @Override
-    public void update(Object o) {
+    public void update() {
         fillTable();
+        System.out.println("Se hiso la observacion");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

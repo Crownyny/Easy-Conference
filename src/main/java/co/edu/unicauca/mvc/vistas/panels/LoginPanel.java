@@ -1,12 +1,11 @@
 package co.edu.unicauca.mvc.vistas.panels;
 
-import co.edu.unicauca.mvc.controllers.ConferenceManagementService;
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.controllers.StorageService;
-import co.edu.unicauca.mvc.controllers.UserManagementService;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
+import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
+import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -15,9 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -36,12 +32,10 @@ import javax.swing.border.MatteBorder;
 
 
 public class LogInPanel extends JPanel {
-    private final StorageService<UserManagementService> users;
-    private final MainWindow adminWindow;
+    private final CardPanelManager cardManager;
 
-    public LogInPanel( MainWindow adminWindow, StorageService<UserManagementService> users) {
-        this.users = users;
-        this.adminWindow = adminWindow;
+    public LogInPanel(CardPanelManager cardManager) {
+        this.cardManager = cardManager;
         createPanel();
     }
 
@@ -145,7 +139,7 @@ public class LogInPanel extends JPanel {
         accountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                adminWindow.getCardManager().showPanel("signInPanel");
+                cardManager.showPanel("signInPanel");
             }
 
             @Override
@@ -197,6 +191,7 @@ public class LogInPanel extends JPanel {
 
     private void loginAction(List<JTextField> inputs) 
     {
+        StorageService<User> users = GeneralRepository.getUserService();
         String email = inputs.get(0).getText();
         String password = inputs.get(1).getText();
         JTextField inputEmail = inputs.get(0);
@@ -217,13 +212,13 @@ public class LogInPanel extends JPanel {
             return;
         }
         
-        for (UserManagementService user : users.listAll())
+        for (User user : users.listAll())
         {
-            String userPassword = user.getUser().getPassword();
-            String userEmail = user.getUser().getMail();
+            String userPassword = user.getPassword();
+            String userEmail = user.getMail();
 
             if (password.equals(userPassword) & userEmail.equals(email)) {
-                setMainPanel();
+                setMainPanel(user.getId());
                 return;
             }            
         }
@@ -238,23 +233,12 @@ public class LogInPanel extends JPanel {
         inputPassword.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
     
-    private void setMainPanel()
-    {
-        MemoryArrayListRepository<ConferenceManagementService> conferenceRepository = new MemoryArrayListRepository<>();
-        StorageService<ConferenceManagementService> conferenceService = new StorageService<>(conferenceRepository);
-        
-        MainPanel mainPanel = (MainPanel) adminWindow.getCardManager().getPanel("mainPanel");
-        mainPanel.associateService(ConferenceManagementService.class, conferenceService);
-        adminWindow.getCardManager().showPanel("mainPanel");
+    private void setMainPanel(int userID)
+    {   
+        MainPanel mainPanel = (MainPanel) cardManager.getPanel("mainPanel");
+        mainPanel.associateService(Conference.class, userID);
+        cardManager.showPanel("mainPanel");
     }
 
-    
-    public Dimension defineSize() 
-    {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = (int) (screenSize.width * .25);
-        int height = (int) (screenSize.height * .4);
-        return new Dimension(width, height);
-    }
-
+   
 }

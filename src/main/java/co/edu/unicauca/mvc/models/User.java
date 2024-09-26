@@ -1,14 +1,13 @@
 package co.edu.unicauca.mvc.models;
 
-import java.util.Date;
-
 public class User extends Person{
     private String password;
+    private static int idCont = 0;
 
-    public User(String firstName, String lastName, String mail, String password) {
-        super(firstName, lastName, mail);
+    public User(String mail, String password, String firstName, String lastName ) {
+        super(firstName, lastName, mail, ++idCont);
         this.password = password;
-    }
+    }   
 
     public String getPassword() {
         return password;
