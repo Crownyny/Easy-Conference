@@ -1,8 +1,13 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package co.edu.unicauca.mvc.vistas.windows;
 
+import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
-import co.edu.unicauca.mvc.models.Evaluator;
+import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.Elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,19 +39,22 @@ import javax.swing.table.JTableHeader;
  *
  * @author Default
  */
-public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer{
-    private final int articleID;
+public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
+    private final StorageService<Author> tempAuthors;
     protected JLabel titleLabel;
     protected String registerButtonText;
     protected String[] columnNames;
     protected JTable table;
 
-
-    public ListEvaluatorWindow( int articleID) {
-        this.articleID = articleID;
-        titleLabel = new JLabel("Listado de evaluadores");
-        registerButtonText = "Registrar evaluadores";
-        columnNames = new String[]{"Nombre", "Apellido", "Email", "Institucion asociada"};
+    /**
+     * Creates new form VtnListarArticulos
+     * @param tempAuthors
+     */
+    public ListAuthorWindow(StorageService<Author> tempAuthors) {
+        this.tempAuthors = tempAuthors;
+        titleLabel = new JLabel("Listado de autores");
+        registerButtonText = "Registrar autor";
+        columnNames = new String[]{"Nombre", "Apellido", "Email"};
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
@@ -77,6 +85,7 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void showGui() {
         // Set up the window size
@@ -123,6 +132,7 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
             panelCenter.add(registerButton, gbc);
 
         } catch (IOException e) {}
+
         // Customize the header renderer
         JTableHeader header = this.table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -167,11 +177,10 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
 
     }
-    
 
     protected void registerAction() {
-        RegisterEvaluatorWindow objVtnRegisterArticle =
-            new RegisterEvaluatorWindow( articleID);// Pass the articleId to register
+        RegisterAuthorWindow objVtnRegisterArticle =
+            new RegisterAuthorWindow(tempAuthors);
         objVtnRegisterArticle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         objVtnRegisterArticle.setVisible(true);       
     }
@@ -187,23 +196,22 @@ public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer
     private void fillTable() {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         clearTable();
-        ArrayList<Evaluator> evaluatorList = (ArrayList<Evaluator>) GeneralRepository.getEvaluatorService().listAll();
+        ArrayList<Author> authorList = (ArrayList<Author>) tempAuthors.listAll();// Fix show all 
 
-        for (Evaluator evaluator : evaluatorList) {
+        for (Author author : authorList) {
             String[] row = { 
-                evaluator.getFirstName(),
-                evaluator.getLastName(),
-                evaluator.getMail(),
-                evaluator.getAfiliation()
+                author.getFirstName(),
+                author.getLastName(),
+                author.getMail()
             };
             model.addRow(row);
         }
-       
     }
 
     @Override
     public void update() {
         fillTable();
+        System.out.println("Se hiso la observacion");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

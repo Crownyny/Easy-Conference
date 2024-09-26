@@ -1,7 +1,7 @@
 package co.edu.unicauca.mvc.test;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
-import co.edu.unicauca.mvc.vistas.adminConferencia.MainWindow;
+import co.edu.unicauca.mvc.vistas.windows.MainWindow;
 import javax.swing.UIManager;
 
 

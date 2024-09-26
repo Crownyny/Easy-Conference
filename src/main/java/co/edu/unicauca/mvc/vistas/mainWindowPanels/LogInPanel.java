@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.vistas.panels;
+package co.edu.unicauca.mvc.vistas.mainWindowPanels;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.controllers.StorageService;

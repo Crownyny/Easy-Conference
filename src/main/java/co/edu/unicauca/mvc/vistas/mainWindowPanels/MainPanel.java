@@ -1,13 +1,13 @@
-package co.edu.unicauca.mvc.vistas.panels;
+package co.edu.unicauca.mvc.vistas.mainWindowPanels;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.*;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.vistas.adminConferencia.ListArticlesWindow;
-import co.edu.unicauca.mvc.vistas.adminConferencia.ListConferencesWindow;
-import co.edu.unicauca.mvc.vistas.adminConferencia.ListOrganizersWindow;
-import co.edu.unicauca.mvc.vistas.adminConferencia.ViewStatisticsWindow;
+import co.edu.unicauca.mvc.vistas.windows.ListArticlesWindow;
+import co.edu.unicauca.mvc.vistas.windows.ListConferencesWindow;
+import co.edu.unicauca.mvc.vistas.windows.OrganizerWindow;
+import co.edu.unicauca.mvc.vistas.windows.ViewStatisticsWindow;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -62,9 +62,9 @@ public class MainPanel extends JPanel{
     
 private void removeInternalFrameForService(Class<?> serviceClass) {
     
-    if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(ListOrganizersWindow.class)) {
-        mainDesktopPane.remove(internalFrames.get(ListOrganizersWindow.class));
-        internalFrames.remove(ListOrganizersWindow.class);
+    if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(OrganizerWindow.class)) {
+        mainDesktopPane.remove(internalFrames.get(OrganizerWindow.class));
+        internalFrames.remove(OrganizerWindow.class);
     
     } else if (serviceClass.equals(Article.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
         mainDesktopPane.remove(internalFrames.get(ListArticlesWindow.class));
@@ -100,14 +100,14 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         }
 
         if (services.containsKey(Organizer.class)) {
-            if (!internalFrames.containsKey(ListOrganizersWindow.class)) {
-                internalFrames.put(ListOrganizersWindow.class, 
-                    new ListOrganizersWindow( services.get(Organizer.class)));
+            if (!internalFrames.containsKey(OrganizerWindow.class)) {
+                internalFrames.put(OrganizerWindow.class, 
+                    new OrganizerWindow( services.get(Organizer.class)));
             }
-            mainDesktopPane.add(internalFrames.get(ListOrganizersWindow.class));
+            mainDesktopPane.add(internalFrames.get(OrganizerWindow.class));
             GeneralRepository.getOrganizerService().
-                    addObserver((Observer) internalFrames.get(ListOrganizersWindow.class));
-            ((ListOrganizersWindow) internalFrames.get(ListOrganizersWindow.class)).update();
+                    addObserver((Observer) internalFrames.get(OrganizerWindow.class));
+            ((OrganizerWindow) internalFrames.get(OrganizerWindow.class)).update();
         }
 
         if (services.containsKey(Article.class)) {
@@ -295,7 +295,7 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         switch (state) {
             case VIEW_STATISTICS -> setFrameVisible(ViewStatisticsWindow.class);
             case LIST_CONFERENCES -> setFrameVisible(ListConferencesWindow.class);
-            case LIST_ORGANIZERS -> setFrameVisible(ListOrganizersWindow.class);
+            case LIST_ORGANIZERS -> setFrameVisible(OrganizerWindow.class);
             case LIST_ARTICLES -> setFrameVisible(ListArticlesWindow.class);
             case NONE -> {
             }

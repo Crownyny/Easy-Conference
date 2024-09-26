@@ -1,6 +1,8 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+package co.edu.unicauca.mvc.vistas.windows;
 
+import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
+import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.Elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,54 +16,42 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author Default
  */
-public abstract class ListWindow extends javax.swing.JInternalFrame implements Observer{
-    
+public class ListEvaluatorWindow  extends javax.swing.JFrame implements Observer{
+    private final int articleID;
     protected JLabel titleLabel;
-    protected String registrarButtonText;
+    protected String registerButtonText;
     protected String[] columnNames;
     protected JTable table;
 
-    /**
-     * Creates new form VtnListarPlantilla
-     * @param titleLabel
-     * @param registrarButtonText
-     * @param columnNames
-     */
-    public ListWindow(String titleLabel, String registrarButtonText, String[] columnNames) 
-    {
-        
-        this.titleLabel = new JLabel(titleLabel);
-        this.registrarButtonText = registrarButtonText;
-        this.columnNames = columnNames;
+
+    public ListEvaluatorWindow( int articleID) {
+        this.articleID = articleID;
+        titleLabel = new JLabel("Listado de evaluadores");
+        registerButtonText = "Registrar evaluadores";
+        columnNames = new String[]{"Nombre", "Apellido", "Email", "Institucion asociada"};
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
         showGui();
-
     }
-    
-    public ListWindow(String[] columnNames) 
-    {
-        this.titleLabel = new JLabel();
-        this.registrarButtonText = "";
-        showGui();
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,15 +62,17 @@ public abstract class ListWindow extends javax.swing.JInternalFrame implements O
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -131,7 +123,6 @@ public abstract class ListWindow extends javax.swing.JInternalFrame implements O
             panelCenter.add(registerButton, gbc);
 
         } catch (IOException e) {}
-
         // Customize the header renderer
         JTableHeader header = this.table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -176,10 +167,44 @@ public abstract class ListWindow extends javax.swing.JInternalFrame implements O
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
 
     }
-
-    protected abstract void registerAction();
-
     
+
+    protected void registerAction() {
+        RegisterEvaluatorWindow objVtnRegisterArticle =
+            new RegisterEvaluatorWindow( articleID);// Pass the articleId to register
+        objVtnRegisterArticle.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        objVtnRegisterArticle.setVisible(true);       
+    }
+
+    public void clearTable() {
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        int rows = this.table.getRowCount();
+        for (int i = 0; i < rows; i++) {
+            model.removeRow(0);
+        }        
+    }
+
+    private void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        clearTable();
+        ArrayList<Evaluator> evaluatorList = (ArrayList<Evaluator>) GeneralRepository.getEvaluatorService().listAll();
+
+        for (Evaluator evaluator : evaluatorList) {
+            String[] row = { 
+                evaluator.getFirstName(),
+                evaluator.getLastName(),
+                evaluator.getMail(),
+                evaluator.getAfiliation()
+            };
+            model.addRow(row);
+        }
+       
+    }
+
+    @Override
+    public void update() {
+        fillTable();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

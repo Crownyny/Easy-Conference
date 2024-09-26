@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;

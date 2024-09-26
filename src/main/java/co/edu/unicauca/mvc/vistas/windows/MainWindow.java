@@ -1,10 +1,10 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.*;
-import co.edu.unicauca.mvc.vistas.panels.LogInPanel;
-import co.edu.unicauca.mvc.vistas.panels.MainPanel;
-import co.edu.unicauca.mvc.vistas.panels.SignInPanel;
+import co.edu.unicauca.mvc.vistas.mainWindowPanels.LogInPanel;
+import co.edu.unicauca.mvc.vistas.mainWindowPanels.MainPanel;
+import co.edu.unicauca.mvc.vistas.mainWindowPanels.SignInPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import co.edu.unicauca.mvc.vistas.util.Utilities;
 import java.awt.CardLayout;

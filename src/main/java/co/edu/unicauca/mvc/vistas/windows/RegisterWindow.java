@@ -1,47 +1,50 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package co.edu.unicauca.mvc.vistas.windows;
 
-import co.edu.unicauca.mvc.utilities.CustomScrollBarUI;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.FieldConfig;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  *
  * @author Default
  */
-public class AssignTopicWindow extends javax.swing.JFrame {
+public abstract class RegisterWindow extends javax.swing.JFrame {
 
-    private final List<String> myTopics;
-    private final String[] conferenceTopics;
-
-    /**
-     * Creates new form AssignWindow
-     *
-     * @param myTopics Selected Topics
-     * @param conferenceTopics Possibles topics of the conference
+    protected JLabel titleLabel;
+    protected LinkedHashMap<String, FieldConfig> fieldConfigs;
+    /*
+     * Creates new form VtnRegistrar
+     * @param titleLabel
+     * @param labelsText
      */
-    public AssignTopicWindow(ArrayList<String> myTopics, String[] conferenceTopics) {
-        this.myTopics = myTopics;
-        this.conferenceTopics = conferenceTopics;
+    public RegisterWindow(JLabel titleLabel, LinkedHashMap<String, FieldConfig> fieldConfigs) {
+        this.titleLabel = titleLabel;
+        this.fieldConfigs = fieldConfigs;
         showGui();
     }
 
@@ -74,17 +77,24 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         setLayout(new BorderLayout());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
-
+        List<String> labelsText = new ArrayList<>(fieldConfigs.keySet());
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
         int panelHeight = (int) (screenHeight * 0.55);
         int panelWidth = (int) (screenWidth * 0.35);
+
+        int nComponents = fieldConfigs.size();
+        if ("".equals(labelsText.get(labelsText.size() - 1))) {
+            nComponents--;
+            System.out.println("Se elimino");
+        }
+
+        int textFontSize = Math.min(panelWidth, panelHeight) / 30;
         int componentHeight = (int) (panelHeight * .15);
 
-        int panelNorthHeight = (int) (panelHeight * 0.1);
-        int panelCenterHeight = (int) (panelHeight * 0.85);
-        int panelSouthHeight = (int) (panelHeight * 0.15);
-
+        int panelNorthHeight = (int) (panelHeight * .15);
+        int panelCenterHeight = (int) (componentHeight * (nComponents + 1));
+        int panelSouthHeight = (int) (panelHeight * .1);
         int totalHeight = panelNorthHeight + panelCenterHeight + panelSouthHeight;
         setSize(panelWidth, totalHeight);
 
@@ -92,73 +102,81 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         panelNorth.setPreferredSize(new Dimension(panelWidth, panelNorthHeight));
 
         int titleFontSize = Math.min(panelWidth, panelHeight) / 20;
-        JLabel titleLabel = new JLabel("Seleccionar temas");
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
         panelNorth.add(titleLabel);
         panelNorth.setBackground(new Color(0x3c647c));
 
-        JPanel panelCenter = new JPanel(new GridLayout(0, 2));
+        JPanel panelCenter = new JPanel(new GridBagLayout());
         panelCenter.setBackground(new Color(0xD7EAF9));
-        List<JCheckBox> checkboxes = new ArrayList<>();
-        for (String topic : conferenceTopics) {
-            JCheckBox checkBox = new JCheckBox();
-            checkBox.setText(topic);
-            checkboxes.add(checkBox);
-            panelCenter.add(checkBox);
+        panelCenter.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        for (int i = 0; i < nComponents; i++) {
+            String labelText = labelsText.get(i);
+            System.out.println(labelText + "-");
+            FieldConfig config = fieldConfigs.get(labelText);
+            JLabel jlabel = new JLabel(labelText, JLabel.CENTER);
+
+            JComponent field = config.getFieldType();
+
+            jlabel.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
+            jlabel.setForeground(new Color(0X121C29));
+            field.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
+
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            gbc.weightx = 0.5;
+            panelCenter.add(jlabel, gbc);
+
+            gbc.gridx = 1;
+            panelCenter.add(field, gbc);
         }
 
-        // Añadir scroll al panel central
-        JScrollPane scrollPane = new JScrollPane(panelCenter);
-        scrollPane.setPreferredSize(new Dimension(panelWidth, panelCenterHeight));
-        scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-
-        JPanel panelButton = new JPanel(new GridBagLayout());
-        //Condiciones para centrar el boton en el panel
-        GridBagConstraints gbcButton = new GridBagConstraints();
-
-        // Configuración para centrar el botón verticalmente
-        gbcButton.gridx = 0;
-        gbcButton.gridy = 0;
-        gbcButton.weighty = 2.0;  // Hace que el componente se centre verticalmente
-        gbcButton.anchor = GridBagConstraints.CENTER;  // Centrarlo horizontal y verticalmente
-
+        JPanel panelButton = new JPanel();
         panelButton.setBackground(new Color(0xD7EAF9));
         panelButton.setPreferredSize(new Dimension(panelWidth, componentHeight));
 
         int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
 
         try {
+            if (fieldConfigs.size() != nComponents) {
+                // Add the "Assign Author" button
+                FieldConfig config = fieldConfigs.get("");
+                JComponent field = config.getFieldType();
+                JButton assignButton = Elements.addButton((JButton) field, buttonFontSize);
+
+                assignButton.addActionListener(e -> extraButtonAction());
+                panelButton.add(assignButton);
+            }
+
+            // Load and scale the icon for the "Register" button
             BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/save.png"));
             Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
+            // Create the "Register" button
             JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
             registerButton.setIcon(new ImageIcon(iconScaled));
 
-            registerButton.addActionListener(e -> {
-                myTopics.clear();
-                for (int i = 0; i < conferenceTopics.length; i++) {
-                    if (checkboxes.get(i).isSelected()) {
-                        myTopics.add(conferenceTopics[i]);
-                    }
-                }
-                if (myTopics.isEmpty()) {
-                    Utilities.warningMessage("De seleccionar al menos un tema", "Registro fallido");
-                } else {
-                    Utilities.successMessage("Los temas se registraron correctamente", "Registro exitoso");
-                    System.out.println("Temas seleccionados: " + myTopics);
-                    this.dispose();
-                }
-            });
-            panelButton.add(registerButton, gbcButton);
+            registerButton.addActionListener(e -> registerAction());
+            panelButton.add(registerButton);
 
         } catch (IOException e) {
+            e.printStackTrace(); // Add error handling here
         }
 
-        this.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        this.getContentPane().add(panelCenter, BorderLayout.CENTER);
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
         this.getContentPane().add(panelButton, BorderLayout.SOUTH);
     }
+
+    protected abstract void registerAction();
+    protected void extraButtonAction(){};
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -2,46 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
-import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
-import co.edu.unicauca.mvc.infrastructure.Observer;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import co.edu.unicauca.mvc.models.Article;
-import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
+import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.LinkedHashMap;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 
 /**
  *
  * @author Default
  */
-public class RegisterArticleWindow extends RegisterWindow {
-    
-    private int conferenceID = 0;
-    private final StorageService<Author> tempAuthors;
+public class RegisterOrganizerWindow extends RegisterWindow {
+    private int conferenceID;
 
-    public RegisterArticleWindow (int conferenceID) {
-        super(new JLabel("Registrar Articulo"), createInputFields());
+    /**
+     * Creates new form VtnListarArticulos
+     * @param conferenceID
+     */
+    public RegisterOrganizerWindow(int conferenceID) {
+        super(new JLabel("Registrar Organizador"), createInputFields());
         this.conferenceID = conferenceID;
-        this.tempAuthors = new StorageService<>(new MemoryArrayListRepository<>());
     }
-    
+
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
-        inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
+        inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Mail:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
         return inputFields;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,30 +64,16 @@ public class RegisterArticleWindow extends RegisterWindow {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    @Override
-    protected void registerAction() {
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);         
-        Article article = new Article(values.get(0), values.get(1));
-        GeneralRepository.getConferenceLinkServiceById(conferenceID).storeArticles(article.getId());
-        GeneralRepository.storeArticle(article);
-        for (Author author : tempAuthors.listAll())
-        {
-            GeneralRepository.getArticleLinkServiceById(article.getId()).
-                    storeAuthors(author.getId()); 
-            GeneralRepository.storeAuthor(author);    
-        }
-    }
 
     @Override
-    protected void extraButtonAction() {
-        ListAuthorWindow objAuthorWindow =
-        new ListAuthorWindow(tempAuthors);
-        tempAuthors.addObserver((Observer) objAuthorWindow);
-        System.out.println("Se a;adio el observador");
-        objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        objAuthorWindow.setVisible(true);     
+    protected void registerAction() {
+        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
+
+        Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
+        GeneralRepository.getConferenceLinkServiceById(conferenceID).storeOrganizers(organizer.getId());
+        GeneralRepository.storeOrganizer(organizer);
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

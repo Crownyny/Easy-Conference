@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.vistas.adminConferencia;
+package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Article;
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.Organizer;
-import co.edu.unicauca.mvc.vistas.panels.MainPanel;
+import co.edu.unicauca.mvc.vistas.mainWindowPanels.MainPanel;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
