@@ -83,9 +83,8 @@ public class ListArticlesWindow extends ListWindow {
             Article selectedArticle = articleList.get(row);
 
             ListEvaluatorWindow objEvaluatorWindow =
-                new ListEvaluatorWindow(selectedArticle.getId()); 
+            new ListEvaluatorWindow(selectedArticle.getId()); 
             GeneralRepository.getEvaluatorService().addObserver((Observer) objEvaluatorWindow);
-            objEvaluatorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             objEvaluatorWindow.setVisible(true);     
         };
 

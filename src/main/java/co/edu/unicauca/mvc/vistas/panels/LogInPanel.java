@@ -14,8 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
@@ -135,7 +133,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 0.3;
         gbc.gridy = 4;
         int labelFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 27;
-        JLabel accountLabel = createLabel("No tienes una cuenta? Registrate!", labelFontSize);
+        JLabel accountLabel = Elements.createLabel("No tienes una cuenta? Registrate!", labelFontSize);
         accountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -160,33 +158,6 @@ public class LogInPanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setBackground(color); 
         return panel;
-    }
-
-    private JLabel createLabel(String text, int fontsize)
-    {
-        JLabel label = new JLabel(text);
-        
-        Color activeColor = new Color(52, 112, 224);
-        Color initalColor = new Color(0x2c4464);        
-        
-        label.setForeground(initalColor);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
-        
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent  e) {
-                label.setForeground(activeColor);
-                label.setFont(new Font("Leelawadee UI", Font.BOLD,(int) (fontsize * 1.15)));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent  e) {
-                label.setForeground(initalColor);
-                label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
-            }
-        });        
-        return label;
     }
 
     private void loginAction(List<JTextField> inputs) 
@@ -239,6 +210,4 @@ public class LogInPanel extends JPanel {
         mainPanel.associateService(Conference.class, userID);
         cardManager.showPanel("mainPanel");
     }
-
-   
 }

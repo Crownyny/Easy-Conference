@@ -12,14 +12,12 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.LinkedHashMap;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 /**
  *
@@ -47,46 +45,12 @@ public class RegisterConferenceWindow extends RegisterWindow {
         endDate.setDateFormatString("dd/MM/yyyy");
 
         int maxLength = 9; 
-        JFormattedTextField numberField = new JFormattedTextField();
-        numberField.setColumns(maxLength);
-
-        numberField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char ch = e.getKeyChar();
-                String text = numberField.getText();
-
-                if (ch == KeyEvent.VK_BACK_SPACE) {
-                    return;
-                }
-
-                if ((text.isEmpty() && ch == '0') || !Character.isDigit(ch) 
-                        || (text.length() >= maxLength))
-                {
-                    e.consume();
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                try {
-                    if (!numberField.getText().isEmpty()) {
-                        int value = Integer.parseInt(numberField.getText());
-                        if (value < 0) {
-                            numberField.setText("0");
-                        }
-                    }
-                } catch (NumberFormatException ex) {
-                    numberField.setText("0");
-                }
-            }
-        });
 
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));
-        inputFields.put("Costo de inscripcion:", new FieldConfig(numberField));
+        inputFields.put("Costo de inscripcion:", new FieldConfig(Elements.createNumberField(maxLength)));
         inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
         

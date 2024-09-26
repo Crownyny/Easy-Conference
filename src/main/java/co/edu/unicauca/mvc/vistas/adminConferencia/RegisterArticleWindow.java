@@ -84,7 +84,7 @@ public class RegisterArticleWindow extends RegisterWindow {
     @Override
     protected void extraButtonAction() {
         ListAuthorWindow objAuthorWindow =
-            new ListAuthorWindow(tempAuthors);
+        new ListAuthorWindow(tempAuthors);
         tempAuthors.addObserver((Observer) objAuthorWindow);
         System.out.println("Se a;adio el observador");
         objAuthorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
