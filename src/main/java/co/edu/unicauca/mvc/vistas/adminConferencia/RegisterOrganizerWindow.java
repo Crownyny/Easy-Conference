@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
@@ -34,10 +35,10 @@ public class RegisterOrganizerWindow extends RegisterWindow {
 
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombres:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Apellidos:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Mail:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Universidad:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Nombres:", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellidos:", new FieldConfig(new CustomTextField("Apellidos: ")));
+        inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Universidad:", new FieldConfig(new CustomTextField("Universidad: ")));
         return inputFields;
     }
 

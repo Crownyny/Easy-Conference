@@ -4,6 +4,7 @@ import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.User;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.Color;
@@ -106,7 +107,7 @@ public class LogInPanel extends JPanel {
             gbc.gridy = i;
             JPanel row = createRowPanel(new Color(0xD7EAF9));
 
-            JTextField inputField = Elements.createInputField(texts[i - 1]);
+            JTextField inputField = new CustomTextField(texts[i - 1]);
             inputField.setPreferredSize(new Dimension(1, (int) (boxPanel.getPreferredSize().height * 0.1)));
 
             row.setLayout(new GridBagLayout());

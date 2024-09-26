@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
@@ -37,8 +38,8 @@ public class RegisterArticleWindow extends RegisterWindow {
 
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre")));
+        inputFields.put("Revista:", new FieldConfig(new CustomTextField("Revista: ")));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
         return inputFields;
     }

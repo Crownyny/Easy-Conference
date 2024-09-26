@@ -21,6 +21,7 @@ co/edu/unicauca/mvc/vistas/util/Utilities$1.class
 co/edu/unicauca/mvc/vistas/panels/MainPanel.class
 co/edu/unicauca/mvc/vistas/adminConferencia/AssignTopicWindow.class
 co/edu/unicauca/mvc/vistas/adminConferencia/ListEvaluatorWindow.class
+co/edu/unicauca/mvc/utilities/CustomDateChooser$1.class
 co/edu/unicauca/mvc/vistas/util/Utilities.class
 co/edu/unicauca/mvc/vistas/adminConferencia/RegisterWindow.class
 co/edu/unicauca/mvc/models/User.class
@@ -32,6 +33,7 @@ co/edu/unicauca/mvc/vistas/util/ButtonRenderer.class
 co/edu/unicauca/mvc/vistas/adminConferencia/ListWindow$1.class
 co/edu/unicauca/mvc/vistas/util/ButtonEditor.class
 co/edu/unicauca/mvc/vistas/adminConferencia/RegisterArticleWindow.class
+co/edu/unicauca/mvc/utilities/CustomTextField$1.class
 co/edu/unicauca/mvc/utilities/Elements$3.class
 co/edu/unicauca/mvc/vistas/util/ButtonClickListener.class
 co/edu/unicauca/mvc/test/Test.class
@@ -58,7 +60,8 @@ co/edu/unicauca/mvc/controllers/UserLinkService.class
 co/edu/unicauca/mvc/vistas/adminConferencia/ListEvaluatorWindow$1.class
 co/edu/unicauca/mvc/utilities/Elements$2.class
 co/edu/unicauca/mvc/vistas/adminConferencia/ListArticlesWindow.class
-co/edu/unicauca/mvc/utilities/Elements$5.class
+co/edu/unicauca/mvc/utilities/CustomDateChooser.class
+co/edu/unicauca/mvc/utilities/CustomTextField.class
 co/edu/unicauca/mvc/utilities/CustomScrollBarUI$1.class
 co/edu/unicauca/mvc/vistas/panels/SignInPanel$3.class
 co/edu/unicauca/mvc/vistas/adminConferencia/ListOrganizersWindow.class

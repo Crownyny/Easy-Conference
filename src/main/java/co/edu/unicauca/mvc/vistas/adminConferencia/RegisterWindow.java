@@ -38,6 +38,7 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
 
     protected JLabel titleLabel;
     protected LinkedHashMap<String, FieldConfig> fieldConfigs;
+
     /*
      * Creates new form VtnRegistrar
      * @param titleLabel
@@ -116,26 +117,25 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;  // Mantiene el tamaño preferido
+
+        double inputWidthPercentage = 0.70;
+        int inputWidth = (int) (panelWidth * inputWidthPercentage);  // Calcula el ancho del input
 
         for (int i = 0; i < nComponents; i++) {
-            String labelText = labelsText.get(i);
-            System.out.println(labelText + "-");
-            FieldConfig config = fieldConfigs.get(labelText);
-            JLabel jlabel = new JLabel(labelText, JLabel.CENTER);
+            FieldConfig config = fieldConfigs.get(labelsText.get(i));
 
+            // Recupera el JComponent (puede ser JTextField u otro)
             JComponent field = config.getFieldType();
 
-            jlabel.setFont(new Font("Leelawadee UI", Font.BOLD, textFontSize));
-            jlabel.setForeground(new Color(0X121C29));
-            field.setFont(new Font("Leelawadee UI", Font.PLAIN, textFontSize));
+            // Ajusta el tamaño preferido del input
+            field.setPreferredSize(new Dimension(inputWidth, field.getPreferredSize().height));
 
+            // Configuración de GridBagConstraints
             gbc.gridx = 0;
             gbc.gridy = i;
-            gbc.weightx = 0.5;
-            panelCenter.add(jlabel, gbc);
-
-            gbc.gridx = 1;
-            panelCenter.add(field, gbc);
+            gbc.weightx = 0.0;  // No se expande horizontalmente
+            panelCenter.add(field, gbc);  // Añade el JComponent al panel
         }
 
         JPanel panelButton = new JPanel();
@@ -174,11 +174,16 @@ public abstract class RegisterWindow extends javax.swing.JFrame {
         this.getContentPane().add(panelNorth, BorderLayout.NORTH);
         this.getContentPane().add(panelButton, BorderLayout.SOUTH);
     }
-    protected void cleanInputs(){
+
+    protected void cleanInputs() {
         Utilities.cleanInputs(fieldConfigs);
     }
+
     protected abstract void registerAction();
-    protected void extraButtonAction(){};
+
+    protected void extraButtonAction() {
+    }
+;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

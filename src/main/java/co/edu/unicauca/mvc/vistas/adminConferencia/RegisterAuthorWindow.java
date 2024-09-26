@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.adminConferencia;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
@@ -28,9 +29,9 @@ public class RegisterAuthorWindow extends RegisterWindow {
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Mail:", new FieldConfig(new JTextField(30)));
+        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
         return inputFields;
     }
 
