@@ -54,7 +54,7 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
         this.tempAuthors = tempAuthors;
         titleLabel = new JLabel("Listado de autores");
         registerButtonText = "Registrar autor";
-        columnNames = new String[]{"Nombre", "Apellido", "Email"};
+        columnNames = new String[]{"Nombre", "Apellido", "Email", "Tipo de autor"};
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
@@ -202,7 +202,8 @@ public class ListAuthorWindow extends javax.swing.JFrame implements Observer{
             String[] row = { 
                 author.getFirstName(),
                 author.getLastName(),
-                author.getMail()
+                author.getMail(),
+                author.getTypeAuthor()
             };
             model.addRow(row);
         }

@@ -8,6 +8,7 @@ import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -16,7 +17,6 @@ import javax.swing.JTextField;
  * @author Default
  */
 public class RegisterAuthorWindow extends RegisterWindow {
-    
     private final StorageService<Author> tempAuthors;
     /**
      * Creates new form RegisterAuthorWindow
@@ -32,6 +32,9 @@ public class RegisterAuthorWindow extends RegisterWindow {
         inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
         inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
         inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
+        JComboBox<String> comboBoxTipoAutor = new JComboBox<>(new String[] {"Tipo Asociado", "Tipo Independiente"});
+        inputFields.put("Tipo de autor:", new FieldConfig(comboBoxTipoAutor));
+
         return inputFields;
     }
 
@@ -64,9 +67,11 @@ public class RegisterAuthorWindow extends RegisterWindow {
     @Override
     protected void registerAction() {
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
-        
         try{
-            Author author = new Author(values.get(0),values.get(1), values.get(2));
+            FieldConfig comboBoxFieldConfig = fieldConfigs.get("Tipo de autor:");
+            JComboBox<String> comboBoxTipoAutor = (JComboBox<String>) comboBoxFieldConfig.getFieldType();
+            String typeAuthor = (String) comboBoxTipoAutor.getSelectedItem();
+            Author author = new Author(values.get(0),values.get(1), values.get(2), typeAuthor);
             System.out.println("Deberia llamar a update");
             tempAuthors.store(author);
             Utilities.successMessage("Se asoció un nuevo autor a este articulo", "Creación de autores");
