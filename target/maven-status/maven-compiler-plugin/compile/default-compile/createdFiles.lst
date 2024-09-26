@@ -1,20 +1,17 @@
-<<<<<<< HEAD
-co\edu\unicauca\mvc\utilities\Elements$5.class
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$3.class
 co\edu\unicauca\mvc\dataAccess\GeneralRepository.class
-co\edu\unicauca\mvc\utilities\Elements$2.class
-co\edu\unicauca\mvc\controllers\UserLinkService.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI.class
 co\edu\unicauca\mvc\utilities\Elements$1.class
 co\edu\unicauca\mvc\vistas\panels\SignInPanel$1.class
 co\edu\unicauca\mvc\utilities\Elements.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$1.class
 co\edu\unicauca\mvc\controllers\ConferenceLinkService.class
-co\edu\unicauca\mvc\utilities\Elements$4.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$2.class
-co\edu\unicauca\mvc\vistas\panels\SignInPanel$2.class
-co\edu\unicauca\mvc\utilities\Elements$3.class
 co\edu\unicauca\mvc\controllers\ArticleLinkService.class
 co\edu\unicauca\mvc\models\InterfaceIdentifiable.class
-=======
->>>>>>> 8ba0417cc929556879d28e7b82e9cf1dcd214ad4
+co\edu\unicauca\mvc\utilities\Elements$5.class
+co\edu\unicauca\mvc\utilities\Elements$2.class
+co\edu\unicauca\mvc\controllers\UserLinkService.class
+co\edu\unicauca\mvc\utilities\Elements$4.class
+co\edu\unicauca\mvc\vistas\panels\SignInPanel$2.class
+co\edu\unicauca\mvc\utilities\Elements$3.class
