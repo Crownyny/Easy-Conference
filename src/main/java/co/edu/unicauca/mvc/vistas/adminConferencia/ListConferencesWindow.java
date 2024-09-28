@@ -1,5 +1,6 @@
 package co.edu.unicauca.mvc.vistas.adminConferencia;
 
+import co.edu.unicauca.mvc.utilities.*;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Article;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,18 @@ import co.edu.unicauca.mvc.vistas.panels.MainPanel;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
+import com.sun.net.httpserver.Headers;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -120,6 +132,16 @@ public class ListConferencesWindow extends ListWindow {
                 adminWindow.getCardManager().showPanel("myConferencePanel");
             setVisible(false);
         };
+        
+        // Cargar la imagen desde los recursos
+        ImageIcon icon = new ImageIcon(getClass().getResource("/resources/abajo.png"));
+
+        // Obtener la altura de la fila para escalar la imagen del encabezado
+        int rowHeight = table.getRowHeight();
+    
+        // Aplicar el HeaderRendererWithIcon al encabezado de la columna correspondiente
+        JTableHeader header = table.getTableHeader();
+        header.getColumnModel().getColumn(6).setHeaderRenderer(new HeaderRendererWithIcon(icon, rowHeight));
 
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));

@@ -1,4 +1,5 @@
 co\edu\unicauca\mvc\models\User.class
+co\edu\unicauca\mvc\utilities\HeaderRendererWithIcon.class
 co\edu\unicauca\mvc\vistas\adminConferencia\AssignTopicWindow.class
 co\edu\unicauca\mvc\models\Author.class
 co\edu\unicauca\mvc\vistas\panels\MainPanel$VisibilityState.class
