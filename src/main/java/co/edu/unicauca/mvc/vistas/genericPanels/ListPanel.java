@@ -44,7 +44,6 @@ public abstract class ListPanel extends JPanel implements Observer{
      */
     public ListPanel(String titleLabel, String registrarButtonText, String[] columnNames) 
     {
-        
         this.titleLabel = new JLabel(titleLabel);
         this.registrarButtonText = registrarButtonText;
         this.columnNames = columnNames;
@@ -153,5 +152,4 @@ public abstract class ListPanel extends JPanel implements Observer{
     }
 
     protected abstract void registerAction();
-
 }

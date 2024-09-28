@@ -73,10 +73,10 @@ public class Utilities {
             System.out.println(labelText + "-");
             FieldConfig config = fieldConfigs.get(labelText);
             JComponent input =config.getFieldType();
-            if (input instanceof JTextField) {
-                ((JTextField) input).setText(""); // Limpia el JTextField
+            if (input instanceof CustomTextField) {
+                ((CustomTextField) input).resetToInitialState();// Limpia el JTextField
             } else {
-                ((JDateChooser) input).setDate(null); // Limpia el JDateChooser
+                ((CustomDateChooser)input).setInitialState();//Limpia el JDateChooser
             }
         }
     }

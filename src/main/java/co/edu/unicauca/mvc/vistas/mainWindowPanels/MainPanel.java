@@ -277,16 +277,15 @@ public class MainPanel extends JPanel{
 
     public void setVisibility(VisibilityState state) {
   
-
+        for (JInternalFrame frame : internalFrames.values()) {
+            frame.setVisible(false);
+        }
         switch (state) {
             case VIEW_STATISTICS -> setFrameVisible(ViewStatisticsWindow.class);
             case LIST_CONFERENCES -> setFrameVisible(ConferenceWindow.class);
             case LIST_ORGANIZERS -> setFrameVisible(OrganizerWindow.class);
             case LIST_ARTICLES -> setFrameVisible(ArticleWindow.class);
             case NONE -> {
-                for (JInternalFrame frame : internalFrames.values()) {
-                    frame.setVisible(false);
-                }
             }
         }
         

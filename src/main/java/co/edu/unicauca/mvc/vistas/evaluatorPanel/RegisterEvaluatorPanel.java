@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.evaluatorPanel;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Evaluator;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
@@ -25,10 +26,10 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Apellido:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Mail::", new FieldConfig(new JTextField(10)));
-        inputFields.put("Afiliation:", new FieldConfig(new JTextField(30)));
+        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail::", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Afiliation:", new FieldConfig(new CustomTextField("Afiliation: ")));
         return inputFields;
     }
     

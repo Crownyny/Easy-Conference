@@ -2,6 +2,8 @@ package co.edu.unicauca.mvc.vistas.conferencePanels;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Conference;
+import co.edu.unicauca.mvc.utilities.CustomDateChooser;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.utilities.Utilities;
@@ -32,20 +34,20 @@ public class RegisterConferencePanel extends RegisterPanel{
     }
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
-        JDateChooser startDate = new JDateChooser();
+        JDateChooser startDate = new CustomDateChooser("Fecha de inicio: ");
         startDate.setDateFormatString("dd/MM/yyyy");
 
-        JDateChooser endDate = new JDateChooser();
+        JDateChooser endDate = new CustomDateChooser("Fecha de fin: ");
         endDate.setDateFormatString("dd/MM/yyyy");
 
         int maxLength = 9; 
 
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));
-        inputFields.put("Costo de inscripcion:", new FieldConfig(Elements.createNumberField(maxLength)));
-        inputFields.put("Ubicacion:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Costo de inscripcion:", new FieldConfig(Elements.createNumberField(maxLength,"Costo de incripción: ")));
+        inputFields.put("Ubicacion:", new FieldConfig(new CustomTextField("Ubicacion: ")));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
         
         return inputFields;

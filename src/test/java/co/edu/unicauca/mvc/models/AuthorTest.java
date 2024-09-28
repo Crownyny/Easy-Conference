@@ -14,10 +14,11 @@ import org.junit.jupiter.api.Test;
 public class AuthorTest {
     @Test
     public void setAuthorTest(){
-        String expectedFirstName = "Kylian", expectedLastName = "Mbappe", expectedMail = "kylian@gmail.com";
-        Author a = new Author("Kylian", "Mbappe", "kylian@gmail.com");
+        String expectedFirstName = "Kylian", expectedLastName = "Mbappe", expectedMail = "kylian@gmail.com", expectedTypeAuthor = "Independiente";
+        Author a = new Author("Kylian", "Mbappe", "kylian@gmail.com", "Independiente");
         assertEquals(expectedFirstName, a.getFirstName());
         assertEquals(expectedLastName, a.getLastName());
         assertEquals(expectedMail, a.getMail());
+        assertEquals(expectedTypeAuthor, a.getTypeAuthor());
     }
 }
