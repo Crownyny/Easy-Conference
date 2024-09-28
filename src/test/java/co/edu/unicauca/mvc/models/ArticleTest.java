@@ -20,7 +20,7 @@ public class ArticleTest {
         Article ar = new Article("Programacion", "Semana");
         assertEquals(expectedTitle, ar.getTitle());
         assertEquals(expectedJournal, ar.getJournal());
-         assertTrue(ar.getId() > 0);
+        assertTrue(ar.getId() > 0);
     }
     @Test
     public void testIdIncrement() {
