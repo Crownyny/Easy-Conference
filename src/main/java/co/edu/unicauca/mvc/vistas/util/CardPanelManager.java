@@ -24,6 +24,8 @@ public class CardPanelManager {
 
     public void showPanel(String name) {
         cardLayout.show(cardPane, name);
+        
+
     }
 
     public JPanel getCardPane() {

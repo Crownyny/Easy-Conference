@@ -19,7 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import java.util.LinkedHashMap;
 import javax.swing.Box;
+import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
@@ -170,7 +172,7 @@ public class Elements extends JFrame {
         button.getParent().revalidate();
     }
     
-    public static Dimension defineSize(double widthRatio, double heightRatio) 
+    public static Dimension getRelativeSize(double widthRatio, double heightRatio) 
     {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenSize.width * widthRatio);
@@ -252,5 +254,14 @@ public class Elements extends JFrame {
             }
         });
         return numberField;
+    }
+    
+    public static void centerJIF(JInternalFrame jif, JDesktopPane mainPanel) {
+        Dimension desktopSize = mainPanel.getSize();
+        Dimension jInternalFrameSize = jif.getSize();
+        int width = (desktopSize.width - jInternalFrameSize.width) / 2;
+        int height = (desktopSize.height - jInternalFrameSize.height) / 2;
+        jif.setLocation(width, height);
+        jif.setVisible(true);
     }
 }

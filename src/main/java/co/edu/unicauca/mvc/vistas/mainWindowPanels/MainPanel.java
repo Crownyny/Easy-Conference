@@ -1,11 +1,9 @@
 package co.edu.unicauca.mvc.vistas.mainWindowPanels;
 
-import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
-import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.*;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.vistas.windows.ListArticlesWindow;
-import co.edu.unicauca.mvc.vistas.windows.ListConferencesWindow;
+import co.edu.unicauca.mvc.vistas.windows.ArticleWindow;
+import co.edu.unicauca.mvc.vistas.windows.ConferenceWindow;
 import co.edu.unicauca.mvc.vistas.windows.OrganizerWindow;
 import co.edu.unicauca.mvc.vistas.windows.ViewStatisticsWindow;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
@@ -33,6 +31,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.InternalFrameEvent;
 
 public class MainPanel extends JPanel{
     private final Map<Class<? extends JInternalFrame>, JInternalFrame> internalFrames = new HashMap<>();
@@ -50,32 +49,30 @@ public class MainPanel extends JPanel{
     public void relateAllConferences()
     {
         removeInternalFrameForService(Conference.class);
-        if (!internalFrames.containsKey(ListConferencesWindow.class)) {
-            internalFrames.put(ListConferencesWindow.class, 
-                new ListConferencesWindow(this, services.get(Conference.class), "Descubrir conferencias", true));
+        if (!internalFrames.containsKey(ConferenceWindow.class)) {
+            internalFrames.put(ConferenceWindow.class, 
+                new ConferenceWindow(this, services.get(Conference.class), true));
         }
-        mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
-        GeneralRepository.getConferenceService().
-                addObserver((Observer) internalFrames.get(ListConferencesWindow.class));
-        ( (ListConferencesWindow) internalFrames.get(ListConferencesWindow.class)).update();
+        mainDesktopPane.add(internalFrames.get(ConferenceWindow.class));
     }
     
-private void removeInternalFrameForService(Class<?> serviceClass) {
-    
-    if (serviceClass.equals(Organizer.class) && internalFrames.containsKey(OrganizerWindow.class)) {
-        mainDesktopPane.remove(internalFrames.get(OrganizerWindow.class));
-        internalFrames.remove(OrganizerWindow.class);
-    
-    } else if (serviceClass.equals(Article.class) && internalFrames.containsKey(ListArticlesWindow.class)) {
-        mainDesktopPane.remove(internalFrames.get(ListArticlesWindow.class));
-        internalFrames.remove(ListArticlesWindow.class);
-        
-    } else if (serviceClass.equals(Conference.class) && internalFrames.containsKey(ListConferencesWindow.class)) {
-        mainDesktopPane.remove(internalFrames.get(ListConferencesWindow.class));
-        internalFrames.remove(ListConferencesWindow.class);
-        
+    private void removeInternalFrameForService(Class<?> serviceClass) {
+        JInternalFrame frameToRemove = null;
+
+        if (serviceClass.equals(Organizer.class)) {
+            frameToRemove = internalFrames.get(OrganizerWindow.class);
+        } else if (serviceClass.equals(Article.class)) {
+            frameToRemove = internalFrames.get(ArticleWindow.class);
+        } else if (serviceClass.equals(Conference.class)) {
+            frameToRemove = internalFrames.get(ConferenceWindow.class);
+        }
+
+        if (frameToRemove != null) {
+            mainDesktopPane.remove(frameToRemove);
+            internalFrames.remove(frameToRemove.getClass());
+            frameToRemove.dispose(); // Close the frame properly
+        }
     }
-}
 
 
     private void relateInternalFramesToDesktopPane() {
@@ -89,14 +86,11 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         mainDesktopPane.add(internalFrames.get(ViewStatisticsWindow.class));
 
         if (services.containsKey(Conference.class)) {
-            if (!internalFrames.containsKey(ListConferencesWindow.class)) {
-                internalFrames.put(ListConferencesWindow.class, 
-                    new ListConferencesWindow(this, services.get(Conference.class), "Mis conferencias"));
+            if (!internalFrames.containsKey(ConferenceWindow.class)) {
+                internalFrames.put(ConferenceWindow.class, 
+                    new ConferenceWindow(this, services.get(Conference.class)));
             }
-            mainDesktopPane.add(internalFrames.get(ListConferencesWindow.class));
-            GeneralRepository.getConferenceService().
-                    addObserver((Observer) internalFrames.get(ListConferencesWindow.class));
-            ( (ListConferencesWindow) internalFrames.get(ListConferencesWindow.class)).update();
+            mainDesktopPane.add(internalFrames.get(ConferenceWindow.class));
         }
 
         if (services.containsKey(Organizer.class)) {
@@ -105,21 +99,15 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
                     new OrganizerWindow( services.get(Organizer.class)));
             }
             mainDesktopPane.add(internalFrames.get(OrganizerWindow.class));
-            GeneralRepository.getOrganizerService().
-                    addObserver((Observer) internalFrames.get(OrganizerWindow.class));
-            ((OrganizerWindow) internalFrames.get(OrganizerWindow.class)).update();
         }
 
         if (services.containsKey(Article.class)) {
-            if (!internalFrames.containsKey(ListArticlesWindow.class)) {
-                internalFrames.put(ListArticlesWindow.class, 
-                    new ListArticlesWindow(services.get(Article.class)));
+            if (!internalFrames.containsKey(ArticleWindow.class)) {
+                internalFrames.put(ArticleWindow.class, 
+                    new ArticleWindow(services.get(Article.class)));
 
             }
-            mainDesktopPane.add(internalFrames.get(ListArticlesWindow.class));
-            GeneralRepository.getArticleService().
-                    addObserver((Observer) internalFrames.get(ListArticlesWindow.class));
-            ((ListArticlesWindow) internalFrames.get(ListArticlesWindow.class)).update();
+            mainDesktopPane.add(internalFrames.get(ArticleWindow.class));
         }
         
     }
@@ -162,7 +150,7 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         gbc.anchor = GridBagConstraints.CENTER;
 
         // Define buttons and their actions
-        String[] mainPanelLabels = {"Mis conferencias", "Descubrir conferencias" , "Cerrar Sesion"};
+        String[] mainPanelLabels = {"Mis conferencias", "Conferencias Disponibles" , "Cerrar Sesion"};
         ActionListener[] mainPanelActions = {
             e -> 
             {
@@ -218,7 +206,7 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         // Create and configure the south panel
         JPanel panelSouth = new JPanel();
         panelSouth.setBackground(new Color(0x696A78));
-        int panelSouthHeight = (int) (screenHeight * 0.1);
+        int panelSouthHeight = (int) (screenHeight * 0.01);
         panelSouth.setPreferredSize(new Dimension(screenSize.width, panelSouthHeight));
         JLabel logoLabel = new JLabel("");
         setOrgIcon(logoLabel, "/resources/logo.png", "", (int) (panelNorthHeight * 0.18), new Color(0x2c4464));
@@ -279,7 +267,7 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         label.setForeground(textColor);
     }
 
-    private enum VisibilityState {
+    public enum VisibilityState {
         VIEW_STATISTICS,
         LIST_CONFERENCES,
         LIST_ORGANIZERS,
@@ -287,25 +275,30 @@ private void removeInternalFrameForService(Class<?> serviceClass) {
         NONE
     }
 
-    private void setVisibility(VisibilityState state) {
-        for (JInternalFrame frame : internalFrames.values()) {
-            frame.setVisible(false);
-        }
+    public void setVisibility(VisibilityState state) {
+  
 
         switch (state) {
             case VIEW_STATISTICS -> setFrameVisible(ViewStatisticsWindow.class);
-            case LIST_CONFERENCES -> setFrameVisible(ListConferencesWindow.class);
+            case LIST_CONFERENCES -> setFrameVisible(ConferenceWindow.class);
             case LIST_ORGANIZERS -> setFrameVisible(OrganizerWindow.class);
-            case LIST_ARTICLES -> setFrameVisible(ListArticlesWindow.class);
+            case LIST_ARTICLES -> setFrameVisible(ArticleWindow.class);
             case NONE -> {
+                for (JInternalFrame frame : internalFrames.values()) {
+                    frame.setVisible(false);
+                }
             }
         }
+        
+        mainDesktopPane.revalidate();
+        mainDesktopPane.repaint();
+
     }
 
     private void setFrameVisible(Class<? extends JInternalFrame> frameClass) {
         JInternalFrame frame = internalFrames.get(frameClass);
         if (frame != null) {
-            frame.setVisible(true);
+            Elements.centerJIF(frame, mainDesktopPane);
         }
     }
 

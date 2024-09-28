@@ -1,10 +1,8 @@
 package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.table.DefaultTableModel;
-import co.edu.unicauca.mvc.models.Organizer;
+import co.edu.unicauca.mvc.infrastructure.Observer;
+import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.vistas.organizerPanels.ListOrganizersPanel;
 import co.edu.unicauca.mvc.vistas.organizerPanels.RegisterOrganizerPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
@@ -21,6 +19,8 @@ public class OrganizerWindow extends JInternalFrame{
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         linkPanels();
         getContentPane().add(cardManager.getCardPane());
+        
+        setSize(Elements.getRelativeSize(.65,.55));
     }
 
     /**
@@ -48,9 +48,14 @@ public class OrganizerWindow extends JInternalFrame{
 
     private void linkPanels()
     {   
-        ListOrganizersPanel ListPanel = new ListOrganizersPanel(cardManager);
-        RegisterOrganizerPanel registerPanel = new RegisterOrganizerPanel(cardManager);
+        ListOrganizersPanel ListPanel = new ListOrganizersPanel(cardManager, conferenceID);
+        RegisterOrganizerPanel registerPanel = new RegisterOrganizerPanel( cardManager, conferenceID);
 
+                
+        GeneralRepository.getOrganizerService().
+                addObserver((Observer) ListPanel);
+        ((Observer) ListPanel).update();
+        
         cardManager.addPanel(ListPanel, "listPanel");
         cardManager.addPanel(registerPanel, "registerPanel");
     }

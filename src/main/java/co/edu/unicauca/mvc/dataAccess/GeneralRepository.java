@@ -224,6 +224,6 @@ public class GeneralRepository extends Subject{
         return articles;
     }
     
-  
+
 }
 

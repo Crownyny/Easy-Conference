@@ -4,17 +4,20 @@ import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.vistas.windows.RegisterWindow;
+import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
+import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class RegisterOrganizerPanel extends RegisterWindow{
+public class RegisterOrganizerPanel extends RegisterPanel{
+    private final CardPanelManager cardManager;
     private final int conferenceID;
 
-    public RegisterOrganizerPanel(int conferenceID) {
+    public RegisterOrganizerPanel(CardPanelManager cardManager, int conferenceID) {
         super(new JLabel("Registrar Organizador"), createInputFields());
+        this.cardManager = cardManager;
         this.conferenceID = conferenceID;
     }
 
@@ -34,6 +37,8 @@ public class RegisterOrganizerPanel extends RegisterWindow{
         Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeOrganizers(organizer.getId());
         GeneralRepository.storeOrganizer(organizer);
+        
+        cardManager.showPanel("listPanel");
     }
 
 }

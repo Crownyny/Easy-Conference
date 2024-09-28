@@ -29,10 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
-/**
- *
- * @author Default
- */
+
 public abstract class ListPanel extends JPanel implements Observer{
     protected JLabel titleLabel;
     protected String registrarButtonText;
@@ -77,8 +74,7 @@ public abstract class ListPanel extends JPanel implements Observer{
         int panelNorthHeight = (int) (panelHeight * 0.1);
         int panelCenterHeight = (int) (panelHeight * 0.85);
         int panelSouthHeight = (int) (panelHeight * 0.15);
-
-        this.setSize(panelWidth, panelHeight);
+        
         GridBagConstraints gbc = new GridBagConstraints();
 
         JPanel panelNorth = new JPanel(new GridBagLayout());

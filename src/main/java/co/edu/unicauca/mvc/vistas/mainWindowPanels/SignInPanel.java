@@ -87,7 +87,7 @@ public class SignInPanel extends JPanel
           gbc.weighty = 1;
 
           JPanel boxPanel = new JPanel(new GridBagLayout());
-          boxPanel.setPreferredSize(Elements.defineSize(0.25, 0.4));
+          boxPanel.setPreferredSize(Elements.getRelativeSize(0.25, 0.4));
           boxPanel.setBackground(new Color(0xD7EAF9)); // Direct color value
           addRowsToBoxPanel(boxPanel);
           centerPanel.add(boxPanel, gbc);
