@@ -5,6 +5,7 @@ import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
@@ -23,15 +24,19 @@ public class RegisterOrganizerPanel extends RegisterPanel{
 
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombres:", new FieldConfig(new CustomTextField("Nombre: ")));
-        inputFields.put("Apellidos:", new FieldConfig(new CustomTextField("Apellidos: ")));
-        inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
-        inputFields.put("Universidad:", new FieldConfig(new CustomTextField("Universidad: ")));
+        inputFields.put("Nombres: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellidos: ", new FieldConfig(new CustomTextField("Apellidos: ")));
+        inputFields.put("Mail: ", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Universidad: ", new FieldConfig(new CustomTextField("Universidad: ")));
         return inputFields;
     }
     
     @Override
     protected void registerAction() {
+         if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
 
         Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));

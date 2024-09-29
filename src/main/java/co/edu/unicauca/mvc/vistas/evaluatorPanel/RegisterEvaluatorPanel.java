@@ -25,15 +25,19 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
-        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
-        inputFields.put("Mail::", new FieldConfig(new CustomTextField("Mail: ")));
-        inputFields.put("Afiliation:", new FieldConfig(new CustomTextField("Afiliation: ")));
+        inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido: ", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail: ", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Afiliation: ", new FieldConfig(new CustomTextField("Afiliation: ")));
         return inputFields;
     }
     
     @Override
     protected void registerAction() {
+         if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{

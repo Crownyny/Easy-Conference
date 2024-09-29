@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
 import javax.swing.JFormattedTextField;
@@ -28,8 +29,9 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
 public class Elements extends JFrame {
+
     public static final Color errorColor = new Color(0xE81010);
-    
+
     public static JButton addButton(JButton myButton, int fontSize) {
         myButton.setBorderPainted(false);
         myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
@@ -67,11 +69,11 @@ public class Elements extends JFrame {
 
         return myButton;
     }
-    
+
     public static JButton addButton(String buttonText, JPanel container) {
         JButton myButton = new JButton(buttonText);
         container.add(myButton);
-        container.add(Box.createHorizontalStrut(20)); 
+        container.add(Box.createHorizontalStrut(20));
         myButton.setBorderPainted(false);
         myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
         myButton.setForeground(Color.WHITE);
@@ -108,62 +110,59 @@ public class Elements extends JFrame {
 
         return myButton;
     }
-    
-    public static void updateButtonBackground(JButton button, Color color)
-    {
+
+    public static void updateButtonBackground(JButton button, Color color) {
         button.setBackground(color);
         button.repaint();
         button.getParent().repaint();
         button.getParent().revalidate();
     }
-    
-    public static Dimension getRelativeSize(double widthRatio, double heightRatio) 
-    {
+
+    public static Dimension getRelativeSize(double widthRatio, double heightRatio) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenSize.width * widthRatio);
         int height = (int) (screenSize.height * heightRatio);
         return new Dimension(width, height);
     }
-    
+
     public static ArrayList<String> extractTextFields(LinkedHashMap<String, FieldConfig> fieldConfigs) {
         ArrayList<String> values = new ArrayList<>();
         fieldConfigs.values().stream()
-            .map(FieldConfig::getFieldType)
-            .filter(JTextField.class::isInstance)
-            .map(JTextField.class::cast)
-            .map(JTextField::getText)
-            .forEach(values::add);
+                .map(FieldConfig::getFieldType)
+                .filter(JTextField.class::isInstance)
+                .map(JTextField.class::cast)
+                .map(JTextField::getText)
+                .forEach(values::add);
         return values;
     }
-    
-    public static JLabel createLabel(String text, int fontsize)
-    {
+
+    public static JLabel createLabel(String text, int fontsize) {
         JLabel label = new JLabel(text);
-        
+
         Color activeColor = new Color(52, 112, 224);
-        Color initalColor = new Color(0x2c4464);        
-        
+        Color initalColor = new Color(0x2c4464);
+
         label.setForeground(initalColor);
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(new Font("Leelawadee UI",Font.PLAIN, fontsize));
-        
+        label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
+
         label.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent  e) {
+            public void mouseEntered(MouseEvent e) {
                 label.setForeground(activeColor);
-                label.setFont(new Font("Leelawadee UI", Font.BOLD,(int) (fontsize * 1.15)));
+                label.setFont(new Font("Leelawadee UI", Font.BOLD, (int) (fontsize * 1.15)));
             }
 
             @Override
-            public void mouseExited(MouseEvent  e) {
+            public void mouseExited(MouseEvent e) {
                 label.setForeground(initalColor);
                 label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
             }
-        });        
+        });
         return label;
     }
-    
-   public static JTextField createNumberField(int maxLength, String placeholder) {
+
+    public static JTextField createNumberField(int maxLength, String placeholder) {
         JTextField numberField = new CustomTextField(placeholder);
         //numberField.setColumns(maxLength);
 
@@ -199,7 +198,7 @@ public class Elements extends JFrame {
         });
         return numberField;
     }
-    
+
     public static void centerJIF(JInternalFrame jif, JDesktopPane mainPanel) {
         Dimension desktopSize = mainPanel.getSize();
         Dimension jInternalFrameSize = jif.getSize();
@@ -207,5 +206,21 @@ public class Elements extends JFrame {
         int height = (desktopSize.height - jInternalFrameSize.height) / 2;
         jif.setLocation(width, height);
         jif.setVisible(true);
+    }
+
+    public static boolean valuesAreCorrect(LinkedHashMap<String, FieldConfig> fieldConfigs) {
+        for (Map.Entry<String, FieldConfig> input : fieldConfigs.entrySet()) {
+            String placeholder = input.getKey();
+            FieldConfig fieldConfig = input.getValue();
+
+            // Verificar si el campo es un JTextField
+            if (fieldConfig.getFieldType() instanceof JTextField) {
+                JTextField textField = (JTextField) fieldConfig.getFieldType();
+                String text = textField.getText();
+
+                if (text.equals(placeholder)) return false; //Si hay un TextField con el mismo texto que su placeholder es porque no se ingreso ningun dato
+            }
+        }
+        return true;
     }
 }

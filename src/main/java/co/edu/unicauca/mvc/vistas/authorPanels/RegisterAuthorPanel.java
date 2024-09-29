@@ -25,9 +25,9 @@ public class RegisterAuthorPanel extends RegisterPanel{
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
-        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
-        inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido: ", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail: ", new FieldConfig(new CustomTextField("Mail: ")));
         JComboBox<String> comboBoxTipoAutor = new JComboBox<>(new String[] {"Tipo Asociado", "Tipo Independiente"});
         inputFields.put("Tipo de autor:", new FieldConfig(comboBoxTipoAutor));
 
@@ -37,6 +37,10 @@ public class RegisterAuthorPanel extends RegisterPanel{
          
     @Override
     protected void registerAction() {
+         if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{

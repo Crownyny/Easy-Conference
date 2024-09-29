@@ -9,6 +9,7 @@ import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.authorPanels.ListAuthorsPanel;
 import co.edu.unicauca.mvc.vistas.authorPanels.RegisterAuthorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
@@ -31,16 +32,24 @@ public class RegisterArticlePanel extends RegisterPanel{
 
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre")));
-        inputFields.put("Revista:", new FieldConfig(new CustomTextField("Revista: ")));
+        inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Revista: ", new FieldConfig(new CustomTextField("Revista: ")));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
         return inputFields;
     }
 
     @Override
     protected void registerAction() {
+        if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         Article article = new Article(values.get(0), values.get(1));
+        if(tempAuthors == null ||  tempAuthors.listAll().isEmpty()){
+            GeneralUtilities.warningMessage("Debe asignar por lo menos un autor", "Registro fallido");
+            return;
+        }
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeArticles(article.getId());
         GeneralRepository.storeArticle(article);
         for (Author author : tempAuthors.listAll()) {
@@ -66,4 +75,5 @@ public class RegisterArticlePanel extends RegisterPanel{
         cardManager.showPanel("listAuthorPanel");
 
     }
+
 }
