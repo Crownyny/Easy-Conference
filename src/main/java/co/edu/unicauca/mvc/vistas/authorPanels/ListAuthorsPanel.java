@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.authorPanels;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.vistas.evaluatorPanel.ListEvaluatorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.ListPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ListAuthorsPanel extends ListPanel{
     
     @Override
     protected void registerAction() {
-        cardManager.showPanel("registerArticlePanel");
+        cardManager.showPanel("registerAuthorPanel");
     }
 
     public void clearTable() {
@@ -39,7 +40,8 @@ public class ListAuthorsPanel extends ListPanel{
             String[] row = { 
                 author.getFirstName(),
                 author.getLastName(),
-                author.getMail()
+                author.getMail(),
+                author.getTypeAuthor()
             };
             model.addRow(row);
         }

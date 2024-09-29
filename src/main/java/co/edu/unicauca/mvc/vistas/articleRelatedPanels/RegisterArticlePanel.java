@@ -6,16 +6,17 @@ import co.edu.unicauca.mvc.dataAccess.MemoryArrayListRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
 import co.edu.unicauca.mvc.vistas.authorPanels.ListAuthorsPanel;
+import co.edu.unicauca.mvc.vistas.authorPanels.RegisterAuthorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class RegisterArticlePanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -31,8 +32,8 @@ public class RegisterArticlePanel extends RegisterPanel{
 
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new JTextField(20)));
-        inputFields.put("Revista:", new FieldConfig(new JTextField(20)));
+        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre")));
+        inputFields.put("Revista:", new FieldConfig(new CustomTextField("Revista: ")));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
         return inputFields;
     }
@@ -55,12 +56,13 @@ public class RegisterArticlePanel extends RegisterPanel{
     @Override
     protected void extraButtonAction() {
         ListAuthorsPanel listAuthorsPanel = new ListAuthorsPanel(cardManager, tempAuthors); 
+        RegisterAuthorPanel registerAuthorPanel = new RegisterAuthorPanel(cardManager, tempAuthors); 
         
-        GeneralRepository.getAuthorService().
-                addObserver((Observer) listAuthorsPanel);
+        tempAuthors.addObserver((Observer) listAuthorsPanel);
         ((Observer) listAuthorsPanel).update();
         
         cardManager.addPanel(listAuthorsPanel,"listAuthorPanel");
+        cardManager.addPanel(registerAuthorPanel,"registerAuthorPanel");
         cardManager.showPanel("listAuthorPanel");
 
     }

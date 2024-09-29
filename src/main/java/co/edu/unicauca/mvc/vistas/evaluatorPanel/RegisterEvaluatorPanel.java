@@ -5,13 +5,12 @@ import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class RegisterEvaluatorPanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -44,7 +43,7 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
             cleanInputs();
             cardManager.showPanel("listEvaluatorPanel");          
         } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }
     }
 

@@ -6,7 +6,7 @@ import co.edu.unicauca.mvc.utilities.CustomDateChooser;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import co.edu.unicauca.mvc.vistas.windows.AssignTopicWindow;
@@ -81,13 +81,13 @@ public class RegisterConferencePanel extends RegisterPanel{
             Date endDate = dateFormat.parse(values.get(2));
 
             if (endDate.before(startDate)) {
-                Utilities.warningMessage("La fecha de fin debe ser posterior a la fecha de inicio", "Fecha no válida");
+                GeneralUtilities.warningMessage("La fecha de fin debe ser posterior a la fecha de inicio", "Fecha no válida");
                 return;
             }
             
             if(selectedTopics.isEmpty())
             {
-                Utilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
+                GeneralUtilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
                 return;
             }
 
@@ -95,15 +95,15 @@ public class RegisterConferencePanel extends RegisterPanel{
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
             GeneralRepository.getUserLinkServiceById(userID).storeConferences(conference.getId());
             GeneralRepository.storeConference(conference);
-            Utilities.successMessage("Conferencia creada correctamente", "Creación de conferencia");
+            GeneralUtilities.successMessage("Conferencia creada correctamente", "Creación de conferencia");
             cleanInputs();
             
             cardManager.showPanel("listPanel");
 
         } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El costo debe ser numérico", "Formato de costo inválido");
+            GeneralUtilities.warningMessage("El costo debe ser numérico", "Formato de costo inválido");
         } catch (ParseException ex) {
-            Utilities.warningMessage("La fecha debe seguir el formato dd/MM/yyyy", "Formato de fecha inválido");
+            GeneralUtilities.warningMessage("La fecha debe seguir el formato dd/MM/yyyy", "Formato de fecha inválido");
         }
     }
     

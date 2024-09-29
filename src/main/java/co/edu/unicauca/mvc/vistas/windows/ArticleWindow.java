@@ -21,7 +21,8 @@ public class ArticleWindow extends JInternalFrame {
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         linkPanels();
         getContentPane().add(cardManager.getCardPane());
-        
+        setClosable(true);
+        setIconifiable(true);
         setSize(Elements.getRelativeSize(.65,.55));
     }
 
@@ -51,7 +52,7 @@ public class ArticleWindow extends JInternalFrame {
     private void linkPanels()
     {   
         ListArticlesPanel ListPanel = new ListArticlesPanel(cardManager, conferenceID);
-        RegisterArticlePanel registerPanel = new RegisterArticlePanel( cardManager, conferenceID);
+        RegisterArticlePanel registerPanel = new RegisterArticlePanel( cardManager, conferenceID); 
         
         GeneralRepository.getArticleService().
                 addObserver((Observer) ListPanel);

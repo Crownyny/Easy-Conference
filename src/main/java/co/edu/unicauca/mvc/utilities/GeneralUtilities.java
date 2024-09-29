@@ -1,21 +1,17 @@
 package co.edu.unicauca.mvc.utilities;
 
-import com.toedter.calendar.JDateChooser;
-import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
  * @author libardo
  */
-public class Utilities {
+public class GeneralUtilities {
 
     /**
      * Generates a warning popup
@@ -66,19 +62,23 @@ public class Utilities {
         int nComponents = fieldConfigs.size();
         if ("".equals(labelsText.get(labelsText.size() - 1))) {
             nComponents--;
-            System.out.println("Se elimino");
+            System.out.println("Se eliminó");
         }
         for (int i = 0; i < nComponents; i++) {
             String labelText = labelsText.get(i);
             System.out.println(labelText + "-");
             FieldConfig config = fieldConfigs.get(labelText);
-            JComponent input =config.getFieldType();
-            if (input instanceof CustomTextField) {
-                ((CustomTextField) input).resetToInitialState();// Limpia el JTextField
-            } else {
-                ((CustomDateChooser)input).setInitialState();//Limpia el JDateChooser
+            JComponent input = config.getFieldType();
+
+            switch (input) {
+                case CustomTextField customTextField -> customTextField.resetToInitialState(); // Limpia el JTextField
+                case CustomDateChooser customDateChooser -> customDateChooser.setInitialState(); // Limpia el JDateChooser
+                case JComboBox comboBox -> comboBox.setSelectedIndex(0); // Restablece el JComboBox al primer valor
+                default -> {
+                }
             }
         }
     }
+
 
 }

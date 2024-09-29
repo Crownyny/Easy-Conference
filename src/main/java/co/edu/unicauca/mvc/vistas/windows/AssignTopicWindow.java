@@ -2,7 +2,7 @@ package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.utilities.CustomScrollBarUI;
 import co.edu.unicauca.mvc.utilities.Elements;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -143,9 +143,9 @@ public class AssignTopicWindow extends javax.swing.JFrame {
                     }
                 }
                 if (myTopics.isEmpty()) {
-                    Utilities.warningMessage("De seleccionar al menos un tema", "Registro fallido");
+                    GeneralUtilities.warningMessage("De seleccionar al menos un tema", "Registro fallido");
                 } else {
-                    Utilities.successMessage("Los temas se registraron correctamente", "Registro exitoso");
+                    GeneralUtilities.successMessage("Los temas se registraron correctamente", "Registro exitoso");
                     System.out.println("Temas seleccionados: " + myTopics);
                     this.dispose();
                 }

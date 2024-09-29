@@ -5,7 +5,7 @@ import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class RegisterAuthorPanel extends RegisterPanel{
             cleanInputs();
             cardManager.showPanel("listAuthorPanel");
         } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }
     }
 

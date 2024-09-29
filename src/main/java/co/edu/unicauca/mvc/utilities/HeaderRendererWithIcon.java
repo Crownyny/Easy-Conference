@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class HeaderRendererWithIcon extends DefaultTableCellRenderer {
-    private ImageIcon icon;
+    private final ImageIcon icon;
 
     public HeaderRendererWithIcon(ImageIcon icon, int rowHeight) {
         Image scaledIcon = icon.getImage().getScaledInstance(rowHeight, rowHeight, Image.SCALE_SMOOTH);

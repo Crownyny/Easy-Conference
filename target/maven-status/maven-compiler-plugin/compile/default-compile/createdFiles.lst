@@ -19,11 +19,11 @@ co\edu\unicauca\mvc\utilities\CustomDateChooser$1.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$1.class
 co\edu\unicauca\mvc\utilities\LoadImages.class
 co\edu\unicauca\mvc\vistas\util\Utilities.class
-co\edu\unicauca\mvc\utilities\Utilities.class
 co\edu\unicauca\mvc\dataAccess\InterfaceRepository.class
 co\edu\unicauca\mvc\test\Test.class
 co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.class
 co\edu\unicauca\mvc\controllers\ConferenceLinkService.class
+co\edu\unicauca\mvc\utilities\GeneralUtilities.class
 co\edu\unicauca\mvc\utilities\FieldConfig.class
 co\edu\unicauca\mvc\utilities\Elements$4.class
 co\edu\unicauca\mvc\utilities\CustomScrollBarUI$2.class
