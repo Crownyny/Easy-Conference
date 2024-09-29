@@ -4,6 +4,7 @@ import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.vistas.evaluatorPanel.ListEvaluatorPanel;
+import co.edu.unicauca.mvc.vistas.evaluatorPanel.RegisterEvaluatorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.ListPanel;
 import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
@@ -20,7 +21,7 @@ public class ListArticlesPanel extends ListPanel{
 
     public ListArticlesPanel(CardPanelManager cardManager, int conferenceID) 
     {
-        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"});
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"},false);
         this.conferenceID = conferenceID;
         this.cardManager = cardManager;
     }
@@ -57,8 +58,10 @@ public class ListArticlesPanel extends ListPanel{
         
         ButtonClickListener listener = (int row) -> {
             Article selectedArticle = articleList.get(row);
+            RegisterEvaluatorPanel registerEvaluatorPanel = new RegisterEvaluatorPanel(cardManager, selectedArticle.getId()); 
             ListEvaluatorPanel listEvaluatorPanel = new ListEvaluatorPanel(cardManager, selectedArticle.getId()); 
             cardManager.addPanel(listEvaluatorPanel,"listEvaluatorPanel");
+            cardManager.addPanel(registerEvaluatorPanel,"registerEvaluatorPanel");
                     
             GeneralRepository.getEvaluatorService().
                     addObserver((Observer) listEvaluatorPanel);
@@ -75,5 +78,10 @@ public class ListArticlesPanel extends ListPanel{
     public void update() 
     {
         fillTable();
+    }
+
+    @Override
+    protected void returnAction() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

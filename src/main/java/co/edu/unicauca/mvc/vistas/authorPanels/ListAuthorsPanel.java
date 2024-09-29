@@ -13,7 +13,7 @@ public class ListAuthorsPanel extends ListPanel{
     private final StorageService<Author> tempAuthors;
 
     public ListAuthorsPanel(CardPanelManager cardManager, StorageService<Author> tempAuthors) {
-        super("Listado de autores", "Registrar autor", new String[]{"Nombre", "Apellido", "Email", "Tipo de autor"});
+        super("Listado de autores", "Registrar autor", new String[]{"Nombre", "Apellido", "Email", "Tipo de autor"},true);
         this.tempAuthors = tempAuthors;
         this.cardManager = cardManager;
     } 
@@ -50,5 +50,10 @@ public class ListAuthorsPanel extends ListPanel{
     @Override
     public void update() {
         fillTable();
+    }
+
+    @Override
+    protected void returnAction() {
+        cardManager.showPanel("registerPanel");
     }
 }

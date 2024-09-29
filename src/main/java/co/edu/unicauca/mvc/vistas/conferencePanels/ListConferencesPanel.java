@@ -27,7 +27,7 @@ public class ListConferencesPanel extends ListPanel{
     public ListConferencesPanel(MainPanel adminWindow, CardPanelManager cardManager,
             int userID, String title) {
         super(title, "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false);
         this.adminWindow = adminWindow;
         this.userID =userID;
         this.cardManager = cardManager;
@@ -35,7 +35,7 @@ public class ListConferencesPanel extends ListPanel{
     
     public ListConferencesPanel(MainPanel adminWindow, CardPanelManager cardManager, int userID, String title, boolean flag) {
         super(title, "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""});
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false);
         this.adminWindow = adminWindow;
         this.userID =userID;
         this.flag = flag;
@@ -115,5 +115,10 @@ public class ListConferencesPanel extends ListPanel{
     @Override
     public void update() {
         fillTable();
+    }
+
+    @Override
+    protected void returnAction() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

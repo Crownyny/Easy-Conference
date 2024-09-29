@@ -35,6 +35,7 @@ public abstract class ListPanel extends JPanel implements Observer{
     protected String registrarButtonText;
     protected String[] columnNames;
     protected JTable table;
+    protected boolean enableReturnButton;
 
     /**
      * Creates new form VtnListarPlantilla
@@ -42,11 +43,12 @@ public abstract class ListPanel extends JPanel implements Observer{
      * @param registrarButtonText
      * @param columnNames
      */
-    public ListPanel(String titleLabel, String registrarButtonText, String[] columnNames) 
+    public ListPanel(String titleLabel, String registrarButtonText, String[] columnNames, boolean enableReturnButton) 
     {
         this.titleLabel = new JLabel(titleLabel);
         this.registrarButtonText = registrarButtonText;
         this.columnNames = columnNames;
+        this.enableReturnButton = enableReturnButton;
         Object[][] data ={};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
@@ -103,6 +105,20 @@ public abstract class ListPanel extends JPanel implements Observer{
             gbc.weightx = 1; // Half of the horizontal space  
             registerButton.addActionListener(e -> registerAction());    
             panelCenter.add(registerButton, gbc);
+            if(this.enableReturnButton){
+                BufferedImage returnIcon = ImageIO.read(getClass().getResource("/resources/left_arrow.png"));
+            // Resize the images to font size
+            Image iconReturnScaled = returnIcon.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+
+            JButton returnButton = Elements.addButton(new JButton(" Regresar"), buttonFontSize);
+            returnButton.setIcon(new ImageIcon(iconReturnScaled)); 
+            gbc.gridx = 0; // Column 0
+            gbc.gridy = 0; // Row 0
+            gbc.gridwidth = 1; // Occupies 1 column
+            gbc.weightx = 1; // Half of the horizontal space  
+            returnButton.addActionListener(e -> returnAction());    
+            panelCenter.add(returnButton, gbc);
+            }
 
         } catch (IOException e) {}
 
@@ -152,4 +168,6 @@ public abstract class ListPanel extends JPanel implements Observer{
     }
 
     protected abstract void registerAction();
+
+    protected abstract void returnAction() ;
 }
