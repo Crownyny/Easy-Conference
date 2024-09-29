@@ -21,12 +21,11 @@ import javax.swing.JLabel;
 public class RegisterArticlePanel extends RegisterPanel{
     private final CardPanelManager cardManager;
     private final int conferenceID;
-    private final StorageService<Author> tempAuthors;
+    private  StorageService<Author> tempAuthors;
 
     public RegisterArticlePanel(CardPanelManager cardManager, int conferenceID) {
         super(new JLabel("Registrar Articulo"), createInputFields());
         this.conferenceID = conferenceID;
-        this.tempAuthors = new StorageService<>(new MemoryArrayListRepository<>());
         this.cardManager = cardManager;
     }
 
@@ -55,6 +54,7 @@ public class RegisterArticlePanel extends RegisterPanel{
 
     @Override
     protected void extraButtonAction() {
+         this.tempAuthors = new StorageService<>(new MemoryArrayListRepository<>());
         ListAuthorsPanel listAuthorsPanel = new ListAuthorsPanel(cardManager, tempAuthors); 
         RegisterAuthorPanel registerAuthorPanel = new RegisterAuthorPanel(cardManager, tempAuthors); 
         
