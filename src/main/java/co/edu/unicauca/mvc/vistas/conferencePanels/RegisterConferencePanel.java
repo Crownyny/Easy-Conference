@@ -11,6 +11,7 @@ import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import co.edu.unicauca.mvc.vistas.windows.AssignTopicWindow;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Window;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class RegisterConferencePanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -117,9 +119,13 @@ public class RegisterConferencePanel extends RegisterPanel{
             "Sistemas Embebidos", "Algoritmos y Complejidad", "Redes de Computadoras", 
             "Bases de Datos", "Tecnologías Emergentes","Otro"
         };
-        AssignTopicWindow objTopicWindow =
-            new AssignTopicWindow(this.selectedTopics,conferenceTopics);
-        objTopicWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        objTopicWindow.setVisible(true);       
+        
+       Window window = SwingUtilities.getWindowAncestor(this);
+        
+        if (window instanceof JFrame parentFrame) {
+            AssignTopicWindow.openAssignTopicWindow(parentFrame, selectedTopics, conferenceTopics);
+        }     
+        
+        
     }   
 }

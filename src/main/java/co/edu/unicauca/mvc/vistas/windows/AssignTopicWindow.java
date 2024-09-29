@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,6 +21,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,7 +31,7 @@ import javax.swing.JScrollPane;
  *
  * @author Default
  */
-public class AssignTopicWindow extends javax.swing.JFrame {
+public class AssignTopicWindow extends JDialog  {
 
     private final List<String> myTopics;
     private final String[] conferenceTopics;
@@ -36,10 +39,12 @@ public class AssignTopicWindow extends javax.swing.JFrame {
     /**
      * Creates new form AssignWindow
      *
+     * @param parent
      * @param myTopics Selected Topics
      * @param conferenceTopics Possibles topics of the conference
      */
-    public AssignTopicWindow(ArrayList<String> myTopics, String[] conferenceTopics) {
+    public AssignTopicWindow(JFrame parent, ArrayList<String> myTopics, String[] conferenceTopics) {
+        super(parent, true);
         this.myTopics = myTopics;
         this.conferenceTopics = conferenceTopics;
         showGui();
@@ -160,6 +165,13 @@ public class AssignTopicWindow extends javax.swing.JFrame {
         this.getContentPane().add(panelButton, BorderLayout.SOUTH);
     }
 
+    public static void openAssignTopicWindow(JFrame parent, ArrayList<String> myTopics, String[] conferenceTopics) {
+        AssignTopicWindow dialog = new AssignTopicWindow(parent, myTopics, conferenceTopics);
+        dialog.setTitle("Asignar Temas");
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setLocationRelativeTo(parent); 
+        dialog.setVisible(true);  
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
