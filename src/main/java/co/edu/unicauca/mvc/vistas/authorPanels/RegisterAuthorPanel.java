@@ -5,7 +5,7 @@ import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
@@ -25,9 +25,9 @@ public class RegisterAuthorPanel extends RegisterPanel{
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
-        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
-        inputFields.put("Mail:", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido: ", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail: ", new FieldConfig(new CustomTextField("Mail: ")));
         JComboBox<String> comboBoxTipoAutor = new JComboBox<>(new String[] {"Tipo Asociado", "Tipo Independiente"});
         inputFields.put("Tipo de autor:", new FieldConfig(comboBoxTipoAutor));
 
@@ -37,6 +37,10 @@ public class RegisterAuthorPanel extends RegisterPanel{
          
     @Override
     protected void registerAction() {
+         if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{
@@ -48,7 +52,7 @@ public class RegisterAuthorPanel extends RegisterPanel{
             cleanInputs();
             cardManager.showPanel("listAuthorPanel");
         } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }
     }
 

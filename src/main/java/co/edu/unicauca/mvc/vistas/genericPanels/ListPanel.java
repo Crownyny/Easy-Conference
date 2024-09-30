@@ -29,39 +29,43 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
+public abstract class ListPanel extends JPanel implements Observer {
 
-public abstract class ListPanel extends JPanel implements Observer{
     protected JLabel titleLabel;
     protected String registrarButtonText;
     protected String[] columnNames;
     protected JTable table;
+    protected boolean enableReturnButton;
+    protected boolean enableRegisterButton;
 
     /**
      * Creates new form VtnListarPlantilla
+     *
      * @param titleLabel
      * @param registrarButtonText
      * @param columnNames
+     * @param enableReturnButton
      */
-    public ListPanel(String titleLabel, String registrarButtonText, String[] columnNames) 
-    {
+    public ListPanel(String titleLabel, String registrarButtonText, String[] columnNames, boolean enableReturnButton, boolean enableRegisterButton) {
         this.titleLabel = new JLabel(titleLabel);
         this.registrarButtonText = registrarButtonText;
         this.columnNames = columnNames;
-        Object[][] data ={};
+        this.enableReturnButton = enableReturnButton;
+        this.enableRegisterButton = enableRegisterButton;
+        Object[][] data = {};
         this.table = new JTable();
         this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
         showGui();
 
     }
-    
-    public ListPanel(String[] columnNames) 
-    {
+
+    public ListPanel(String[] columnNames) {
         this.titleLabel = new JLabel();
         this.registrarButtonText = "";
         showGui();
     }
-    
-       private void showGui() {
+
+    private void showGui() {
         // Set up the window size
         setLayout(new BorderLayout());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -73,7 +77,7 @@ public abstract class ListPanel extends JPanel implements Observer{
         int panelNorthHeight = (int) (panelHeight * 0.1);
         int panelCenterHeight = (int) (panelHeight * 0.85);
         int panelSouthHeight = (int) (panelHeight * 0.15);
-        
+
         GridBagConstraints gbc = new GridBagConstraints();
 
         JPanel panelNorth = new JPanel(new GridBagLayout());
@@ -81,7 +85,7 @@ public abstract class ListPanel extends JPanel implements Observer{
 
         int titleFontSize = Math.min(panelWidth, panelHeight) / 25;
         this.titleLabel.setForeground(Color.WHITE);
-        this.titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize)); 
+        this.titleLabel.setFont(new Font("Leelawadee UI", Font.BOLD, titleFontSize));
         panelNorth.add(titleLabel);
         panelNorth.setBackground(new Color(0x3c647c));
 
@@ -89,32 +93,48 @@ public abstract class ListPanel extends JPanel implements Observer{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
         int buttonFontSize = Math.min(panelWidth, panelHeight) / 30;
+        if (enableRegisterButton) {
+            try {
+                BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/pen-drawing.png"));
+                // Resize the images to font size
+                Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-        try {
-            BufferedImage iconRegister = ImageIO.read(getClass().getResource("/resources/pen-drawing.png"));
-            // Resize the images to font size
-            Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
+                JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
+                registerButton.setIcon(new ImageIcon(iconRegisterScaled));
+                gbc.gridx = 1; // Column 1
+                gbc.gridy = 0; // Row 0
+                gbc.gridwidth = 1; // Occupies 1 column
+                gbc.weightx = 1; // Half of the horizontal space  
+                registerButton.addActionListener(e -> registerAction());
+                panelCenter.add(registerButton, gbc);
+                if (this.enableReturnButton) {
+                    BufferedImage returnIcon = ImageIO.read(getClass().getResource("/resources/left_arrow.png"));
+                    // Resize the images to font size
+                    Image iconReturnScaled = returnIcon.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-            JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
-            registerButton.setIcon(new ImageIcon(iconRegisterScaled)); 
-            gbc.gridx = 1; // Column 1
-            gbc.gridy = 0; // Row 0
-            gbc.gridwidth = 1; // Occupies 1 column
-            gbc.weightx = 1; // Half of the horizontal space  
-            registerButton.addActionListener(e -> registerAction());    
-            panelCenter.add(registerButton, gbc);
+                    JButton returnButton = Elements.addButton(new JButton(" Regresar"), buttonFontSize);
+                    returnButton.setIcon(new ImageIcon(iconReturnScaled));
+                    gbc.gridx = 0; // Column 0
+                    gbc.gridy = 0; // Row 0
+                    gbc.gridwidth = 1; // Occupies 1 column
+                    gbc.weightx = 1; // Half of the horizontal space  
+                    returnButton.addActionListener(e -> returnAction());
+                    panelCenter.add(returnButton, gbc);
+                }
 
-        } catch (IOException e) {}
+            } catch (IOException e) {
+            }
+        }
 
         // Customize the header renderer
         JTableHeader header = this.table.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
-                                                           boolean isSelected, boolean hasFocus, int row, int column) {
+                    boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setBackground(new Color(0x3c647c)); 
-                label.setForeground(Color.WHITE); 
+                label.setBackground(new Color(0x3c647c));
+                label.setForeground(Color.WHITE);
                 label.setFont(new Font("Leelawadee UI", Font.BOLD, Math.min(panelWidth, panelHeight) / 35)); // Font size
                 label.setHorizontalAlignment(SwingConstants.CENTER); // Center the text
                 return label;
@@ -145,11 +165,13 @@ public abstract class ListPanel extends JPanel implements Observer{
         panelSouth.setBackground(new Color(0x7F818F));
         panelSouth.setPreferredSize(new Dimension(panelWidth, panelSouthHeight));
 
-        add(panelSouth, BorderLayout.SOUTH);           
+        add(panelSouth, BorderLayout.SOUTH);
         add(panelCenter, BorderLayout.CENTER);
         add(panelNorth, BorderLayout.NORTH);
 
     }
 
     protected abstract void registerAction();
+
+    protected abstract void returnAction();
 }

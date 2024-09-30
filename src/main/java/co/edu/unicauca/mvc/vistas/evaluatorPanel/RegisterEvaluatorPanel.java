@@ -5,13 +5,12 @@ import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class RegisterEvaluatorPanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -26,15 +25,19 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
     
     private static LinkedHashMap<String, FieldConfig> createInputFields() {
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
-        inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
-        inputFields.put("Apellido:", new FieldConfig(new CustomTextField("Apellido: ")));
-        inputFields.put("Mail::", new FieldConfig(new CustomTextField("Mail: ")));
-        inputFields.put("Afiliation:", new FieldConfig(new CustomTextField("Afiliation: ")));
+        inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
+        inputFields.put("Apellido: ", new FieldConfig(new CustomTextField("Apellido: ")));
+        inputFields.put("Mail: ", new FieldConfig(new CustomTextField("Mail: ")));
+        inputFields.put("Afiliation: ", new FieldConfig(new CustomTextField("Afiliation: ")));
         return inputFields;
     }
     
     @Override
     protected void registerAction() {
+         if(!Elements.valuesAreCorrect(fieldConfigs)){
+            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+            return;
+        }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
         
         try{
@@ -44,7 +47,7 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
             cleanInputs();
             cardManager.showPanel("listEvaluatorPanel");          
         } catch (NumberFormatException ex) {
-            Utilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
         }
     }
 

@@ -2,6 +2,7 @@ package co.edu.unicauca.mvc.vistas.authorPanels;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
+import co.edu.unicauca.mvc.vistas.evaluatorPanel.ListEvaluatorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.ListPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
@@ -12,14 +13,14 @@ public class ListAuthorsPanel extends ListPanel{
     private final StorageService<Author> tempAuthors;
 
     public ListAuthorsPanel(CardPanelManager cardManager, StorageService<Author> tempAuthors) {
-        super("Listado de autores", "Registrar autor", new String[]{"Nombre", "Apellido", "Email", "Tipo de autor"});
+        super("Listado de autores", "Registrar autor", new String[]{"Nombre", "Apellido", "Email", "Tipo de autor"},true,true);
         this.tempAuthors = tempAuthors;
         this.cardManager = cardManager;
     } 
     
     @Override
     protected void registerAction() {
-        cardManager.showPanel("registerArticlePanel");
+        cardManager.showPanel("registerAuthorPanel");
     }
 
     public void clearTable() {
@@ -39,7 +40,8 @@ public class ListAuthorsPanel extends ListPanel{
             String[] row = { 
                 author.getFirstName(),
                 author.getLastName(),
-                author.getMail()
+                author.getMail(),
+                author.getTypeAuthor()
             };
             model.addRow(row);
         }
@@ -48,5 +50,10 @@ public class ListAuthorsPanel extends ListPanel{
     @Override
     public void update() {
         fillTable();
+    }
+
+    @Override
+    protected void returnAction() {
+        cardManager.showPanel("registerPanel");
     }
 }

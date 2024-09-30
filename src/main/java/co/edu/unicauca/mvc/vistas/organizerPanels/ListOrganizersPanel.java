@@ -12,7 +12,7 @@ public class ListOrganizersPanel extends ListPanel{
     private final CardPanelManager cardManager;
 
     public ListOrganizersPanel (CardPanelManager cardManager, int conferenceID) {
-        super("Listado de Organizadores", "Registrar Organizadores", new String[]{"Nombres", "Apellidos", "Universidad"});
+        super("Listado de Organizadores", "Registrar Organizadores", new String[]{"Nombres", "Apellidos", "Universidad"},false,true);
         this.conferenceID =conferenceID;
         this.cardManager = cardManager;
     }
@@ -49,5 +49,10 @@ public class ListOrganizersPanel extends ListPanel{
     @Override
     public void update() {
         fillTable();
+    }
+
+    @Override
+    protected void returnAction() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

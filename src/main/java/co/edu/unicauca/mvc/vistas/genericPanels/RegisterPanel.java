@@ -2,7 +2,7 @@ package co.edu.unicauca.mvc.vistas.genericPanels;
 
 import co.edu.unicauca.mvc.utilities.Elements;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.Utilities;
+import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -129,7 +129,7 @@ public abstract class RegisterPanel extends JPanel{
     }
 
     protected void cleanInputs() {
-        Utilities.cleanInputs(fieldConfigs);
+        GeneralUtilities.cleanInputs(fieldConfigs);
     }
 
     protected abstract void registerAction();
