@@ -21,7 +21,7 @@ public class ListArticlesPanel extends ListPanel{
 
     public ListArticlesPanel(CardPanelManager cardManager, int conferenceID) 
     {
-        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"},false);
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"},false,true);
         this.conferenceID = conferenceID;
         this.cardManager = cardManager;
     }

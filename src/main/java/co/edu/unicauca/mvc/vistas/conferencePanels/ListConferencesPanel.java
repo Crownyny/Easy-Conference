@@ -27,7 +27,7 @@ public class ListConferencesPanel extends ListPanel{
     public ListConferencesPanel(MainPanel adminWindow, CardPanelManager cardManager,
             int userID, String title) {
         super(title, "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false);
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false,true);
         this.adminWindow = adminWindow;
         this.userID =userID;
         this.cardManager = cardManager;
@@ -35,7 +35,7 @@ public class ListConferencesPanel extends ListPanel{
     
     public ListConferencesPanel(MainPanel adminWindow, CardPanelManager cardManager, int userID, String title, boolean flag) {
         super(title, "Registrar Conferencias", 
-                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false);
+                new String[]{"Nombre", "Fecha Inicio", "Fecha Fin", "Costo", "Ubicacion","Temas", ""},false,!flag); //Si flag es true se muestran todas las conferencias disponibles, y se desactiva el boton de registro 
         this.adminWindow = adminWindow;
         this.userID =userID;
         this.flag = flag;

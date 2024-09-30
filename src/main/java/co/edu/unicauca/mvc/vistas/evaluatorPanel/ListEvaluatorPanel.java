@@ -13,7 +13,7 @@ public class ListEvaluatorPanel extends ListPanel{
 
 
     public ListEvaluatorPanel(CardPanelManager cardManager, int articleID) {
-        super("Listado de evaluadores", "Registrar evaluadores", new String[]{"Nombre", "Apellido", "Email", "Institucion asociada"},true);
+        super("Listado de evaluadores", "Registrar evaluadores", new String[]{"Nombre", "Apellido", "Email", "Institucion asociada"},true,true);
         this.articleID = articleID;
         this.cardManager = cardManager;
     }
