@@ -4,6 +4,7 @@ Elaborado por:
 - Jonathan David Guejia <jonathanguejia@unicauca.edu.co>
 - Jhoan David Chacon <jhoanchacon@unicauca.edu.co>
 - Jorge Andres Martinez Varon <jorgeandre@unicauca.edu.co>
+- URL del pdf: https://drive.google.com/drive/u/1/folders/10AMOBRg-Fzs_yQqZAmNqYShAE4qpPbwW
 
 Sistema de Gestión de Conferencias Académicas
 
