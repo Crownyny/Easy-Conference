@@ -5,6 +5,7 @@ Elaborado por:
 - Jhoan David Chacon <jhoanchacon@unicauca.edu.co>
 - Jorge Andres Martinez Varon <jorgeandre@unicauca.edu.co>
 - URL del pdf: https://drive.google.com/drive/u/1/folders/10AMOBRg-Fzs_yQqZAmNqYShAE4qpPbwW
+- URL del video: https://youtu.be/4m5-DIQGssU
 
 Sistema de Gestión de Conferencias Académicas
 
