@@ -1,53 +1,53 @@
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\Elements.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\genericPanels\ListPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\CardPanelManager.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\CustomScrollBarUI.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\authorPanels\ListAuthorsPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\SignInPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\test\Test.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\HeaderRendererWithIcon.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\articleRelatedPanels\RegisterArticlePanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonClickListener.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonRenderer.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\FieldConfig.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\genericPanels\RegisterPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\ConferenceWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Person.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Article.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\conferencePanels\RegisterConferencePanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\Utilities.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ConferenceLinkService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\organizerPanels\ListOrganizersPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\articleRelatedPanels\ListArticlesPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\ArticleLinkService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\OrganizerWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\conferencePanels\ListConferencesPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Author.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\GeneralRepository.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\CustomTextField.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\CustomDateChooser.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\evaluatorPanel\ListEvaluatorPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonEditor.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\MainWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\StorageService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\AssignTopicWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Evaluator.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\Conference.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\MainPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\User.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\ArticleWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\organizerPanels\RegisterOrganizerPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\windows\ViewStatisticsWindow.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\models\InterfaceIdentifiable.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\authorPanels\RegisterAuthorPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\controllers\UserLinkService.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\evaluatorPanel\RegisterEvaluatorPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\LogInPanel.java
-C:\Users\Default.myPc\Documents\6 semestre\ISoftware 2\Lab\EASY CONFERENCE\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Author.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\ArticleLinkService.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\CustomTextField.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\ArticleWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonRenderer.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\genericPanels\ListPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\authorPanels\ListAuthorsPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\infrastructure\Observer.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\conferencePanels\RegisterConferencePanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\authorPanels\RegisterAuthorPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\AssignTopicWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\GeneralRepository.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Conference.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\ViewStatisticsWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\MainWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\CardPanelManager.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\CustomDateChooser.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryArrayListRepository.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\FieldConfig.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\CustomScrollBarUI.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonEditor.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\Utilities.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\InterfaceRepository.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\genericPanels\RegisterPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\StorageService.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\evaluatorPanel\ListEvaluatorPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\LogInPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Evaluator.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\ConferenceLinkService.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\conferencePanels\ListConferencesPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\organizerPanels\RegisterOrganizerPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\articleRelatedPanels\RegisterArticlePanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\infrastructure\Subject.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\evaluatorPanel\RegisterEvaluatorPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Article.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\HeaderRendererWithIcon.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\Utilities.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\util\ButtonClickListener.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\articleRelatedPanels\ListArticlesPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Organizer.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\controllers\UserLinkService.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\dataAccess\MemoryLinkedListRepository.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\Elements.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\Person.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\test\Test.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\organizerPanels\ListOrganizersPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\ConferenceWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\InterfaceIdentifiable.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\models\User.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\MainPanel.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\windows\OrganizerWindow.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\utilities\LoadImages.java
+C:\Users\David\Desktop\6to Semestre\Ing.Software2\Easy-Conference\src\main\java\co\edu\unicauca\mvc\vistas\mainWindowPanels\SignInPanel.java
