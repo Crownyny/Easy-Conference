@@ -1,40 +1,46 @@
 package co.edu.unicauca.mvc.utilities;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.border.MatteBorder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.Box;
 import javax.swing.JDesktopPane;
-import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.SwingUtilities;
 
-public class Elements extends JFrame {
+/**
+ * Elements
+ * This class contains utility methods to create and customize Swing components
+ */
+public class Components extends JFrame {
 
-    public static final Color errorColor = new Color(0xE81010);
-
+    public static final Color ERRCOLOR = new Color(0xE81010); // COLOR USED TO SHOW ERRRORS
+    public static final Color BUTTONCOLOR = new Color(0x2c4464); // COLOR USED FOR BUTTONS
+    public static final Color ACTIVECOLOR = new Color(52, 112, 224); // COLOR USED FOR ACTIVE ELEMENTS
+    public static final Color TEXTCOLOR = new Color(0x0f0f1e); // COLOR USED FOR TEXT (IN LIGHT BACKGROUND) 
+    /*
+     * Method to create the standard button
+     * @param myButton The button to be customized
+     * @param fontSize The font size of the button
+     * 
+     * The method customizes the button with the given font size
+     * It sets the button's background color, text color, font, focus, and opacity
+     */
     public static JButton addButton(JButton myButton, int fontSize) {
         myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+        myButton.setBackground(BUTTONCOLOR); // Return to transparent background
         myButton.setForeground(Color.WHITE);
         myButton.setFont(new Font("Lucida Console", Font.BOLD, fontSize)); // Font size doesn't matter
         myButton.setFocusPainted(false);
@@ -52,7 +58,7 @@ public class Elements extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+                myButton.setBackground(BUTTONCOLOR); // Return to transparent background
                 myButton.repaint(); // Repaint the button and the container
                 myButton.getParent().repaint(); // Ensure the parent container is also repainted
                 myButton.getParent().revalidate();
@@ -70,12 +76,20 @@ public class Elements extends JFrame {
         return myButton;
     }
 
+    /*
+     * Method to create a standard button
+     * @param buttonText The text of the button
+     * @param container The container where the button will be added
+     * 
+     * The method creates a button with the given text and adds it to the container
+     * It customizes the button with the standard font, background color, text color, focus, and opacity
+     */
     public static JButton addButton(String buttonText, JPanel container) {
         JButton myButton = new JButton(buttonText);
         container.add(myButton);
         container.add(Box.createHorizontalStrut(20));
         myButton.setBorderPainted(false);
-        myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+        myButton.setBackground(BUTTONCOLOR); // Return to transparent background
         myButton.setForeground(Color.WHITE);
         myButton.setFont(new Font("Lucida Console", Font.BOLD, 1)); // Fontsize doesn't matter
         myButton.setFocusPainted(false);
@@ -93,7 +107,7 @@ public class Elements extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                myButton.setBackground(new Color(0x2c4464)); // Return to transparent background
+                myButton.setBackground(BUTTONCOLOR); // Return to transparent background
                 myButton.repaint(); // Repaint the button and the container
                 myButton.getParent().repaint(); // Ensure the parent container is also repainted
                 myButton.getParent().revalidate();
@@ -111,6 +125,9 @@ public class Elements extends JFrame {
         return myButton;
     }
 
+    /*
+     * Method to update the background of a button
+     */
     public static void updateButtonBackground(JButton button, Color color) {
         button.setBackground(color);
         button.repaint();
@@ -118,10 +135,29 @@ public class Elements extends JFrame {
         button.getParent().revalidate();
     }
 
+    /*
+     * Method to get the dimensions of the screen
+     * @param widthRatio The ratio of the width
+     * @param heightRatio The ratio of the height
+     * 
+     * The method returns the dimensions of the screen based on the given ratios
+     */
     public static Dimension getRelativeSize(double widthRatio, double heightRatio) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int) (screenSize.width * widthRatio);
         int height = (int) (screenSize.height * heightRatio);
+        return new Dimension(width, height);
+    }
+
+    /*
+     * Method to get the dimensions of the screen
+     * 
+     * The method returns the dimensions of the screen
+     */
+    public static Dimension getRelativeSize() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int) (screenSize.width );
+        int height = (int) (screenSize.height );
         return new Dimension(width, height);
     }
 
@@ -139,23 +175,20 @@ public class Elements extends JFrame {
     public static JLabel createLabel(String text, int fontsize) {
         JLabel label = new JLabel(text);
 
-        Color activeColor = new Color(52, 112, 224);
-        Color initalColor = new Color(0x2c4464);
-
-        label.setForeground(initalColor);
+        label.setForeground(BUTTONCOLOR);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
 
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                label.setForeground(activeColor);
+                label.setForeground(ACTIVECOLOR);
                 label.setFont(new Font("Leelawadee UI", Font.BOLD, (int) (fontsize * 1.15)));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                label.setForeground(initalColor);
+                label.setForeground(BUTTONCOLOR);
                 label.setFont(new Font("Leelawadee UI", Font.PLAIN, fontsize));
             }
         });

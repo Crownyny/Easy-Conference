@@ -5,7 +5,7 @@ import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.vistas.genericPanels.ListPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import co.edu.unicauca.mvc.vistas.util.NonEditableTableModel;
 
 public class ListOrganizersPanel extends ListPanel{
     private final int conferenceID;
@@ -23,8 +23,7 @@ public class ListOrganizersPanel extends ListPanel{
     }
 
     public void clearTable(){
-
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        NonEditableTableModel model = (NonEditableTableModel) this.table.getModel();
         int rows = this.table.getRowCount();
         for (int i = 0; rows > i; i++) {
             model.removeRow(0);
@@ -32,7 +31,7 @@ public class ListOrganizersPanel extends ListPanel{
     }
 
     private void fillTable() {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        NonEditableTableModel model = (NonEditableTableModel) table.getModel();
         clearTable();
         ArrayList<Organizer> organizerList = (ArrayList<Organizer>) GeneralRepository.getOrganizersByConferenceId(conferenceID);
         for (int i = 0; i < organizerList.size(); i++) {

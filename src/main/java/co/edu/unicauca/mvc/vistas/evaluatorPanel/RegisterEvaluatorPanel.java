@@ -3,14 +3,17 @@ package co.edu.unicauca.mvc.vistas.evaluatorPanel;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Evaluator;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 public class RegisterEvaluatorPanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -34,21 +37,24 @@ public class RegisterEvaluatorPanel extends RegisterPanel{
     
     @Override
     protected void registerAction() {
-         if(!Elements.valuesAreCorrect(fieldConfigs)){
-            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+         if(!Components.valuesAreCorrect(fieldConfigs)){
+            new PopUpWindow((JFrame) getWindowAncestor(this),
+            PopUpWindow.PopUpType.ERROR,
+            "Debe llenar todos los campos");
             return;
         }
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
+        ArrayList<String> values = Components.extractTextFields(fieldConfigs);
         
-        try{
-            Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));
-            GeneralRepository.getArticleLinkServiceById(articleID).storeEvaluators(evaluator.getId());
-            GeneralRepository.storeEvaluator(evaluator);
-            cleanInputs();
-            cardManager.showPanel("listEvaluatorPanel");          
-        } catch (NumberFormatException ex) {
-            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
-        }
+        Evaluator evaluator = new Evaluator(values.get(0),values.get(1), values.get(2), values.get(3));
+        GeneralRepository.getArticleLinkServiceById(articleID).storeEvaluators(evaluator.getId());
+        GeneralRepository.storeEvaluator(evaluator);
+        cleanInputs();
+        cardManager.showPanel("listEvaluatorPanel");   
+           
+        new PopUpWindow((JFrame) getWindowAncestor(this),
+        PopUpWindow.PopUpType.SUCCESS,
+        "Evaluador registrado exitosamente");    
+        
     }
 
 }

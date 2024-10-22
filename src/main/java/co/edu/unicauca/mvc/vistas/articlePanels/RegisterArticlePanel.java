@@ -7,16 +7,20 @@ import co.edu.unicauca.mvc.infrastructure.Observer;
 import co.edu.unicauca.mvc.models.Article;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.authorPanels.ListAuthorsPanel;
 import co.edu.unicauca.mvc.vistas.authorPanels.RegisterAuthorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
+import static javax.swing.SwingUtilities.getWindowAncestor;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class RegisterArticlePanel extends RegisterPanel{
@@ -42,14 +46,18 @@ public class RegisterArticlePanel extends RegisterPanel{
 
     @Override
     protected void registerAction() {
-        if(!Elements.valuesAreCorrect(fieldConfigs)){
-            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+        if(!Components.valuesAreCorrect(fieldConfigs)){
+            new PopUpWindow((JFrame) getWindowAncestor(this), 
+            PopUpWindow.PopUpType.ERROR, 
+            "Debe llenar todos los campos");
             return;
         }
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
+        ArrayList<String> values = Components.extractTextFields(fieldConfigs);
         Article article = new Article(values.get(0), values.get(1), values.get(2), values.get(3));
         if(tempAuthors == null ||  tempAuthors.listAll().isEmpty()){
-            GeneralUtilities.warningMessage("Debe asignar por lo menos un autor", "Registro fallido");
+            new PopUpWindow((JFrame) getWindowAncestor(this), 
+            PopUpWindow.PopUpType.ERROR, 
+            "Debe asignar al menos un autor");
             return;
         }
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeArticles(article.getId());
@@ -60,6 +68,9 @@ public class RegisterArticlePanel extends RegisterPanel{
             GeneralRepository.storeAuthor(author);
         }
         cardManager.showPanel("listPanel");
+        new PopUpWindow((JFrame) getWindowAncestor(this), 
+            PopUpWindow.PopUpType.SUCCESS, 
+            "Articulo registrado con exito");
         cleanInputs();
     }
 

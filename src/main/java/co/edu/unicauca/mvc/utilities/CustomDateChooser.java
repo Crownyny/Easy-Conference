@@ -11,18 +11,31 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+/*
+ * Custom DateChooser
+ * This class is a custom date chooser that allows to set a placeholder
+ * It is based on the JDateChooser class from the JCalendar library
+ * It has a placeholder, a placeholder color, a text color, a background color, and a border color
+ * It also has a default font and a default border
+ */
 public class CustomDateChooser extends JDateChooser {
 
-    private String placeholder;
-    private Color initialBorderColor;
-    private Color activeBorderColor;
-    private Color placeholderColor;
-    private Color textColor;
-    private Color backgroundColor;
-    private Font defaultFont;
-    private MatteBorder initialBorder;
-    private JTextField dateTextField;
+    private String placeholder; // Placeholder text
+    private Color initialBorderColor; // Initial border color
+    private Color activeBorderColor; // Active border color
+    private Color placeholderColor; // Placeholder color
+    private Color textColor; // Text color
+    private Color backgroundColor; // Background color
+    private Font defaultFont;   // Default font
+    private MatteBorder initialBorder; // Initial border
+    private JTextField dateTextField;   // Date text field
 
+    /*
+     * Constructor
+     * @param placeholder The placeholder text
+     * 
+     * The constructor initializes the custom date chooser with the given placeholder
+     */
     public CustomDateChooser(String placeholder) {
         super();
         this.placeholder = placeholder;
@@ -40,14 +53,22 @@ public class CustomDateChooser extends JDateChooser {
         addFocusBehavior();
         showPlaceHolder();
     }
+
+    /*
+     * Method to show the placeholder text
+     */
     private void showPlaceHolder() {
-        SwingUtilities.invokeLater(() -> { //Se asegura de que se muestre el placeholder correctamente
+        SwingUtilities.invokeLater(() -> { 
             if (dateTextField.getText().isEmpty()) {
                 dateTextField.setText(placeholder);
                 dateTextField.setForeground(placeholderColor);
             }
         });
     }
+
+    /*
+     * Method to add focus behavior (placeholder logical behavior)
+     */
     private void addFocusBehavior() {
         dateTextField.addFocusListener(new FocusAdapter() {
             @Override
@@ -78,8 +99,10 @@ public class CustomDateChooser extends JDateChooser {
         });
     }
 
-    // Método para restablecer el estado original
-    void setInitialState() {
+    /*
+     * Method to set the initial state of the custom date chooser
+     */
+    public void setInitialState() {
         dateTextField.setBackground(backgroundColor);
         dateTextField.setText(placeholder);
         dateTextField.setForeground(placeholderColor);
@@ -90,7 +113,7 @@ public class CustomDateChooser extends JDateChooser {
                 BorderFactory.createEmptyBorder(0, 2, 0, 2)
         ));
         showPlaceHolder();
-        setDate(null); // Limpiar la fecha seleccionada
+        setDate(null); // Set the date to null
     }
 }
 

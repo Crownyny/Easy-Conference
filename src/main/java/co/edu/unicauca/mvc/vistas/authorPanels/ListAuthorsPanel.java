@@ -6,7 +6,7 @@ import co.edu.unicauca.mvc.vistas.evaluatorPanel.ListEvaluatorPanel;
 import co.edu.unicauca.mvc.vistas.genericPanels.ListPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import co.edu.unicauca.mvc.vistas.util.NonEditableTableModel;
 
 public class ListAuthorsPanel extends ListPanel{
     private final CardPanelManager cardManager;
@@ -24,7 +24,7 @@ public class ListAuthorsPanel extends ListPanel{
     }
 
     public void clearTable() {
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        NonEditableTableModel model = (NonEditableTableModel) this.table.getModel();
         int rows = this.table.getRowCount();
         for (int i = 0; i < rows; i++) {
             model.removeRow(0);
@@ -32,7 +32,7 @@ public class ListAuthorsPanel extends ListPanel{
     }
 
     private void fillTable() {
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        NonEditableTableModel model = (NonEditableTableModel) this.table.getModel();
         clearTable();
         ArrayList<Author> authorList = (ArrayList<Author>) tempAuthors.listAll();// Fix show all 
 

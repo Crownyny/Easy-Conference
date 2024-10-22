@@ -2,7 +2,7 @@ package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.vistas.conferencePanels.ListConferencesPanel;
 import co.edu.unicauca.mvc.vistas.conferencePanels.RegisterConferencePanel;
 import co.edu.unicauca.mvc.vistas.mainWindowPanels.MainPanel;
@@ -27,7 +27,7 @@ public class ConferenceWindow extends JInternalFrame {
         linkPanels(adminWindow, "Mis Conferencias");
         add(cardManager.getCardPane(), BorderLayout.CENTER);
         setIconifiable(true);
-        setSize(Elements.getRelativeSize(.55,.65));
+        setSize(Components.getRelativeSize(.55,.65));
     }
 
     
@@ -37,9 +37,8 @@ public class ConferenceWindow extends JInternalFrame {
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         linkPanels(adminWindow, "Conferencias Disponibles", flag);
         add(cardManager.getCardPane(), BorderLayout.CENTER);
-        setClosable(true);
         setIconifiable(true);
-        setSize(Elements.getRelativeSize(.55,.65));
+        setSize(Components.getRelativeSize(.55,.65));
     }
 
     /**

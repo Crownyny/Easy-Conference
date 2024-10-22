@@ -1,6 +1,8 @@
 package co.edu.unicauca.mvc.models;
 
-
+/**
+ * Article base class
+ */
 public class Article implements InterfaceIdentifiable{
     private String title;
     private String journal;

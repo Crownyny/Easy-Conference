@@ -2,7 +2,7 @@ package co.edu.unicauca.mvc.vistas.windows;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.vistas.organizerPanels.ListOrganizersPanel;
 import co.edu.unicauca.mvc.vistas.organizerPanels.RegisterOrganizerPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
@@ -20,7 +20,7 @@ public class OrganizerWindow extends JInternalFrame{
         linkPanels();
         getContentPane().add(cardManager.getCardPane());
         setIconifiable(true);
-        setSize(Elements.getRelativeSize(.65,.55));
+        setSize(Components.getRelativeSize(.65,.55));
     }
 
     /**

@@ -1,8 +1,8 @@
 package co.edu.unicauca.mvc.vistas.genericPanels;
 
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
+import co.edu.unicauca.mvc.vistas.util.Utilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -104,7 +104,7 @@ public abstract class RegisterPanel extends JPanel{
                 // Add the "Assign Author" button
                 FieldConfig config = fieldConfigs.get("");
                 JComponent field = config.getFieldType();
-                JButton assignButton = Elements.addButton((JButton) field, buttonFontSize);
+                JButton assignButton = Components.addButton((JButton) field, buttonFontSize);
 
                 assignButton.addActionListener(e -> extraButtonAction());
                 panelButton.add(assignButton);
@@ -115,7 +115,7 @@ public abstract class RegisterPanel extends JPanel{
             Image iconScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
             // Create the "Register" button
-            JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
+            JButton registerButton = Components.addButton(new JButton(" Registrar"), buttonFontSize);
             registerButton.setIcon(new ImageIcon(iconScaled));
 
             registerButton.addActionListener(e -> registerAction());
@@ -129,7 +129,7 @@ public abstract class RegisterPanel extends JPanel{
     }
 
     protected void cleanInputs() {
-        GeneralUtilities.cleanInputs(fieldConfigs);
+        Utilities.cleanInputs(fieldConfigs);
     }
 
     protected abstract void registerAction();

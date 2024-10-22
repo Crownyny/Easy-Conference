@@ -11,11 +11,13 @@ import co.edu.unicauca.mvc.vistas.util.ButtonClickListener;
 import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.util.StyledButtonRenderer;
+import co.edu.unicauca.mvc.vistas.util.NonEditableTableModel;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class ListConferencesPanel extends ListPanel{
@@ -50,7 +52,7 @@ public class ListConferencesPanel extends ListPanel{
 
     public void clearTable(){
 
-        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        NonEditableTableModel model = (NonEditableTableModel) this.table.getModel();
         int rows = this.table.getRowCount();
         for (int i = 0; rows > i; i++) {
             model.removeRow(0);
@@ -58,45 +60,52 @@ public class ListConferencesPanel extends ListPanel{
     }
 
     private void fillTable() {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        final int BUTTONCOLUMN = 6;
+        // Especificamos la tabla como no editable (Ninguna columna aparecera editable por defecto)
+        NonEditableTableModel model = (NonEditableTableModel) table.getModel();
+        // Limpiar la tabla antes de llenarla
         clearTable();
-        ArrayList<Conference> conferenceList;
-        if(flag)
-           conferenceList = (ArrayList) GeneralRepository.getConferenceService().listAll();
-        else 
-            conferenceList = (ArrayList) GeneralRepository.getConferencesByUserId(userID);
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
+        // Obtener la lista de conferencias
+        ArrayList<Conference> conferenceList;
+        if (flag)
+            conferenceList = (ArrayList) GeneralRepository.getConferenceService().listAll();
+        else
+            conferenceList = (ArrayList) GeneralRepository.getConferencesByUserId(userID);
+    
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    
+        // Llenar la tabla con la informacion de las conferencias
         for (int i = 0; i < conferenceList.size(); i++) {
             String[] row = {
-                conferenceList.get(i).getName(), 
-                formatter.format(conferenceList.get(i).getStartDate()), 
-                formatter.format(conferenceList.get(i).getEndDate()), 
-                conferenceList.get(i).getRegistrationCost() + "",
+                conferenceList.get(i).getName(),
+                formatter.format(conferenceList.get(i).getStartDate()),
+                formatter.format(conferenceList.get(i).getEndDate()),
+                "$" + conferenceList.get(i).getRegistrationCost(),
                 conferenceList.get(i).getLocation(),
-                conferenceList.get(i).topicsToString(), 
+                conferenceList.get(i).topicsToString(),
                 "Seleccionar"
             };
             model.addRow(row);
         }
-        
+
+        //Especificar la columna que contendra el boton como editable
+        model.addEditableColumn(BUTTONCOLUMN);
+    
         ButtonClickListener listener = (int row) -> {
             Conference selectedConference = conferenceList.get(row);
-            
+    
             adminWindow.associateService(Organizer.class, selectedConference.getId());
             adminWindow.associateService(Article.class, selectedConference.getId());
-            if(flag)
+            if (flag)
                 adminWindow.getCardManager().showPanel("otherConferencePanel");
             else
                 adminWindow.getCardManager().showPanel("myConferencePanel");
-
+    
             adminWindow.setVisibility(MainPanel.VisibilityState.NONE);
-            
-
+    
             setVisible(false);
         };
-        
         // Cargar la imagen desde los recursos
         ImageIcon icon = new ImageIcon(getClass().getResource("/resources/abajo.png"));
 
@@ -105,13 +114,13 @@ public class ListConferencesPanel extends ListPanel{
     
         // Aplicar el HeaderRendererWithIcon al encabezado de la columna correspondiente
         JTableHeader header = table.getTableHeader();
-        header.getColumnModel().getColumn(6).setHeaderRenderer(new HeaderRendererWithIcon(icon, rowHeight));
-
-        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
-
+        header.getColumnModel().getColumn(BUTTONCOLUMN).setHeaderRenderer(new HeaderRendererWithIcon(icon, rowHeight));
+    
+        // Configure the renderer and editor only for the last column
+        table.getColumnModel().getColumn(BUTTONCOLUMN).setCellRenderer(new StyledButtonRenderer());
+        table.getColumnModel().getColumn(BUTTONCOLUMN).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
     }
-
+    
     @Override
     public void update() {
         fillTable();

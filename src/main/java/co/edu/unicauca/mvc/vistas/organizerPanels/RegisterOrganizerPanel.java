@@ -3,14 +3,17 @@ package co.edu.unicauca.mvc.vistas.organizerPanels;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Organizer;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 public class RegisterOrganizerPanel extends RegisterPanel{
     private final CardPanelManager cardManager;
@@ -33,17 +36,23 @@ public class RegisterOrganizerPanel extends RegisterPanel{
     
     @Override
     protected void registerAction() {
-         if(!Elements.valuesAreCorrect(fieldConfigs)){
-            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+         if(!Components.valuesAreCorrect(fieldConfigs)){
+            new PopUpWindow((JFrame) getWindowAncestor(this),
+            PopUpWindow.PopUpType.ERROR,
+            "Debe llenar todos los campos");
             return;
         }
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
+        ArrayList<String> values = Components.extractTextFields(fieldConfigs);
 
         Organizer organizer = new Organizer(values.get(0), values.get(1), values.get(2), values.get(3));
         GeneralRepository.getConferenceLinkServiceById(conferenceID).storeOrganizers(organizer.getId());
         GeneralRepository.storeOrganizer(organizer);
+        cleanInputs();
         
         cardManager.showPanel("listPanel");
+        new PopUpWindow((JFrame) getWindowAncestor(this),
+        PopUpWindow.PopUpType.SUCCESS,
+        "Organizador registrado exitosamente");
     }
 
 }

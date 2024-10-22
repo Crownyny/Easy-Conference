@@ -2,7 +2,7 @@ package co.edu.unicauca.mvc.vistas.mainWindowPanels;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.User;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -87,7 +87,7 @@ public class SignInPanel extends JPanel
           gbc.weighty = 1;
 
           JPanel boxPanel = new JPanel(new GridBagLayout());
-          boxPanel.setPreferredSize(Elements.getRelativeSize(0.25, 0.4));
+          boxPanel.setPreferredSize(Components.getRelativeSize(0.25, 0.4));
           boxPanel.setBackground(new Color(0xD7EAF9)); // Direct color value
           addRowsToBoxPanel(boxPanel);
           centerPanel.add(boxPanel, gbc);
@@ -230,7 +230,7 @@ public class SignInPanel extends JPanel
         gbc.gridy = 5;
         gbc.weighty = 0.3;
         int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 25;
-        JButton mainButton = Elements.addButton(new JButton("Registrarse"), buttonFontSize);
+        JButton mainButton = Components.addButton(new JButton("Registrarse"), buttonFontSize);
         mainButton.addActionListener(e -> signInAction(inputs));
         boxPanel.add(mainButton, gbc);
     }
@@ -270,7 +270,7 @@ public class SignInPanel extends JPanel
         input.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (input.getText().equals(placeholder) || input.getForeground().equals(Elements.errorColor) ) {
+                if (input.getText().equals(placeholder) || input.getForeground().equals(Components.ERRCOLOR) ) {
                     input.setText("");
                     input.setForeground(textColor);  // Set to normal text color
                     input.setHorizontalAlignment(JLabel.LEFT);
@@ -353,7 +353,7 @@ public class SignInPanel extends JPanel
      
     private void inputError(JTextField input, String message)
     {
-        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Elements.errorColor);
+        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Components.ERRCOLOR);
         int fontsize = input.getFont().getSize();
         input.setBorder(BorderFactory.createCompoundBorder(
             errorBorder, 
@@ -362,7 +362,7 @@ public class SignInPanel extends JPanel
 
         input.setHorizontalAlignment(JLabel.CENTER);
         input.setText(message);
-        input.setForeground(Elements.errorColor);
+        input.setForeground(Components.ERRCOLOR);
         input.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
     }
     

@@ -4,8 +4,14 @@ import java.util.ArrayList;
 
 public abstract class Subject {
 
+    /**
+     * List of observers
+     */
     protected final ArrayList<Observer> observers = new ArrayList<>();
 
+    /**
+     * Empty Constructor
+     */
     public void Subject() {}
 
     /**

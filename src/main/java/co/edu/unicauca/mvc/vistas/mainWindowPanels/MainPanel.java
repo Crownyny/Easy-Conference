@@ -1,7 +1,7 @@
 package co.edu.unicauca.mvc.vistas.mainWindowPanels;
 
 import co.edu.unicauca.mvc.models.*;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.vistas.windows.ArticleWindow;
 import co.edu.unicauca.mvc.vistas.windows.ConferenceWindow;
 import co.edu.unicauca.mvc.vistas.windows.OrganizerWindow;
@@ -314,7 +314,7 @@ public class MainPanel extends JPanel{
     private void setFrameVisible(Class<? extends JInternalFrame> frameClass) {
         JInternalFrame frame = internalFrames.get(frameClass);
         if (frame != null) {
-            Elements.centerJIF(frame, mainDesktopPane);
+            Components.centerJIF(frame, mainDesktopPane);
         }
     }
 
@@ -326,7 +326,7 @@ public class MainPanel extends JPanel{
         panel.add(Box.createHorizontalGlue());
 
         for (int i = 0; i < buttonLabels.length; i++) {
-            JButton button = Elements.addButton(buttonLabels[i], panel);
+            JButton button = Components.addButton(buttonLabels[i], panel);
             button.addActionListener(actions[i]);
         }
 

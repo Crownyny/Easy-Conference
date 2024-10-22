@@ -4,12 +4,13 @@ import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.utilities.CustomDateChooser;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import co.edu.unicauca.mvc.vistas.windows.AssignTopicWindow;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
 import com.toedter.calendar.JDateChooser;
 import java.awt.Window;
 import java.text.ParseException;
@@ -48,7 +49,7 @@ public class RegisterConferencePanel extends RegisterPanel{
         inputFields.put("Nombre:", new FieldConfig(new CustomTextField("Nombre: ")));
         inputFields.put("Fecha de inicio:", new FieldConfig(startDate));
         inputFields.put("Fecha de fin:", new FieldConfig(endDate));
-        inputFields.put("Costo de inscripcion:", new FieldConfig(Elements.createNumberField(maxLength,"Costo de incripción: ")));
+        inputFields.put("Costo de inscripcion:", new FieldConfig(Components.createNumberField(maxLength,"Costo de incripción: ")));
         inputFields.put("Ubicacion:", new FieldConfig(new CustomTextField("Ubicacion: ")));
         inputFields.put("", new FieldConfig(new JButton("Agregar tema")));
         
@@ -83,13 +84,17 @@ public class RegisterConferencePanel extends RegisterPanel{
             Date endDate = dateFormat.parse(values.get(2));
 
             if (endDate.before(startDate)) {
-                GeneralUtilities.warningMessage("La fecha de fin debe ser posterior a la fecha de inicio", "Fecha no válida");
+                new PopUpWindow((JFrame) SwingUtilities.getWindowAncestor(this), 
+                PopUpWindow.PopUpType.ERROR, 
+                "La fecha de fin debe ser posterior a la fecha de inicio");
                 return;
             }
             
             if(selectedTopics.isEmpty())
             {
-                GeneralUtilities.warningMessage("Debe seleccionar al menos un tema", "Falta seleccionar temas");
+                new PopUpWindow((JFrame) SwingUtilities.getWindowAncestor(this),
+                PopUpWindow.PopUpType.ERROR,
+                "Debe seleccionar al menos un tema");
                 return;
             }
 
@@ -97,15 +102,21 @@ public class RegisterConferencePanel extends RegisterPanel{
             Conference conference = new Conference(values.get(0), startDate, endDate, cost, values.get(4),selectedTopics);
             GeneralRepository.getUserLinkServiceById(userID).storeConferences(conference.getId());
             GeneralRepository.storeConference(conference);
-            GeneralUtilities.successMessage("Conferencia creada correctamente", "Creación de conferencia");
-            cleanInputs();
-            
+        
             cardManager.showPanel("listPanel");
+            cleanInputs();
+            new PopUpWindow((JFrame) SwingUtilities.getWindowAncestor(this), 
+                PopUpWindow.PopUpType.SUCCESS, 
+                "Conferencia registrada con éxito");
 
         } catch (NumberFormatException ex) {
-            GeneralUtilities.warningMessage("El costo debe ser numérico", "Formato de costo inválido");
+            new PopUpWindow((JFrame) SwingUtilities.getWindowAncestor(this), 
+                PopUpWindow.PopUpType.WARNING, 
+                "El costo de inscripción debe ser un número");
         } catch (ParseException ex) {
-            GeneralUtilities.warningMessage("La fecha debe seguir el formato dd/MM/yyyy", "Formato de fecha inválido");
+            new PopUpWindow((JFrame) SwingUtilities.getWindowAncestor(this), 
+                PopUpWindow.PopUpType.WARNING, 
+                "La fecha no tiene un formato válido");
         }
     }
     

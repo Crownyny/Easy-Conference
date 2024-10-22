@@ -5,12 +5,14 @@ import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Conference;
 import co.edu.unicauca.mvc.models.User;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
+import co.edu.unicauca.mvc.utilities.CustomPwdField;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,8 +30,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
+import javax.swing.JFrame;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
-
+/*
+ * LogInPanel Its a JPanel that contains the login form
+ * It has a logo, two text fields for email and password, and a button to log in
+ * It also has a label to redirect to the sign in form
+ * This is the first panel that the user sees when the application starts
+ * 
+ */
 public class LogInPanel extends JPanel {
     private final CardPanelManager cardManager;
 
@@ -51,7 +61,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 1; 
 
         JPanel boxPanel = new JPanel(new GridBagLayout());
-        boxPanel.setPreferredSize(Elements.getRelativeSize(0.25, 0.4));
+        boxPanel.setPreferredSize(Components.getRelativeSize(0.25, 0.4));
         boxPanel.setBackground(new Color(0xD7EAF9)); 
         addRowsToBoxPanel(boxPanel);
 
@@ -69,7 +79,7 @@ public class LogInPanel extends JPanel {
         // First row with the centered icon
         gbc.gridy = 0;
         gbc.weighty = 0.4;
-        int logoFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 5;
+        int logoFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 4;
 
         JPanel row1 = createRowPanel(new Color(0xD7EAF9));
         row1.setLayout(new GridBagLayout());
@@ -107,7 +117,9 @@ public class LogInPanel extends JPanel {
             gbc.gridy = i;
             JPanel row = createRowPanel(new Color(0xD7EAF9));
 
-            JTextField inputField = new CustomTextField(texts[i - 1]);
+            JTextField inputField ;
+            if(i == 1)  inputField = new CustomTextField(texts[i - 1]);
+            else  inputField = new CustomPwdField(texts[i - 1]);
             inputField.setPreferredSize(new Dimension(1, (int) (boxPanel.getPreferredSize().height * 0.1)));
 
             row.setLayout(new GridBagLayout());
@@ -126,7 +138,7 @@ public class LogInPanel extends JPanel {
         gbc.gridy = 3;
         gbc.weighty = 0.2;
         int buttonFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 21;
-        JButton mainButton = Elements.addButton(new JButton("Ingresar"), buttonFontSize);
+        JButton mainButton = Components.addButton(new JButton("Ingresar"), buttonFontSize);
         mainButton.addActionListener(e -> loginAction(inputs));
         boxPanel.add(mainButton, gbc);
 
@@ -134,7 +146,7 @@ public class LogInPanel extends JPanel {
         gbc.weighty = 0.3;
         gbc.gridy = 4;
         int labelFontSize = Math.min(boxPanel.getPreferredSize().width, boxPanel.getPreferredSize().height) / 27;
-        JLabel accountLabel = Elements.createLabel("No tienes una cuenta? Registrate!", labelFontSize);
+        JLabel accountLabel = Components.createLabel("No tienes una cuenta? Registrate!", labelFontSize);
         accountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -168,8 +180,7 @@ public class LogInPanel extends JPanel {
         String password = inputs.get(1).getText();
         JTextField inputEmail = inputs.get(0);
         JTextField inputPassword = inputs.get(1);
-        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Elements.errorColor);
-        int fontsize = inputEmail.getFont().getSize();
+        MatteBorder errorBorder = new MatteBorder(0, 0, 2, 0, Components.ERRCOLOR);
 
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
         if (!email.matches(emailRegex)) {
@@ -178,10 +189,13 @@ public class LogInPanel extends JPanel {
                 BorderFactory.createEmptyBorder(0, 2, 0, 2) 
             ));
             inputEmail.setHorizontalAlignment(JLabel.CENTER);
-            inputEmail.setText("Email invalido");
-            inputEmail.setForeground(Elements.errorColor);
-            inputEmail.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
-            return;
+            inputEmail.setForeground(Components.ERRCOLOR);
+            new PopUpWindow(
+                (JFrame) getWindowAncestor(this),
+                PopUpWindow.PopUpType.ERROR,
+                "<html>El Email no es válido!!<br>(Debe seguir un formato something@some.som)</html>"
+            );
+             return;
         }
         
         for (User user : users.listAll())
@@ -191,6 +205,9 @@ public class LogInPanel extends JPanel {
 
             if (password.equals(userPassword) & userEmail.equals(email)) {
                 setMainPanel(user.getId());
+                new PopUpWindow((JFrame) getWindowAncestor(this), 
+                PopUpWindow.PopUpType.SUCCESS,
+                 "Bienvenido " + user.getFirstName() + "!");
                 return;
             }            
         }
@@ -199,10 +216,8 @@ public class LogInPanel extends JPanel {
                 errorBorder, 
                 BorderFactory.createEmptyBorder(0, 2, 0, 2) 
             ));
-        inputEmail.setHorizontalAlignment(JLabel.CENTER);
-        inputPassword.setText("La Contraseña y el Email no coinciden");
-        inputPassword.setForeground(Elements.errorColor);
-        inputPassword.setFont(new Font("Leelawadee UI",Font.BOLD, fontsize));
+        inputPassword.setForeground(Components.ERRCOLOR);
+        new PopUpWindow((JFrame) getWindowAncestor(this),PopUpWindow.PopUpType.ERROR ,"La contraseña y el Email no coinciden!!");
     }
     
     private void setMainPanel(int userID)

@@ -5,7 +5,9 @@
 package co.edu.unicauca.mvc.vistas.genericPanels;
 
 import co.edu.unicauca.mvc.infrastructure.Observer;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
+import co.edu.unicauca.mvc.vistas.util.NonEditableTableModel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -54,7 +56,7 @@ public abstract class ListPanel extends JPanel implements Observer {
         this.enableRegisterButton = enableRegisterButton;
         Object[][] data = {};
         this.table = new JTable();
-        this.table.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+        this.table.setModel(new NonEditableTableModel(data, columnNames));
         showGui();
 
     }
@@ -99,7 +101,7 @@ public abstract class ListPanel extends JPanel implements Observer {
                 // Resize the images to font size
                 Image iconRegisterScaled = iconRegister.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-                JButton registerButton = Elements.addButton(new JButton(" Registrar"), buttonFontSize);
+                JButton registerButton = Components.addButton(new JButton(" Registrar"), buttonFontSize);
                 registerButton.setIcon(new ImageIcon(iconRegisterScaled));
                 gbc.gridx = 1; // Column 1
                 gbc.gridy = 0; // Row 0
@@ -112,7 +114,7 @@ public abstract class ListPanel extends JPanel implements Observer {
                     // Resize the images to font size
                     Image iconReturnScaled = returnIcon.getScaledInstance(buttonFontSize, buttonFontSize, Image.SCALE_SMOOTH);
 
-                    JButton returnButton = Elements.addButton(new JButton(" Regresar"), buttonFontSize);
+                    JButton returnButton = Components.addButton(new JButton(" Regresar"), buttonFontSize);
                     returnButton.setIcon(new ImageIcon(iconReturnScaled));
                     gbc.gridx = 0; // Column 0
                     gbc.gridy = 0; // Row 0

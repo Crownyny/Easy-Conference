@@ -1,6 +1,6 @@
 package co.edu.unicauca.mvc.utilities;
 
-//Tomado de: https://stackoverflow.com/questions/16373459/java-jscrollbar-design
+//Taked from: https://stackoverflow.com/questions/16373459/java-jscrollbar-design
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +13,12 @@ import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+/**
+ * Custom ScrollBar UI
+ * This class is a custom scroll bar UI that allows to change the color of the thumb
+ * It is based on the BasicScrollBarUI class from the Swing library
+ * It has a custom thumb color
+ */
 public class CustomScrollBarUI extends BasicScrollBarUI {
     
       private final Dimension d = new Dimension();

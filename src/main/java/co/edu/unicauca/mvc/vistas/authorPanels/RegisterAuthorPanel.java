@@ -3,15 +3,18 @@ package co.edu.unicauca.mvc.vistas.authorPanels;
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.models.Author;
 import co.edu.unicauca.mvc.utilities.CustomTextField;
-import co.edu.unicauca.mvc.utilities.Elements;
+import co.edu.unicauca.mvc.utilities.Components;
 import co.edu.unicauca.mvc.utilities.FieldConfig;
-import co.edu.unicauca.mvc.utilities.GeneralUtilities;
 import co.edu.unicauca.mvc.vistas.genericPanels.RegisterPanel;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
+import co.edu.unicauca.mvc.vistas.windows.PopUpWindow;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import static javax.swing.SwingUtilities.getWindowAncestor;
 
 public class RegisterAuthorPanel extends RegisterPanel{
     private final CardPanelManager cardManager; 
@@ -37,11 +40,13 @@ public class RegisterAuthorPanel extends RegisterPanel{
          
     @Override
     protected void registerAction() {
-         if(!Elements.valuesAreCorrect(fieldConfigs)){
-            GeneralUtilities.warningMessage("Debe rellenar todos los campos", "Registro fallido");
+         if(!Components.valuesAreCorrect(fieldConfigs)){
+            new PopUpWindow((JFrame) getWindowAncestor(this),
+            PopUpWindow.PopUpType.ERROR,
+            "Debe llenar todos los campos");
             return;
         }
-        ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
+        ArrayList<String> values = Components.extractTextFields(fieldConfigs);
         
         try{
             FieldConfig comboBoxFieldConfig = fieldConfigs.get("Tipo de autor:");
@@ -51,8 +56,13 @@ public class RegisterAuthorPanel extends RegisterPanel{
             tempAuthors.store(author);
             cleanInputs();
             cardManager.showPanel("listAuthorPanel");
+            new PopUpWindow((JFrame) getWindowAncestor(this),
+            PopUpWindow.PopUpType.SUCCESS,
+            "Autor registrado exitosamente");
         } catch (NumberFormatException ex) {
-            GeneralUtilities.warningMessage("El id debe ser numérico", "Formato de costo inválido");
+            new PopUpWindow((JFrame) getWindowAncestor(this),
+            PopUpWindow.PopUpType.WARNING,
+            "El costo de inscripción debe ser un número");
         }
     }
 
