@@ -19,7 +19,6 @@ public class OrganizerWindow extends JInternalFrame{
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         linkPanels();
         getContentPane().add(cardManager.getCardPane());
-        setClosable(true);
         setIconifiable(true);
         setSize(Elements.getRelativeSize(.65,.55));
     }

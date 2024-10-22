@@ -31,7 +31,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.InternalFrameEvent;
 
 public class MainPanel extends JPanel{
     private final Map<Class<? extends JInternalFrame>, JInternalFrame> internalFrames = new HashMap<>();
@@ -55,7 +54,17 @@ public class MainPanel extends JPanel{
         }
         mainDesktopPane.add(internalFrames.get(ConferenceWindow.class));
     }
-    
+
+    public void relateAllArticles()
+    {
+        removeInternalFrameForService(Article.class);
+        if (!internalFrames.containsKey(ArticleWindow.class)) {
+            internalFrames.put(ArticleWindow.class, 
+                new ArticleWindow(services.get(Article.class), true));
+        }
+        mainDesktopPane.add(internalFrames.get(ArticleWindow.class));
+    }
+
     private void removeInternalFrameForService(Class<?> serviceClass) {
         JInternalFrame frameToRemove = null;
 
@@ -169,7 +178,12 @@ public class MainPanel extends JPanel{
         String[] myConferencePanelLabels = {"Gestionar organizadores", "Gestionar artículos", "Ver estadísticas", "Regresar"};
         ActionListener[] myConferencePanelActions = {
             e -> setVisibility(MainPanel.VisibilityState.LIST_ORGANIZERS),
-            e -> setVisibility(MainPanel.VisibilityState.LIST_ARTICLES),
+            e ->
+            {
+                removeInternalFrameForService(Article.class);
+                relateInternalFramesToDesktopPane();
+                setVisibility(MainPanel.VisibilityState.LIST_ARTICLES);
+            },
             e -> setVisibility(MainPanel.VisibilityState.VIEW_STATISTICS),
             e -> {
                 setVisibility(MainPanel.VisibilityState.NONE);
@@ -179,7 +193,10 @@ public class MainPanel extends JPanel{
         
         String[] otherConferencePanelLabels = {"Gestionar artículos", "Regresar"};
         ActionListener[] otherConferencePanelActions = {
-            e -> setVisibility(MainPanel.VisibilityState.LIST_ARTICLES),
+            e -> {
+                relateAllArticles();
+                setVisibility(MainPanel.VisibilityState.LIST_ARTICLES);
+            },
             e -> {
                 setVisibility(MainPanel.VisibilityState.NONE);
                 cardManager.showPanel("firstPanel");

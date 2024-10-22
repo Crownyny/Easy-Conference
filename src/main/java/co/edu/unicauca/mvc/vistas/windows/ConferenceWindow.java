@@ -26,7 +26,6 @@ public class ConferenceWindow extends JInternalFrame {
         cardManager = new CardPanelManager(new JPanel(new CardLayout()));
         linkPanels(adminWindow, "Mis Conferencias");
         add(cardManager.getCardPane(), BorderLayout.CENTER);
-        setClosable(true);
         setIconifiable(true);
         setSize(Elements.getRelativeSize(.55,.65));
     }

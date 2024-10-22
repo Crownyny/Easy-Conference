@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.vistas.articleRelatedPanels;
+package co.edu.unicauca.mvc.vistas.articlePanels;
 
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
 import co.edu.unicauca.mvc.infrastructure.Observer;
@@ -11,21 +11,31 @@ import co.edu.unicauca.mvc.vistas.util.ButtonEditor;
 import co.edu.unicauca.mvc.vistas.util.ButtonRenderer;
 import co.edu.unicauca.mvc.vistas.util.CardPanelManager;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
 
 public class ListArticlesPanel extends ListPanel{
     private final CardPanelManager cardManager;
     private final int conferenceID;
+    private boolean isThirdPartyConference;
 
 
     public ListArticlesPanel(CardPanelManager cardManager, int conferenceID) 
     {
-        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Cantidad de autores","Asignar evaluador"},false,true);
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Abstract","Palabras claves","Cantidad de autores","Asignar evaluador"},false,true);
         this.conferenceID = conferenceID;
         this.cardManager = cardManager;
     }
     
+    public ListArticlesPanel(CardPanelManager cardManager, int conferenceID, boolean isThirdPartyConference) 
+    {
+        super("Listado de Articulos", "Registrar Articulos", new String[]{"Nombre", "Revista","Abstract","Palabras claves","Cantidad de autores","Asignar evaluador"},false,true);
+        this.conferenceID = conferenceID;
+        this.cardManager = cardManager;
+        this.isThirdPartyConference = isThirdPartyConference;
+    }
 
     @Override
     protected void registerAction() {
@@ -47,15 +57,22 @@ public class ListArticlesPanel extends ListPanel{
         
         for (int i = 0; i < articleList.size(); i++) 
         {
-            String[] row = { 
-                articleList.get(i).getTitle(),  
-                articleList.get(i).getJournal(),
-                GeneralRepository.getArticleLinkServiceById(articleList.get(i).getId()).getAuthors().size() + "", 
-                "Seleccionar"
-            };
-            model.addRow(row);
+            List<String> row = new ArrayList<>();
+            row.add(articleList.get(i).getTitle());
+            row.add(articleList.get(i).getJournal());
+            row.add(articleList.get(i).getAbstract());
+            row.add(articleList.get(i).getKeywords());
+            row.add(String.valueOf(GeneralRepository.getArticleLinkServiceById(articleList.get(i).getId()).getAuthors().size()));
+            
+            if (!isThirdPartyConference) {
+                row.add("Seleccionar");
+            }
+            model.addRow(row.toArray());
         }
-        
+
+        if(isThirdPartyConference)
+            return;
+
         ButtonClickListener listener = (int row) -> {
             Article selectedArticle = articleList.get(row);
             RegisterEvaluatorPanel registerEvaluatorPanel = new RegisterEvaluatorPanel(cardManager, selectedArticle.getId()); 
@@ -69,8 +86,8 @@ public class ListArticlesPanel extends ListPanel{
             cardManager.showPanel("listEvaluatorPanel");
         };
 
-        table.getColumnModel().getColumn(3).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(3).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), listener));
     }
     
 

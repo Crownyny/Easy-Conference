@@ -1,4 +1,4 @@
-package co.edu.unicauca.mvc.vistas.articleRelatedPanels;
+package co.edu.unicauca.mvc.vistas.articlePanels;
 
 import co.edu.unicauca.mvc.controllers.StorageService;
 import co.edu.unicauca.mvc.dataAccess.GeneralRepository;
@@ -34,6 +34,8 @@ public class RegisterArticlePanel extends RegisterPanel{
         LinkedHashMap<String, FieldConfig> inputFields = new LinkedHashMap<>();
         inputFields.put("Nombre: ", new FieldConfig(new CustomTextField("Nombre: ")));
         inputFields.put("Revista: ", new FieldConfig(new CustomTextField("Revista: ")));
+        inputFields.put("Abstract: ", new FieldConfig(new CustomTextField("Abstract: ")));
+        inputFields.put("Palabras clave: ", new FieldConfig(new CustomTextField("Palabras clave: ")));
         inputFields.put("", new FieldConfig(new JButton("Asignar autor")));
         return inputFields;
     }
@@ -45,7 +47,7 @@ public class RegisterArticlePanel extends RegisterPanel{
             return;
         }
         ArrayList<String> values = Elements.extractTextFields(fieldConfigs);
-        Article article = new Article(values.get(0), values.get(1));
+        Article article = new Article(values.get(0), values.get(1), values.get(2), values.get(3));
         if(tempAuthors == null ||  tempAuthors.listAll().isEmpty()){
             GeneralUtilities.warningMessage("Debe asignar por lo menos un autor", "Registro fallido");
             return;
