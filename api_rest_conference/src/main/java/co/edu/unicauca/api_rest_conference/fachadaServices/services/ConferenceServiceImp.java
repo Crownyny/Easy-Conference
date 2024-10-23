@@ -7,16 +7,24 @@ import org.modelmapper.TypeToken;
 
 import co.edu.unicauca.api_rest_conference.capaAccesoADatos.models.ConferenceEntity;
 import co.edu.unicauca.api_rest_conference.capaAccesoADatos.repositories.ConferenceRepository;
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ArticleDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ConferenceDTO;
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.UserDTO;
+import reactor.core.publisher.Flux;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class ConferenceServiceImp implements IConferenceService{
     private ConferenceRepository servicioAccesoBaseDatos;
+    private ArticleService servicioArticulos;
+    private UserService servicioUsuarios;
     private ModelMapper modelMapper;
-    public ConferenceServiceImp(ConferenceRepository servicioBaseDatos, ModelMapper modelMapper) {
+    public ConferenceServiceImp(ConferenceRepository servicioBaseDatos, ModelMapper modelMapper, ArticleService servicioArticulos, UserService servicioUsuarios){ 
         this.servicioAccesoBaseDatos = servicioBaseDatos;
         this.modelMapper = modelMapper;
+        this.servicioArticulos = servicioArticulos;
+        this.servicioUsuarios = servicioUsuarios;
     }
     @Override
     public List<ConferenceDTO> findAll() {
@@ -66,11 +74,29 @@ public class ConferenceServiceImp implements IConferenceService{
         return this.servicioAccesoBaseDatos.exists(id);
     }
     @Override
-    public List<ConferenceDTO> getConferencesByArticle(int idArticle) {
-        List<ConferenceEntity> conferencias = servicioAccesoBaseDatos.getConferencesByArticle(idArticle);
-        List<ConferenceDTO> conferenciasDTO = this.modelMapper.map(conferencias, new TypeToken<List<ConferenceDTO>>() {
-            }.getType());
-        return conferenciasDTO;
+    public List<ArticleDTO> getArticlesByConference(int idConference) {
+        // Obtenemos la conferencia por ID
+        ConferenceDTO conference = this.findById(idConference);
+        //Obtenemos los Ids de los artículos asociados a la conferencia
+        List<Integer> articleIds = conference.getArticles();
+        // Para cada ID de artículo, hacemos una solicitud al microservicio de artículos
+        Flux<ArticleDTO> articles = Flux.fromIterable(articleIds)
+            .flatMap(this.servicioArticulos::getArticleById); // Llamamos a un método que busca el artículo por ID
+        
+        // Convertimos el Flux a una lista de artículos
+        return articles.collectList().block(); // .block() para ejecutar de manera sincrónica
+    }
+    @Override
+    public List<UserDTO> getOrganizerByConference(int idConference) {
+        // Obtenemos la conferencia por ID
+        ConferenceDTO conference = this.findById(idConference);
+        //Obtenemos los Ids de los organizadores asociados a la conferencia
+        List<Integer> organizerIds = conference.getOrganizers();
+        Flux<UserDTO> organizers = Flux.fromIterable(organizerIds)
+            .flatMap(this.servicioUsuarios::getUserById); // Llamamos a un método que busca el usuario por ID
+        
+        // Convertimos el Flux a una lista de artículos
+        return organizers.collectList().block(); // .block() para ejecutar de manera sincrónica
     }
 
 }

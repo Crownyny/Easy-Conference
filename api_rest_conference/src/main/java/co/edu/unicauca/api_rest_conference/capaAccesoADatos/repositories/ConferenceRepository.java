@@ -1,12 +1,10 @@
 package co.edu.unicauca.api_rest_conference.capaAccesoADatos.repositories;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Repository;
 
-import co.edu.unicauca.api_rest_conference.capaAccesoADatos.models.ArticleEntity;
 import co.edu.unicauca.api_rest_conference.capaAccesoADatos.models.ConferenceEntity;
 
 @Repository
@@ -15,7 +13,6 @@ public class ConferenceRepository {
     private AtomicInteger idIterator;
     public ConferenceRepository(){
         this.listConferences = new ArrayList<ConferenceEntity>();
-        loadConferences();
         idIterator = new AtomicInteger(listConferences.size());
     }
     public ArrayList<ConferenceEntity> findAll(){ //Recupera todas las conferencias guardadas
@@ -80,23 +77,18 @@ public class ConferenceRepository {
         }
         return newId;
     }
-    private void loadConferences(){
-        List<ArticleEntity> articles1 = new ArrayList<ArticleEntity>();
-        List<ArticleEntity> articles2 = new ArrayList<ArticleEntity>();
-        articles1.add(new ArticleEntity(1));   
-        articles1.add(new ArticleEntity(2)); 
-        articles2.add(new ArticleEntity(1));
-        ConferenceEntity conf1 = new ConferenceEntity(1,"ICSE",10,articles1);        
-        ConferenceEntity conf2 = new ConferenceEntity(2,"FSE",10,articles1);
+    /*private void loadConferences(){
+        ConferenceEntity conf1 = new ConferenceEntity(1,"ICSE",10,1);        
+        ConferenceEntity conf2 = new ConferenceEntity(2,"FSE",10,2);
         ConferenceEntity conf3 = new ConferenceEntity(3,"ASE",10,null);
         ConferenceEntity conf4 = new ConferenceEntity(4,"ISSTA",10,articles2);
         ConferenceEntity conf5 = new ConferenceEntity(5,"ICPC",10,articles2);
-        listConferences.add(conf1);
+        
         listConferences.add(conf2);
         listConferences.add(conf3);
         listConferences.add(conf4);
         listConferences.add(conf5);
-    }
+    }*/
     public boolean delete(Integer id) {
         System.out.println("Deleting a conference");
         boolean bandera=false;
@@ -112,6 +104,7 @@ public class ConferenceRepository {
         ConferenceEntity conference = findById(id);
         return conference!=null;
     }
+    /* This could be used in a future version
     public List<ConferenceEntity> getConferencesByArticle(int idArticle) {
         System.out.println("Getting conferences by article");
         List<ConferenceEntity> conferences = new ArrayList<ConferenceEntity>();
@@ -128,5 +121,5 @@ public class ConferenceRepository {
         System.out.println("Returning conferences by article, cuantity: "+conferences.size());
         return conferences;
 
-    }
+    }*/ 
 }

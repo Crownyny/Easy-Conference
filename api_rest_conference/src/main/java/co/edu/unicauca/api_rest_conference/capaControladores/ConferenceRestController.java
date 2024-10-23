@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ArticleDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ConferenceDTO;
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.UserDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.services.IConferenceService;
 
 @RestController
@@ -70,10 +72,13 @@ public class ConferenceRestController {
     public boolean verifyExistenceConference(@RequestParam Integer id) {
         return conferenceService.exists(id);
     }
-    @GetMapping("/conferences/article/{idArticle}")
-    public List<ConferenceDTO> getConferencesByArticle(@PathVariable Integer idArticle) {
-        System.out.println("Getting conferences by article with id: "+idArticle);
-        return conferenceService.getConferencesByArticle(idArticle);
+    @GetMapping("/conferences/getArticles/{idConference}")
+    public List<ArticleDTO> getArticlesByConference(@PathVariable Integer idConference) {
+        return conferenceService.getArticlesByConference(idConference);
+    }
+    @GetMapping("/conferences/getOrganizers/{idConference}")
+    public List<UserDTO> getOrganizerByConference(@PathVariable Integer idConference) {
+        return conferenceService.getOrganizerByConference(idConference);
     }
     
 }
