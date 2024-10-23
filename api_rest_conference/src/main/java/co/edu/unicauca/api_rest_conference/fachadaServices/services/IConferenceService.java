@@ -2,6 +2,7 @@ package co.edu.unicauca.api_rest_conference.fachadaServices.services;
 
 import java.util.List;
 
+
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ArticleDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ConferenceDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.OrganizerDTO;
@@ -55,11 +56,17 @@ public interface IConferenceService {
 	 * @param idConference Id de la conferencia
 	 * @return Lista de articulos
 	 */
-	public List<ArticleDTO> getArticlesByConference(int idConference);
+	public List<ArticleDTO> getArticlesByConferenceId(int idConference);
 	/**
 	 * Obtener los organizadores de una conferencia
 	 * @param idConference Id de la conferencia
 	 * @return Lista de organizadores
 	 */
-	public List<OrganizerDTO> getOrganizerByConference(int idConference);
+	public List<OrganizerDTO> getOrganizersByConferenceId(int idConference);
+	/**
+	 * Obtener las conferencias de un usuario
+	 * @param userId Id del usuario
+	 * @return Lista de conferencias
+	 */
+	public List<ConferenceDTO> getConferencesByUserId(int userId);
 }

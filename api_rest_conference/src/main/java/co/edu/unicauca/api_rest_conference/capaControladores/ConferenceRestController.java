@@ -74,11 +74,16 @@ public class ConferenceRestController {
     }
     @GetMapping("/conferences/getArticles/{idConference}")
     public List<ArticleDTO> getArticlesByConference(@PathVariable Integer idConference) {
-        return conferenceService.getArticlesByConference(idConference);
+        return conferenceService.getArticlesByConferenceId(idConference);
     }
     @GetMapping("/conferences/getOrganizers/{idConference}")
     public List<OrganizerDTO> getOrganizerByConference(@PathVariable Integer idConference) {
-        return conferenceService.getOrganizerByConference(idConference);
+        return conferenceService.getOrganizersByConferenceId(idConference);
     }
+    @GetMapping("/conferences/getConferencesByUser/{idUser}")
+    public List<ConferenceDTO> getConferencesByUser(@PathVariable Integer idUser) {
+        return conferenceService.getConferencesByUserId(idUser);
+    }
+    
     
 }

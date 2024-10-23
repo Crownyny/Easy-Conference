@@ -74,7 +74,7 @@ public class ConferenceServiceImp implements IConferenceService{
         return this.servicioAccesoBaseDatos.exists(id);
     }
     @Override
-    public List<ArticleDTO> getArticlesByConference(int idConference) {
+    public List<ArticleDTO> getArticlesByConferenceId(int idConference) {
         // Obtenemos la conferencia por ID
         ConferenceDTO conference = this.findById(idConference);
         //Obtenemos los Ids de los artículos asociados a la conferencia
@@ -87,7 +87,7 @@ public class ConferenceServiceImp implements IConferenceService{
         return articles.collectList().block(); // .block() para ejecutar de manera sincrónica
     }
     @Override
-    public List<OrganizerDTO> getOrganizerByConference(int idConference) {
+    public List<OrganizerDTO> getOrganizersByConferenceId(int idConference) {
         // Obtenemos la conferencia por ID
         ConferenceDTO conference = this.findById(idConference);
         //Obtenemos los Ids de los organizadores asociados a la conferencia
@@ -97,6 +97,13 @@ public class ConferenceServiceImp implements IConferenceService{
         
         // Convertimos el Flux a una lista de artículos
         return organizers.collectList().block(); // .block() para ejecutar de manera sincrónica
+    }
+    @Override
+    public List<ConferenceDTO> getConferencesByUserId(int userId) {
+        List<ConferenceEntity> conferencias = this.servicioAccesoBaseDatos.getConferencesByUserId(userId);
+        List<ConferenceDTO> conferenciasDTO = this.modelMapper.map(conferencias, new TypeToken<List<ConferenceDTO>>() {
+		}.getType());
+        return conferenciasDTO;
     }
 
 }

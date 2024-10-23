@@ -1,6 +1,7 @@
 package co.edu.unicauca.api_rest_conference.capaAccesoADatos.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Repository;
@@ -122,4 +123,13 @@ public class ConferenceRepository {
         return conferences;
 
     }*/ 
+    public List<ConferenceEntity> getConferencesByUserId(int userId){
+        List<ConferenceEntity> conferences = new ArrayList<ConferenceEntity>();
+        for(ConferenceEntity conf : listConferences){
+            if(conf.getAdminId()==userId){
+                conferences.add(conf);
+            }
+        }
+        return conferences;
+    }
 }
