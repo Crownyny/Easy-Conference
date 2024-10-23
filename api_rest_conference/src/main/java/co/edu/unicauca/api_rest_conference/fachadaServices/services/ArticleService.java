@@ -12,7 +12,7 @@ public class ArticleService {
     @Autowired
     private WebClient.Builder webClientBuilder;
     public Mono<ArticleDTO> getArticleById(Integer idArticle){
-        String url = "http://localhost:8080/api/article/"+idArticle;
+        String url = "http://localhost:8080/api/articles/"+idArticle;
         Mono<ArticleDTO> art = webClientBuilder.build()
             .get().uri(url).retrieve()
             .bodyToMono(ArticleDTO.class);

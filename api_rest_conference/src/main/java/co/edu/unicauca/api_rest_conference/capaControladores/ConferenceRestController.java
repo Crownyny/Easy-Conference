@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ArticleDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ConferenceDTO;
-import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.UserDTO;
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.OrganizerDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.services.IConferenceService;
 
 @RestController
@@ -77,7 +77,7 @@ public class ConferenceRestController {
         return conferenceService.getArticlesByConference(idConference);
     }
     @GetMapping("/conferences/getOrganizers/{idConference}")
-    public List<UserDTO> getOrganizerByConference(@PathVariable Integer idConference) {
+    public List<OrganizerDTO> getOrganizerByConference(@PathVariable Integer idConference) {
         return conferenceService.getOrganizerByConference(idConference);
     }
     

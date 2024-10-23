@@ -7,11 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserDTO{
-    private int id;
-    private String name;
-    private String rol;
-    public UserDTO(){
-        
+public class OrganizerDTO  extends PersonDTO{
+    private String university;
+
+    public OrganizerDTO() {
     }
 }
+    

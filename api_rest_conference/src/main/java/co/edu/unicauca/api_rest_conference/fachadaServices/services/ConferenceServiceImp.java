@@ -9,7 +9,7 @@ import co.edu.unicauca.api_rest_conference.capaAccesoADatos.models.ConferenceEnt
 import co.edu.unicauca.api_rest_conference.capaAccesoADatos.repositories.ConferenceRepository;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ArticleDTO;
 import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.ConferenceDTO;
-import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.UserDTO;
+import co.edu.unicauca.api_rest_conference.fachadaServices.DTO.OrganizerDTO;
 import reactor.core.publisher.Flux;
 
 import org.springframework.stereotype.Service;
@@ -87,12 +87,12 @@ public class ConferenceServiceImp implements IConferenceService{
         return articles.collectList().block(); // .block() para ejecutar de manera sincrónica
     }
     @Override
-    public List<UserDTO> getOrganizerByConference(int idConference) {
+    public List<OrganizerDTO> getOrganizerByConference(int idConference) {
         // Obtenemos la conferencia por ID
         ConferenceDTO conference = this.findById(idConference);
         //Obtenemos los Ids de los organizadores asociados a la conferencia
         List<Integer> organizerIds = conference.getOrganizers();
-        Flux<UserDTO> organizers = Flux.fromIterable(organizerIds)
+        Flux<OrganizerDTO> organizers = Flux.fromIterable(organizerIds)
             .flatMap(this.servicioUsuarios::getUserById); // Llamamos a un método que busca el usuario por ID
         
         // Convertimos el Flux a una lista de artículos
