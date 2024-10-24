@@ -105,5 +105,4 @@ public class ConferenceServiceImp implements IConferenceService{
 		}.getType());
         return conferenciasDTO;
     }
-
 }

@@ -1,9 +1,10 @@
 package co.edu.unicauca.api_rest_conference.capaAccesoADatos.repositories;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import java.util.Arrays;
 import org.springframework.stereotype.Repository;
 
 import co.edu.unicauca.api_rest_conference.capaAccesoADatos.models.ConferenceEntity;
@@ -14,7 +15,9 @@ public class ConferenceRepository {
     private AtomicInteger idIterator;
     public ConferenceRepository(){
         this.listConferences = new ArrayList<ConferenceEntity>();
+        //loadConferences();
         idIterator = new AtomicInteger(listConferences.size());
+
     }
     public ArrayList<ConferenceEntity> findAll(){ //Recupera todas las conferencias guardadas
         System.out.println("Getting all the conferences");
@@ -79,16 +82,42 @@ public class ConferenceRepository {
         return newId;
     }
     /*private void loadConferences(){
-        ConferenceEntity conf1 = new ConferenceEntity(1,"ICSE",10,1);        
-        ConferenceEntity conf2 = new ConferenceEntity(2,"FSE",10,2);
-        ConferenceEntity conf3 = new ConferenceEntity(3,"ASE",10,null);
-        ConferenceEntity conf4 = new ConferenceEntity(4,"ISSTA",10,articles2);
-        ConferenceEntity conf5 = new ConferenceEntity(5,"ICPC",10,articles2);
-        
-        listConferences.add(conf2);
-        listConferences.add(conf3);
-        listConferences.add(conf4);
-        listConferences.add(conf5);
+        ConferenceEntity conference1 = new ConferenceEntity();
+        conference1.setId(1);
+        conference1.setAdminId(101);
+        conference1.setName("Tech Innovations 2024");
+        conference1.setStartDate(new Date(2024, 2, 18));
+        conference1.setEndDate(new Date(2024, 2, 20));
+        conference1.setRegistrationCost(250.50f);
+        conference1.setLocation("San Francisco, USA");
+        conference1.setTopics(Arrays.asList("AI", "Blockchain", "Cybersecurity"));
+        conference1.setArticles(Arrays.asList(1001, 1002, 1003));
+        conference1.setOrganizers(Arrays.asList(201, 202, 203));
+        ConferenceEntity conference2 = new ConferenceEntity();
+        conference2.setId(2);
+        conference2.setAdminId(102);
+        conference2.setName("Global Healthcare Summit 2024");
+        conference2.setStartDate(new Date(2024, 5, 10));
+        conference2.setEndDate(new Date(2024, 5, 12));
+        conference2.setRegistrationCost(300.00f);
+        conference2.setLocation("London, UK");
+        conference2.setTopics(Arrays.asList("Telemedicine", "Genomics", "Medical Devices"));
+        conference2.setArticles(Arrays.asList(1002, 1003));
+        conference2.setOrganizers(Arrays.asList(301, 302));
+        ConferenceEntity conference3 = new ConferenceEntity();
+        conference3.setId(3);
+        conference3.setAdminId(103);
+        conference3.setName("Sustainability and Energy 2024");
+        conference3.setStartDate(new Date(2024, 9, 1));
+        conference3.setEndDate(new Date(2024, 9, 5));
+        conference3.setRegistrationCost(150.75f);
+        conference3.setLocation("Tokyo, Japan");
+        conference3.setTopics(Arrays.asList("Renewable Energy", "Environmental Policies", "Green Technology"));
+        conference3.setArticles(Arrays.asList(1001,1003));
+        conference3.setOrganizers(Arrays.asList(401, 402, 403));
+        listConferences.add(conference1);
+        listConferences.add(conference2);
+        listConferences.add(conference3);
     }*/
     public boolean delete(Integer id) {
         System.out.println("Deleting a conference");
